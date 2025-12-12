@@ -1,2 +1,3 @@
 rootProject.name = "auth"
-include 'core','api','spi','config'
+
+include 'api', 'spi', 'core', 'config'
