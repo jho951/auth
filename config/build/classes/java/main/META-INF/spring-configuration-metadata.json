@@ -1,0 +1,66 @@
+{
+  "groups": [
+    {
+      "name": "auth",
+      "type": "com.auth.AuthProperties",
+      "sourceType": "com.auth.AuthProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "auth.auto-security",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.auth.AuthProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "auth.bearer-prefix",
+      "type": "java.lang.String",
+      "sourceType": "com.auth.AuthProperties",
+      "defaultValue": "Bearer "
+    },
+    {
+      "name": "auth.endpoints-enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.auth.AuthProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "auth.refresh-cookie-enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.auth.AuthProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "auth.refresh-cookie-http-only",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.auth.AuthProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "auth.refresh-cookie-name",
+      "type": "java.lang.String",
+      "sourceType": "com.auth.AuthProperties",
+      "defaultValue": "refresh_token"
+    },
+    {
+      "name": "auth.refresh-cookie-path",
+      "type": "java.lang.String",
+      "sourceType": "com.auth.AuthProperties",
+      "defaultValue": "\/"
+    },
+    {
+      "name": "auth.refresh-cookie-same-site",
+      "type": "java.lang.String",
+      "sourceType": "com.auth.AuthProperties",
+      "defaultValue": "Lax"
+    },
+    {
+      "name": "auth.refresh-cookie-secure",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.auth.AuthProperties",
+      "defaultValue": true
+    }
+  ],
+  "hints": []
+}

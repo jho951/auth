@@ -1,9 +1,8 @@
 dependencies {
     api project(':core')
+    compileOnly "org.springframework.boot:spring-boot-autoconfigure:3.3.5"
+    compileOnly "org.springframework.boot:spring-boot-starter-web:3.3.5"
+    compileOnly "org.springframework.boot:spring-boot-starter-security:3.3.5"
 
-    compileOnly 'org.springframework.boot:spring-boot-autoconfigure'
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-
-    compileOnly 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.springframework.boot:spring-boot-starter-security'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:3.3.5"
 }
