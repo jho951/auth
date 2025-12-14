@@ -27,7 +27,6 @@ public final class AuthService {
 	private final TokenService tokenService;
 	private final RefreshTokenStore refreshTokenStore;
 
-	// refresh 저장 만료 시간(서버 저장소 기준)
 	private final Duration refreshTtl;
 	private final Clock clock;
 
@@ -138,10 +137,6 @@ public final class AuthService {
 
 		refreshTokenStore.revoke(principal.getUserId(), refreshToken);
 	}
-
-	// -------------------
-	// helpers
-	// -------------------
 
 	private static boolean isBlank(String s) {
 		return s == null || s.isBlank();
