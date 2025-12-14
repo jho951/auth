@@ -9,12 +9,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.jho951</groupId>
   <artifactId>auth-config</artifactId>
-  <version>0.1.1</version>
+  <version>0.1.2</version>
   <dependencies>
     <dependency>
       <groupId>io.github.jho951</groupId>
       <artifactId>auth-core</artifactId>
-      <version>0.1.1</version>
+      <version>0.1.2</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

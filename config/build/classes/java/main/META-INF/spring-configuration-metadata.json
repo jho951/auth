@@ -10,56 +10,47 @@
     {
       "name": "auth.auto-security",
       "type": "java.lang.Boolean",
-      "sourceType": "com.auth.AuthProperties",
-      "defaultValue": true
+      "sourceType": "com.auth.AuthProperties"
     },
     {
       "name": "auth.bearer-prefix",
       "type": "java.lang.String",
-      "sourceType": "com.auth.AuthProperties",
-      "defaultValue": "Bearer "
+      "sourceType": "com.auth.AuthProperties"
     },
     {
       "name": "auth.endpoints-enabled",
       "type": "java.lang.Boolean",
-      "sourceType": "com.auth.AuthProperties",
-      "defaultValue": true
+      "sourceType": "com.auth.AuthProperties"
     },
     {
       "name": "auth.refresh-cookie-enabled",
       "type": "java.lang.Boolean",
-      "sourceType": "com.auth.AuthProperties",
-      "defaultValue": true
+      "sourceType": "com.auth.AuthProperties"
     },
     {
       "name": "auth.refresh-cookie-http-only",
       "type": "java.lang.Boolean",
-      "sourceType": "com.auth.AuthProperties",
-      "defaultValue": true
+      "sourceType": "com.auth.AuthProperties"
     },
     {
       "name": "auth.refresh-cookie-name",
       "type": "java.lang.String",
-      "sourceType": "com.auth.AuthProperties",
-      "defaultValue": "refresh_token"
+      "sourceType": "com.auth.AuthProperties"
     },
     {
       "name": "auth.refresh-cookie-path",
       "type": "java.lang.String",
-      "sourceType": "com.auth.AuthProperties",
-      "defaultValue": "\/"
+      "sourceType": "com.auth.AuthProperties"
     },
     {
       "name": "auth.refresh-cookie-same-site",
       "type": "java.lang.String",
-      "sourceType": "com.auth.AuthProperties",
-      "defaultValue": "Lax"
+      "sourceType": "com.auth.AuthProperties"
     },
     {
       "name": "auth.refresh-cookie-secure",
       "type": "java.lang.Boolean",
-      "sourceType": "com.auth.AuthProperties",
-      "defaultValue": true
+      "sourceType": "com.auth.AuthProperties"
     }
   ],
   "hints": []

@@ -3,7 +3,7 @@
   "component": {
     "group": "io.github.jho951",
     "module": "auth-spi",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "attributes": {
       "org.gradle.status": "release"
     }
@@ -28,19 +28,19 @@
           "group": "io.github.jho951",
           "module": "auth-api",
           "version": {
-            "requires": "0.1.1"
+            "requires": "0.1.2"
           }
         }
       ],
       "files": [
         {
-          "name": "auth-spi-0.1.1.jar",
-          "url": "auth-spi-0.1.1.jar",
+          "name": "auth-spi-0.1.2.jar",
+          "url": "auth-spi-0.1.2.jar",
           "size": 1538,
-          "sha512": "9b299851134ee2ee404ab92b7835b644b2187716a1a3debb2dafd74cb67bdb2b0ababa3e0e828f991bef0df22dd1e1ef3ae594055f93f615f80b2e9ad06caeb6",
-          "sha256": "25ef9f6f9fff78ba683d679d7439eeece3ea0e8ef1a83b30cb61ba9106c6769d",
-          "sha1": "51c2dc8a66c3ed31bdd0d90a6f37dc3f1bfb2113",
-          "md5": "827df2565e0e05ebaa1f3817c5ccd3c7"
+          "sha512": "b031bfea15d48f3143487f666b87ee0421494eba5dc3fe72f6b4c682e46896165d11f569cbf1392a39cabd6b5759e72bd54bb1d2a3123d55fac6c1964075683e",
+          "sha256": "a0b6f30c851fdd096331e42d5d23634b05c87b349af3866a673950f33144a672",
+          "sha1": "c9cf96df9ec75ed4edc053c4619086b67088edbf",
+          "md5": "075b729139150f26ce3b348c2c5d1973"
         }
       ]
     },
@@ -58,19 +58,19 @@
           "group": "io.github.jho951",
           "module": "auth-api",
           "version": {
-            "requires": "0.1.1"
+            "requires": "0.1.2"
           }
         }
       ],
       "files": [
         {
-          "name": "auth-spi-0.1.1.jar",
-          "url": "auth-spi-0.1.1.jar",
+          "name": "auth-spi-0.1.2.jar",
+          "url": "auth-spi-0.1.2.jar",
           "size": 1538,
-          "sha512": "9b299851134ee2ee404ab92b7835b644b2187716a1a3debb2dafd74cb67bdb2b0ababa3e0e828f991bef0df22dd1e1ef3ae594055f93f615f80b2e9ad06caeb6",
-          "sha256": "25ef9f6f9fff78ba683d679d7439eeece3ea0e8ef1a83b30cb61ba9106c6769d",
-          "sha1": "51c2dc8a66c3ed31bdd0d90a6f37dc3f1bfb2113",
-          "md5": "827df2565e0e05ebaa1f3817c5ccd3c7"
+          "sha512": "b031bfea15d48f3143487f666b87ee0421494eba5dc3fe72f6b4c682e46896165d11f569cbf1392a39cabd6b5759e72bd54bb1d2a3123d55fac6c1964075683e",
+          "sha256": "a0b6f30c851fdd096331e42d5d23634b05c87b349af3866a673950f33144a672",
+          "sha1": "c9cf96df9ec75ed4edc053c4619086b67088edbf",
+          "md5": "075b729139150f26ce3b348c2c5d1973"
         }
       ]
     },
@@ -84,13 +84,13 @@
       },
       "files": [
         {
-          "name": "auth-spi-0.1.1-javadoc.jar",
-          "url": "auth-spi-0.1.1-javadoc.jar",
-          "size": 99206,
-          "sha512": "786ccdfbffb41b7b9971033b3a2cb4f6856755c9aadce42eb3230843b5ca0d8ebe0858b329579a41ca79c51bb05d8b6af5c89f1da4f05589f98f8b21171ce489",
-          "sha256": "a3a994677a4e462184ae5a99f24e344cc3916e15bd6bf0afe35e32004e4be1b0",
-          "sha1": "eb1c9ccd79cf2e3a7eb691793b6790d6faf6265d",
-          "md5": "aa9d3cd53350999827fa0762380559a8"
+          "name": "auth-spi-0.1.2-javadoc.jar",
+          "url": "auth-spi-0.1.2-javadoc.jar",
+          "size": 99209,
+          "sha512": "7436c0b30eaf9b6f24c4e0c230f6ce58c7e20d5fca9d8ec82fbb6718b147a77e5cd01df479c926394f69b94ecbe03f0a2663c441e90501a251165d911a85af23",
+          "sha256": "6ef2d2bac7a949a0e84f2e1516c45f46567e667b5867568a25bae9379c74d3f1",
+          "sha1": "c02656877d91ebf98687193cd5d2dcefb67b6b95",
+          "md5": "7486e736bc5677d7f07abf98fe79e98a"
         }
       ]
     }

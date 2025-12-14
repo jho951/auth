@@ -3,7 +3,7 @@
   "component": {
     "group": "io.github.jho951",
     "module": "auth-config",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "attributes": {
       "org.gradle.status": "release"
     }
@@ -28,19 +28,19 @@
           "group": "io.github.jho951",
           "module": "auth-core",
           "version": {
-            "requires": "0.1.1"
+            "requires": "0.1.2"
           }
         }
       ],
       "files": [
         {
-          "name": "auth-config-0.1.1.jar",
-          "url": "auth-config-0.1.1.jar",
-          "size": 13355,
-          "sha512": "aa271ed48ec0606b801f92ebe01272ed554493a61e3a65554f8a7f41b20805c392a3cf1fbf92c33283932b1353ec31a74d63d24d3f49e1a75d6a034c6fddb675",
-          "sha256": "252c761e17e60bcc9f46808af537bf0e0f49b872dd978d56058776980a66fa70",
-          "sha1": "f10848e9e0e03506884b612e612abce36718ce38",
-          "md5": "a0b96a5e806b27ee4c585d6073bf37a6"
+          "name": "auth-config-0.1.2.jar",
+          "url": "auth-config-0.1.2.jar",
+          "size": 14614,
+          "sha512": "dc2fe92fd04c352fd2d3205e28daded4e1ccc70ed41f4b7caf8bc3841f6f9e7536297d2e94a25efc9cf9d9f285855210bab664b8782138b249ea08abeb35ec42",
+          "sha256": "93fbd795c8a10f21bdfc1b966fe4bc067201c0e1c6a72d96544df82471eae5d0",
+          "sha1": "a2d9695be6bab366930a1661208199d5c344af0f",
+          "md5": "bed821a338b40d65c592db7def0ed076"
         }
       ]
     },
@@ -58,19 +58,19 @@
           "group": "io.github.jho951",
           "module": "auth-core",
           "version": {
-            "requires": "0.1.1"
+            "requires": "0.1.2"
           }
         }
       ],
       "files": [
         {
-          "name": "auth-config-0.1.1.jar",
-          "url": "auth-config-0.1.1.jar",
-          "size": 13355,
-          "sha512": "aa271ed48ec0606b801f92ebe01272ed554493a61e3a65554f8a7f41b20805c392a3cf1fbf92c33283932b1353ec31a74d63d24d3f49e1a75d6a034c6fddb675",
-          "sha256": "252c761e17e60bcc9f46808af537bf0e0f49b872dd978d56058776980a66fa70",
-          "sha1": "f10848e9e0e03506884b612e612abce36718ce38",
-          "md5": "a0b96a5e806b27ee4c585d6073bf37a6"
+          "name": "auth-config-0.1.2.jar",
+          "url": "auth-config-0.1.2.jar",
+          "size": 14614,
+          "sha512": "dc2fe92fd04c352fd2d3205e28daded4e1ccc70ed41f4b7caf8bc3841f6f9e7536297d2e94a25efc9cf9d9f285855210bab664b8782138b249ea08abeb35ec42",
+          "sha256": "93fbd795c8a10f21bdfc1b966fe4bc067201c0e1c6a72d96544df82471eae5d0",
+          "sha1": "a2d9695be6bab366930a1661208199d5c344af0f",
+          "md5": "bed821a338b40d65c592db7def0ed076"
         }
       ]
     },
@@ -84,13 +84,13 @@
       },
       "files": [
         {
-          "name": "auth-config-0.1.1-javadoc.jar",
-          "url": "auth-config-0.1.1-javadoc.jar",
-          "size": 120572,
-          "sha512": "ed02638a1c8ec2977d55556e0af17bf1047599701ad4d2b387576a121848d4fe42266400a243abf81545d61a2f69df9d2f1d13c3ace8c6401232d02a33eddaa0",
-          "sha256": "8ca2263344ea273cc61d6388111c2692c2a621917646ad10802d619ddc0895b5",
-          "sha1": "3cdd321024502178d1c8dbcd8cac39b7674f3a1d",
-          "md5": "b907dd706a3cf1bc350e9f9184deb67a"
+          "name": "auth-config-0.1.2-javadoc.jar",
+          "url": "auth-config-0.1.2-javadoc.jar",
+          "size": 120640,
+          "sha512": "80ac205883ec9868a70333d579e7948904ac84c4654db14755f2a29d1712a3a7f11157aa899adc211d3840f33414990af49324f1849f9a91d160931c8a15ff98",
+          "sha256": "6411e1cfe81acd51c8615cb5a2cedda0962cd35612697ab5d3bc010b203690dc",
+          "sha1": "e3e5a477aa97bac40347e70da6c6277fada6174c",
+          "md5": "b4999379721ba837f842bd8faecee2fe"
         }
       ]
     }

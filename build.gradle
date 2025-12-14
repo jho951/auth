@@ -9,12 +9,19 @@ allprojects {
     }
 }
 
+
 subprojects {
     apply plugin: "java-library"
     apply plugin: "maven-publish"
 
     java {
-        withJavadocJar()
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.release = 17
     }
 
     publishing {

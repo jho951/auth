@@ -1,9 +1,9 @@
 -classpath '/Users/jhons/Downloads/BE/auth/api/build/classes/java/main:/Users/jhons/Downloads/BE/auth/api/build/resources/main'
 -d '/Users/jhons/Downloads/BE/auth/api/build/docs/javadoc'
--doctitle 'api 0.1.1 API'
+-doctitle 'api 0.1.2 API'
 -notimestamp 
 -quiet 
--windowtitle 'api 0.1.1 API'
+-windowtitle 'api 0.1.2 API'
 '/Users/jhons/Downloads/BE/auth/api/src/main/java/com/auth/model/Tokens.java'
 '/Users/jhons/Downloads/BE/auth/api/src/main/java/com/auth/model/User.java'
 '/Users/jhons/Downloads/BE/auth/api/src/main/java/com/auth/model/Principal.java'

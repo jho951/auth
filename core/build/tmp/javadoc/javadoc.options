@@ -1,7 +1,7 @@
 -classpath '/Users/jhons/Downloads/BE/auth/core/build/classes/java/main:/Users/jhons/Downloads/BE/auth/core/build/resources/main:/Users/jhons/Downloads/BE/auth/spi/build/classes/java/main:/Users/jhons/Downloads/BE/auth/api/build/classes/java/main:/Users/jhons/.gradle/caches/modules-2/files-2.1/io.jsonwebtoken/jjwt-api/0.11.5/f742940045619d06383e7df37b21ac422b476cf1/jjwt-api-0.11.5.jar:/Users/jhons/.gradle/caches/modules-2/files-2.1/org.mindrot/jbcrypt/0.4/af7e61017f73abb18ac4e036954f9f28c6366c07/jbcrypt-0.4.jar'
 -d '/Users/jhons/Downloads/BE/auth/core/build/docs/javadoc'
--doctitle 'core 0.1.1 API'
+-doctitle 'core 0.1.2 API'
 -notimestamp 
 -quiet 
--windowtitle 'core 0.1.1 API'
+-windowtitle 'core 0.1.2 API'
 '/Users/jhons/Downloads/BE/auth/core/src/main/java/com/auth/service/AuthService.java'

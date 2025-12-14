@@ -3,7 +3,7 @@
   "component": {
     "group": "io.github.jho951",
     "module": "auth-api",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "attributes": {
       "org.gradle.status": "release"
     }
@@ -25,13 +25,13 @@
       },
       "files": [
         {
-          "name": "auth-api-0.1.1.jar",
-          "url": "auth-api-0.1.1.jar",
+          "name": "auth-api-0.1.2.jar",
+          "url": "auth-api-0.1.2.jar",
           "size": 6264,
-          "sha512": "2dbc3af9cb5e5afe5d9fce751cc8441c403ba410ba870e40eb4b1f3a02eb0c309c227abb12e57fd12443295cbf2e6263c61ba89486fd311ab4fc01b7728e7bbd",
-          "sha256": "01392f23fc82a8f2dcb68045012977a412d795c58b41d5560f20ce0e8fc2c391",
-          "sha1": "593b2149da7f04b8a1412fab97a526b7b90b7fd2",
-          "md5": "5e67b6cacf7b2bc9dbd9ac996746d839"
+          "sha512": "246e3b129b0863bce0b531c37b41f894a19cd117fb001f2b42a1a71527b1e82a2874d30da02cef2d7f4e3d196f3bb9d9fb26fe98caed4b2403043912a7be6bd2",
+          "sha256": "788ed72266c039f41767552aeab2bfd1baff22f01537c988bdb9052ca6ca5119",
+          "sha1": "4c9ff8b9be04b4c8f8bd2027876142e728a0c1d1",
+          "md5": "87679d5da81331e484d9a6ac77da8a65"
         }
       ]
     },
@@ -46,13 +46,13 @@
       },
       "files": [
         {
-          "name": "auth-api-0.1.1.jar",
-          "url": "auth-api-0.1.1.jar",
+          "name": "auth-api-0.1.2.jar",
+          "url": "auth-api-0.1.2.jar",
           "size": 6264,
-          "sha512": "2dbc3af9cb5e5afe5d9fce751cc8441c403ba410ba870e40eb4b1f3a02eb0c309c227abb12e57fd12443295cbf2e6263c61ba89486fd311ab4fc01b7728e7bbd",
-          "sha256": "01392f23fc82a8f2dcb68045012977a412d795c58b41d5560f20ce0e8fc2c391",
-          "sha1": "593b2149da7f04b8a1412fab97a526b7b90b7fd2",
-          "md5": "5e67b6cacf7b2bc9dbd9ac996746d839"
+          "sha512": "246e3b129b0863bce0b531c37b41f894a19cd117fb001f2b42a1a71527b1e82a2874d30da02cef2d7f4e3d196f3bb9d9fb26fe98caed4b2403043912a7be6bd2",
+          "sha256": "788ed72266c039f41767552aeab2bfd1baff22f01537c988bdb9052ca6ca5119",
+          "sha1": "4c9ff8b9be04b4c8f8bd2027876142e728a0c1d1",
+          "md5": "87679d5da81331e484d9a6ac77da8a65"
         }
       ]
     },
@@ -66,13 +66,13 @@
       },
       "files": [
         {
-          "name": "auth-api-0.1.1-javadoc.jar",
-          "url": "auth-api-0.1.1-javadoc.jar",
+          "name": "auth-api-0.1.2-javadoc.jar",
+          "url": "auth-api-0.1.2-javadoc.jar",
           "size": 113786,
-          "sha512": "da03701cf47a088654790a34c92bf982a9252ac2ea1b23b099cb2b03b7f7532ccd45e88c4d3d259caf957063bb65b142292559933822757fa1eebea4ed9f4392",
-          "sha256": "282ba15effeda5ea6c853e30f93d4e7c86eed21f7155a67e24fa60276418ef74",
-          "sha1": "d2f0dab3ed2030b6f62fb0f45f716ea6b37aca23",
-          "md5": "4789d177cf59e2c6295b85a5a9da68d3"
+          "sha512": "d8c1591936b4d232f97327cd7b20add4575aebb7c8a70e591a3a70377f1c601c276e88be797bb100de734b6d6ec0f270f4561058f2723058c075ba9f59fe6d4c",
+          "sha256": "7c6a58f227e02340e8df959e5b9e6a23a16a7128f5d20b08abff6f94209c825b",
+          "sha1": "139e79c27352f57b993e043d8ce45177ecbd48b7",
+          "md5": "69c2da650297c7e361de33a2e9bbd68d"
         }
       ]
     }
