@@ -1,0 +1,80 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "io.github.jho951",
+    "module": "auth-api",
+    "version": "0.1.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.14"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "auth-api-0.1.1.jar",
+          "url": "auth-api-0.1.1.jar",
+          "size": 6264,
+          "sha512": "2dbc3af9cb5e5afe5d9fce751cc8441c403ba410ba870e40eb4b1f3a02eb0c309c227abb12e57fd12443295cbf2e6263c61ba89486fd311ab4fc01b7728e7bbd",
+          "sha256": "01392f23fc82a8f2dcb68045012977a412d795c58b41d5560f20ce0e8fc2c391",
+          "sha1": "593b2149da7f04b8a1412fab97a526b7b90b7fd2",
+          "md5": "5e67b6cacf7b2bc9dbd9ac996746d839"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "auth-api-0.1.1.jar",
+          "url": "auth-api-0.1.1.jar",
+          "size": 6264,
+          "sha512": "2dbc3af9cb5e5afe5d9fce751cc8441c403ba410ba870e40eb4b1f3a02eb0c309c227abb12e57fd12443295cbf2e6263c61ba89486fd311ab4fc01b7728e7bbd",
+          "sha256": "01392f23fc82a8f2dcb68045012977a412d795c58b41d5560f20ce0e8fc2c391",
+          "sha1": "593b2149da7f04b8a1412fab97a526b7b90b7fd2",
+          "md5": "5e67b6cacf7b2bc9dbd9ac996746d839"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "auth-api-0.1.1-javadoc.jar",
+          "url": "auth-api-0.1.1-javadoc.jar",
+          "size": 113786,
+          "sha512": "da03701cf47a088654790a34c92bf982a9252ac2ea1b23b099cb2b03b7f7532ccd45e88c4d3d259caf957063bb65b142292559933822757fa1eebea4ed9f4392",
+          "sha256": "282ba15effeda5ea6c853e30f93d4e7c86eed21f7155a67e24fa60276418ef74",
+          "sha1": "d2f0dab3ed2030b6f62fb0f45f716ea6b37aca23",
+          "md5": "4789d177cf59e2c6295b85a5a9da68d3"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "io.github.jho951",
+    "module": "auth-core",
+    "version": "0.1.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.14"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "io.github.jho951",
+          "module": "auth-api",
+          "version": {
+            "requires": "0.1.1"
+          }
+        },
+        {
+          "group": "io.github.jho951",
+          "module": "auth-spi",
+          "version": {
+            "requires": "0.1.1"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "auth-core-0.1.1.jar",
+          "url": "auth-core-0.1.1.jar",
+          "size": 3489,
+          "sha512": "8a999c5490e9c3a18d784f62e5f382055a900ad0ea661a706d84ae061cfdb3c6aa2b15d6b5c3e4fdefcf4dfbf7e14382cafd49f5c23d37f247241049b920813d",
+          "sha256": "68d5036dab3f87d09dc3aeebe3545d460846597bc6d00fd56069070c042be91d",
+          "sha1": "57d1431154ca1e6ac0f8551e89fef4a38ea80426",
+          "md5": "5862a6956172cbb39f82a713215e0632"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "io.jsonwebtoken",
+          "module": "jjwt-api",
+          "version": {
+            "requires": "0.11.5"
+          }
+        },
+        {
+          "group": "org.mindrot",
+          "module": "jbcrypt",
+          "version": {
+            "requires": "0.4"
+          }
+        },
+        {
+          "group": "io.github.jho951",
+          "module": "auth-api",
+          "version": {
+            "requires": "0.1.1"
+          }
+        },
+        {
+          "group": "io.github.jho951",
+          "module": "auth-spi",
+          "version": {
+            "requires": "0.1.1"
+          }
+        },
+        {
+          "group": "io.jsonwebtoken",
+          "module": "jjwt-impl",
+          "version": {
+            "requires": "0.11.5"
+          }
+        },
+        {
+          "group": "io.jsonwebtoken",
+          "module": "jjwt-jackson",
+          "version": {
+            "requires": "0.11.5"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "auth-core-0.1.1.jar",
+          "url": "auth-core-0.1.1.jar",
+          "size": 3489,
+          "sha512": "8a999c5490e9c3a18d784f62e5f382055a900ad0ea661a706d84ae061cfdb3c6aa2b15d6b5c3e4fdefcf4dfbf7e14382cafd49f5c23d37f247241049b920813d",
+          "sha256": "68d5036dab3f87d09dc3aeebe3545d460846597bc6d00fd56069070c042be91d",
+          "sha1": "57d1431154ca1e6ac0f8551e89fef4a38ea80426",
+          "md5": "5862a6956172cbb39f82a713215e0632"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "auth-core-0.1.1-javadoc.jar",
+          "url": "auth-core-0.1.1-javadoc.jar",
+          "size": 93028,
+          "sha512": "212bee0110e966828d6c8a278b5fabfa2854cf56af823949a65dfaabefed3000bf62363a80c4b08fae5b48643f4c3b8673ac226d10f1074a3d8336f64158bd1f",
+          "sha256": "2a2de9f9853dbcba8a9ebaa670ceea6019399a284371ae847fb191419d8a8115",
+          "sha1": "8ea3f926c0238d3a19980000594f4c992e4ae7f8",
+          "md5": "1d48ad97ad1ebbb2a67ce63889ec0c3d"
+        }
+      ]
+    }
+  ]
+}

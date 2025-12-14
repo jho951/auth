@@ -1,0 +1,98 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "io.github.jho951",
+    "module": "auth-config",
+    "version": "0.1.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.14"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "io.github.jho951",
+          "module": "auth-core",
+          "version": {
+            "requires": "0.1.1"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "auth-config-0.1.1.jar",
+          "url": "auth-config-0.1.1.jar",
+          "size": 13355,
+          "sha512": "aa271ed48ec0606b801f92ebe01272ed554493a61e3a65554f8a7f41b20805c392a3cf1fbf92c33283932b1353ec31a74d63d24d3f49e1a75d6a034c6fddb675",
+          "sha256": "252c761e17e60bcc9f46808af537bf0e0f49b872dd978d56058776980a66fa70",
+          "sha1": "f10848e9e0e03506884b612e612abce36718ce38",
+          "md5": "a0b96a5e806b27ee4c585d6073bf37a6"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "io.github.jho951",
+          "module": "auth-core",
+          "version": {
+            "requires": "0.1.1"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "auth-config-0.1.1.jar",
+          "url": "auth-config-0.1.1.jar",
+          "size": 13355,
+          "sha512": "aa271ed48ec0606b801f92ebe01272ed554493a61e3a65554f8a7f41b20805c392a3cf1fbf92c33283932b1353ec31a74d63d24d3f49e1a75d6a034c6fddb675",
+          "sha256": "252c761e17e60bcc9f46808af537bf0e0f49b872dd978d56058776980a66fa70",
+          "sha1": "f10848e9e0e03506884b612e612abce36718ce38",
+          "md5": "a0b96a5e806b27ee4c585d6073bf37a6"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "auth-config-0.1.1-javadoc.jar",
+          "url": "auth-config-0.1.1-javadoc.jar",
+          "size": 120572,
+          "sha512": "ed02638a1c8ec2977d55556e0af17bf1047599701ad4d2b387576a121848d4fe42266400a243abf81545d61a2f69df9d2f1d13c3ace8c6401232d02a33eddaa0",
+          "sha256": "8ca2263344ea273cc61d6388111c2692c2a621917646ad10802d619ddc0895b5",
+          "sha1": "3cdd321024502178d1c8dbcd8cac39b7674f3a1d",
+          "md5": "b907dd706a3cf1bc350e9f9184deb67a"
+        }
+      ]
+    }
+  ]
+}

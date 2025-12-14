@@ -1,0 +1,98 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "io.github.jho951",
+    "module": "auth-spi",
+    "version": "0.1.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.14"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "io.github.jho951",
+          "module": "auth-api",
+          "version": {
+            "requires": "0.1.1"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "auth-spi-0.1.1.jar",
+          "url": "auth-spi-0.1.1.jar",
+          "size": 1538,
+          "sha512": "9b299851134ee2ee404ab92b7835b644b2187716a1a3debb2dafd74cb67bdb2b0ababa3e0e828f991bef0df22dd1e1ef3ae594055f93f615f80b2e9ad06caeb6",
+          "sha256": "25ef9f6f9fff78ba683d679d7439eeece3ea0e8ef1a83b30cb61ba9106c6769d",
+          "sha1": "51c2dc8a66c3ed31bdd0d90a6f37dc3f1bfb2113",
+          "md5": "827df2565e0e05ebaa1f3817c5ccd3c7"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "io.github.jho951",
+          "module": "auth-api",
+          "version": {
+            "requires": "0.1.1"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "auth-spi-0.1.1.jar",
+          "url": "auth-spi-0.1.1.jar",
+          "size": 1538,
+          "sha512": "9b299851134ee2ee404ab92b7835b644b2187716a1a3debb2dafd74cb67bdb2b0ababa3e0e828f991bef0df22dd1e1ef3ae594055f93f615f80b2e9ad06caeb6",
+          "sha256": "25ef9f6f9fff78ba683d679d7439eeece3ea0e8ef1a83b30cb61ba9106c6769d",
+          "sha1": "51c2dc8a66c3ed31bdd0d90a6f37dc3f1bfb2113",
+          "md5": "827df2565e0e05ebaa1f3817c5ccd3c7"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "auth-spi-0.1.1-javadoc.jar",
+          "url": "auth-spi-0.1.1-javadoc.jar",
+          "size": 99206,
+          "sha512": "786ccdfbffb41b7b9971033b3a2cb4f6856755c9aadce42eb3230843b5ca0d8ebe0858b329579a41ca79c51bb05d8b6af5c89f1da4f05589f98f8b21171ce489",
+          "sha256": "a3a994677a4e462184ae5a99f24e344cc3916e15bd6bf0afe35e32004e4be1b0",
+          "sha1": "eb1c9ccd79cf2e3a7eb691793b6790d6faf6265d",
+          "md5": "aa9d3cd53350999827fa0762380559a8"
+        }
+      ]
+    }
+  ]
+}
