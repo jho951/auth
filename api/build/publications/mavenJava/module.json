@@ -3,7 +3,7 @@
   "component": {
     "group": "io.github.jho951",
     "module": "auth-api",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "attributes": {
       "org.gradle.status": "release"
     }
@@ -19,19 +19,19 @@
       "attributes": {
         "org.gradle.category": "library",
         "org.gradle.dependency.bundling": "external",
-        "org.gradle.jvm.version": 21,
+        "org.gradle.jvm.version": 17,
         "org.gradle.libraryelements": "jar",
         "org.gradle.usage": "java-api"
       },
       "files": [
         {
-          "name": "auth-api-0.1.2.jar",
-          "url": "auth-api-0.1.2.jar",
-          "size": 6264,
-          "sha512": "246e3b129b0863bce0b531c37b41f894a19cd117fb001f2b42a1a71527b1e82a2874d30da02cef2d7f4e3d196f3bb9d9fb26fe98caed4b2403043912a7be6bd2",
-          "sha256": "788ed72266c039f41767552aeab2bfd1baff22f01537c988bdb9052ca6ca5119",
-          "sha1": "4c9ff8b9be04b4c8f8bd2027876142e728a0c1d1",
-          "md5": "87679d5da81331e484d9a6ac77da8a65"
+          "name": "auth-api-0.1.3.jar",
+          "url": "auth-api-0.1.3.jar",
+          "size": 6233,
+          "sha512": "75b4b15b00cde2e6126a69b0e6491e1bc5d1755102c6007ec750891ff07d17b328c0279b0480200ba187f6950ca232b0ffa87c01241938591bd6ce36a1bf34bd",
+          "sha256": "32ab01def54f51e88487998acb9f9569094200174d7a75b225a54c389c9da798",
+          "sha1": "4d4a60c19f83914b16a82708ae0ba2764581fa94",
+          "md5": "673df89385cf035ad41b9bf2bcf25cfe"
         }
       ]
     },
@@ -40,39 +40,19 @@
       "attributes": {
         "org.gradle.category": "library",
         "org.gradle.dependency.bundling": "external",
-        "org.gradle.jvm.version": 21,
+        "org.gradle.jvm.version": 17,
         "org.gradle.libraryelements": "jar",
         "org.gradle.usage": "java-runtime"
       },
       "files": [
         {
-          "name": "auth-api-0.1.2.jar",
-          "url": "auth-api-0.1.2.jar",
-          "size": 6264,
-          "sha512": "246e3b129b0863bce0b531c37b41f894a19cd117fb001f2b42a1a71527b1e82a2874d30da02cef2d7f4e3d196f3bb9d9fb26fe98caed4b2403043912a7be6bd2",
-          "sha256": "788ed72266c039f41767552aeab2bfd1baff22f01537c988bdb9052ca6ca5119",
-          "sha1": "4c9ff8b9be04b4c8f8bd2027876142e728a0c1d1",
-          "md5": "87679d5da81331e484d9a6ac77da8a65"
-        }
-      ]
-    },
-    {
-      "name": "javadocElements",
-      "attributes": {
-        "org.gradle.category": "documentation",
-        "org.gradle.dependency.bundling": "external",
-        "org.gradle.docstype": "javadoc",
-        "org.gradle.usage": "java-runtime"
-      },
-      "files": [
-        {
-          "name": "auth-api-0.1.2-javadoc.jar",
-          "url": "auth-api-0.1.2-javadoc.jar",
-          "size": 113786,
-          "sha512": "d8c1591936b4d232f97327cd7b20add4575aebb7c8a70e591a3a70377f1c601c276e88be797bb100de734b6d6ec0f270f4561058f2723058c075ba9f59fe6d4c",
-          "sha256": "7c6a58f227e02340e8df959e5b9e6a23a16a7128f5d20b08abff6f94209c825b",
-          "sha1": "139e79c27352f57b993e043d8ce45177ecbd48b7",
-          "md5": "69c2da650297c7e361de33a2e9bbd68d"
+          "name": "auth-api-0.1.3.jar",
+          "url": "auth-api-0.1.3.jar",
+          "size": 6233,
+          "sha512": "75b4b15b00cde2e6126a69b0e6491e1bc5d1755102c6007ec750891ff07d17b328c0279b0480200ba187f6950ca232b0ffa87c01241938591bd6ce36a1bf34bd",
+          "sha256": "32ab01def54f51e88487998acb9f9569094200174d7a75b225a54c389c9da798",
+          "sha1": "4d4a60c19f83914b16a82708ae0ba2764581fa94",
+          "md5": "673df89385cf035ad41b9bf2bcf25cfe"
         }
       ]
     }
