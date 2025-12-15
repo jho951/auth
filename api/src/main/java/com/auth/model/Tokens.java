@@ -9,7 +9,6 @@ import com.auth.exception.ErrorCode;
  * - core는 "문자열"만 제공하고, 쿠키 처리(Set-Cookie)는 어댑터(컨트롤러)가 맡는게 범용적
  */
 public final class Tokens {
-
 	private final String accessToken;
 	private final String refreshToken;
 

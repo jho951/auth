@@ -13,11 +13,13 @@ import com.auth.exception.ErrorCode;
  */
 public final class Principal {
 
+	// 사용자 식별 키
 	private final String userId;
+	// 사용자가 가진 권한 목록
 	private final List<String> roles;
 
 	public Principal(String userId, List<String> roles) {
-		if (userId == null || userId.isBlank()) {throw new AuthException(ErrorCode.BLANK_USER_ID,"userId must not be blank");}
+		if (userId == null || userId.isBlank()) {throw new AuthException(ErrorCode.BLANK_USER_ID, "userId must not be blank");}
 		this.userId = userId;
 		this.roles = roles == null ? Collections.emptyList() : Collections.unmodifiableList(roles);
 	}

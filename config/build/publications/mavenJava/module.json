@@ -1,0 +1,78 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "io.github.jho951",
+    "module": "auth-config",
+    "version": "0.1.4",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.14"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "io.github.jho951",
+          "module": "auth-core",
+          "version": {
+            "requires": "0.1.4"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "auth-config-0.1.4.jar",
+          "url": "auth-config-0.1.4.jar",
+          "size": 14645,
+          "sha512": "812e084da36c17a29a4457457c442de4b135c1e2370737a1111aa3ed5a0f8544e6f80ace158bb3bb70a94a5927a786ee27bb74d4fcdcbcbed7eb8dce7c70053f",
+          "sha256": "483360ae2eff88ab5d30fc698cc2ef6810c87039d18a78ab6aefc1c01503b0b7",
+          "sha1": "422ae993598718f0a5fac472a301e3b0f0de428a",
+          "md5": "4e32409495aa445c7f1c4fdcbf7a923e"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "io.github.jho951",
+          "module": "auth-core",
+          "version": {
+            "requires": "0.1.4"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "auth-config-0.1.4.jar",
+          "url": "auth-config-0.1.4.jar",
+          "size": 14645,
+          "sha512": "812e084da36c17a29a4457457c442de4b135c1e2370737a1111aa3ed5a0f8544e6f80ace158bb3bb70a94a5927a786ee27bb74d4fcdcbcbed7eb8dce7c70053f",
+          "sha256": "483360ae2eff88ab5d30fc698cc2ef6810c87039d18a78ab6aefc1c01503b0b7",
+          "sha1": "422ae993598718f0a5fac472a301e3b0f0de428a",
+          "md5": "4e32409495aa445c7f1c4fdcbf7a923e"
+        }
+      ]
+    }
+  ]
+}

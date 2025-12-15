@@ -1,0 +1,120 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "io.github.jho951",
+    "module": "auth-core",
+    "version": "0.1.4",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.14"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "io.github.jho951",
+          "module": "auth-api",
+          "version": {
+            "requires": "0.1.4"
+          }
+        },
+        {
+          "group": "io.github.jho951",
+          "module": "auth-spi",
+          "version": {
+            "requires": "0.1.4"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "auth-core-0.1.4.jar",
+          "url": "auth-core-0.1.4.jar",
+          "size": 3489,
+          "sha512": "689408fafa5fca4df38d234897a1ae2474aa65a227f525103225a7a3a55d34514e50c2797872ec2abcb1c01a123900799c74acc6ad77d13ca216f6d1b5b4b225",
+          "sha256": "8336bd3c9210f4c8f516f57f37e85f46339b48604e28b142757e644fad9d4348",
+          "sha1": "36b9adca826c77a9ce1833bc67d65ac5ba445758",
+          "md5": "4d25c248eccc2ef88642f0294031bd04"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "io.jsonwebtoken",
+          "module": "jjwt-api",
+          "version": {
+            "requires": "0.11.5"
+          }
+        },
+        {
+          "group": "org.mindrot",
+          "module": "jbcrypt",
+          "version": {
+            "requires": "0.4"
+          }
+        },
+        {
+          "group": "io.github.jho951",
+          "module": "auth-api",
+          "version": {
+            "requires": "0.1.4"
+          }
+        },
+        {
+          "group": "io.github.jho951",
+          "module": "auth-spi",
+          "version": {
+            "requires": "0.1.4"
+          }
+        },
+        {
+          "group": "io.jsonwebtoken",
+          "module": "jjwt-impl",
+          "version": {
+            "requires": "0.11.5"
+          }
+        },
+        {
+          "group": "io.jsonwebtoken",
+          "module": "jjwt-jackson",
+          "version": {
+            "requires": "0.11.5"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "auth-core-0.1.4.jar",
+          "url": "auth-core-0.1.4.jar",
+          "size": 3489,
+          "sha512": "689408fafa5fca4df38d234897a1ae2474aa65a227f525103225a7a3a55d34514e50c2797872ec2abcb1c01a123900799c74acc6ad77d13ca216f6d1b5b4b225",
+          "sha256": "8336bd3c9210f4c8f516f57f37e85f46339b48604e28b142757e644fad9d4348",
+          "sha1": "36b9adca826c77a9ce1833bc67d65ac5ba445758",
+          "md5": "4d25c248eccc2ef88642f0294031bd04"
+        }
+      ]
+    }
+  ]
+}

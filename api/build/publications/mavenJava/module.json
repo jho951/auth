@@ -3,7 +3,7 @@
   "component": {
     "group": "io.github.jho951",
     "module": "auth-api",
-    "version": "0.1.3",
+    "version": "0.1.5",
     "attributes": {
       "org.gradle.status": "release"
     }
@@ -25,13 +25,13 @@
       },
       "files": [
         {
-          "name": "auth-api-0.1.3.jar",
-          "url": "auth-api-0.1.3.jar",
-          "size": 6233,
-          "sha512": "75b4b15b00cde2e6126a69b0e6491e1bc5d1755102c6007ec750891ff07d17b328c0279b0480200ba187f6950ca232b0ffa87c01241938591bd6ce36a1bf34bd",
-          "sha256": "32ab01def54f51e88487998acb9f9569094200174d7a75b225a54c389c9da798",
-          "sha1": "4d4a60c19f83914b16a82708ae0ba2764581fa94",
-          "md5": "673df89385cf035ad41b9bf2bcf25cfe"
+          "name": "auth-api-0.1.5.jar",
+          "url": "auth-api-0.1.5.jar",
+          "size": 6225,
+          "sha512": "e911f5b93421a3d7711a8d51f285c610f159a47b308ec73912f44a5506314501b40265dcf6d0a391f267b6c046b95cbeaa3eae74849e59112c801f259c39f211",
+          "sha256": "a0e2fb7e2a69038baf0f2ccec57a0300f2ede6c48ab352a9f510a718f29a6574",
+          "sha1": "923ea4ad51d520a74420d8885ad61561b2d627cc",
+          "md5": "a4e7e6ee741840117def5b0eb8ce75e5"
         }
       ]
     },
@@ -46,13 +46,13 @@
       },
       "files": [
         {
-          "name": "auth-api-0.1.3.jar",
-          "url": "auth-api-0.1.3.jar",
-          "size": 6233,
-          "sha512": "75b4b15b00cde2e6126a69b0e6491e1bc5d1755102c6007ec750891ff07d17b328c0279b0480200ba187f6950ca232b0ffa87c01241938591bd6ce36a1bf34bd",
-          "sha256": "32ab01def54f51e88487998acb9f9569094200174d7a75b225a54c389c9da798",
-          "sha1": "4d4a60c19f83914b16a82708ae0ba2764581fa94",
-          "md5": "673df89385cf035ad41b9bf2bcf25cfe"
+          "name": "auth-api-0.1.5.jar",
+          "url": "auth-api-0.1.5.jar",
+          "size": 6225,
+          "sha512": "e911f5b93421a3d7711a8d51f285c610f159a47b308ec73912f44a5506314501b40265dcf6d0a391f267b6c046b95cbeaa3eae74849e59112c801f259c39f211",
+          "sha256": "a0e2fb7e2a69038baf0f2ccec57a0300f2ede6c48ab352a9f510a718f29a6574",
+          "sha1": "923ea4ad51d520a74420d8885ad61561b2d627cc",
+          "md5": "a4e7e6ee741840117def5b0eb8ce75e5"
         }
       ]
     }

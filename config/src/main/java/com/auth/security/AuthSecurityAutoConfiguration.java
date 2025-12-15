@@ -3,6 +3,7 @@ package com.auth.security;
 import com.auth.AuthProperties;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
@@ -15,10 +16,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import java.nio.charset.StandardCharsets;
 
-@AutoConfiguration(afterName = "org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration")
-@ConditionalOnClass(SecurityFilterChain.class)
+@AutoConfiguration
+@AutoConfigureAfter(name = "org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration")
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-@ConditionalOnProperty(prefix = "auth", name = "auto-security", havingValue = "true", matchIfMissing = true)
+@ConditionalOnClass(SecurityFilterChain.class)
+@ConditionalOnProperty(prefix="auth", name="auto-security", havingValue="true", matchIfMissing=true)
 public class AuthSecurityAutoConfiguration {
 
 	@Bean

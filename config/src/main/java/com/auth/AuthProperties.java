@@ -19,7 +19,6 @@ public class AuthProperties {
 	private String refreshCookiePath = "/";
 	private String refreshCookieSameSite = "Lax";
 
-	// ⭐ 선택: starter가 SecurityFilterChain까지 “자동 구성”할지
 	// (호스트가 이미 SecurityConfig를 가지고 있으면 자동 구성 안 함)
 	private boolean autoSecurity = true;
 

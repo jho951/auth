@@ -18,13 +18,11 @@ public enum ErrorCode {
 	BLANK_ACCESS_TOKEN("A005","accessToken이 비었습니다."),
 	BLANK_REFRESH_TOKEN("A006","refreshToken이 비었습니다."),
 	TOKEN_REVOKED("A007", "서버 저장소 기준으로 폐기된 refresh"),
-	TOKEN_EXPIRED("A008", "TokenService가 만료를 구분해서 던질 때 사용(선택)"),
-
+	TOKEN_EXPIRED("A008", "TokenService가 만료를 구분해서 던질 때 사용"),
 	BLANK_USER_ID("A009","userId가 비어있습니다."),
 
 	// 기타
 	INTERNAL_ERROR("A010", "잘못된 요청입니다.");
-
 
 	private final String code;
 	private final String defaultMessage;

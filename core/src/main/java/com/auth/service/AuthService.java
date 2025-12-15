@@ -24,6 +24,7 @@ public final class AuthService {
 
 	private final UserFinder userFinder;
 	private final PasswordVerifier passwordVerifier;
+
 	private final TokenService tokenService;
 	private final RefreshTokenStore refreshTokenStore;
 
@@ -42,8 +43,7 @@ public final class AuthService {
 		this.passwordVerifier = requireNonNull(passwordVerifier, "passwordVerifier");
 		this.tokenService = requireNonNull(tokenService, "tokenService");
 		this.refreshTokenStore = requireNonNull(refreshTokenStore, "refreshTokenStore");
-		this.refreshTtl = (refreshTtl == null || refreshTtl.isNegative() || refreshTtl.isZero())
-			? Duration.ofDays(14) : refreshTtl;
+		this.refreshTtl = (refreshTtl == null || refreshTtl.isNegative() || refreshTtl.isZero()) ? Duration.ofDays(14) : refreshTtl;
 		this.clock = (clock == null) ? Clock.systemUTC() : clock;
 	}
 
@@ -70,9 +70,7 @@ public final class AuthService {
 			.orElseThrow(() -> new AuthException(ErrorCode.USER_NOT_FOUND, "user not found"));
 
 		boolean ok = passwordVerifier.matches(password, user.getPasswordHash());
-		if (!ok) {
-			throw new AuthException(ErrorCode.INVALID_CREDENTIALS, "invalid credentials");
-		}
+		if (!ok) {throw new AuthException(ErrorCode.INVALID_CREDENTIALS, "invalid credentials");}
 
 		Principal principal = new Principal(user.getUserId(), user.getRoles());
 
@@ -125,7 +123,7 @@ public final class AuthService {
 	 */
 	public void logout(String refreshToken) {
 		if (isBlank(refreshToken)) {
-			throw new AuthException(ErrorCode.INVALID_REQUEST, "refreshToken must not be blank");
+			throw new AuthException(ErrorCode.BLANK_REFRESH_TOKEN, "refreshToken must not be blank");
 		}
 
 		Principal principal;
