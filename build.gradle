@@ -46,21 +46,19 @@ subprojects {
     test { useJUnitPlatform() }
 
     publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                from components.java
-                artifactId = "auth-${project.name}"
-            }
-        }
         repositories {
             maven {
                 name = "GitHubPackages"
                 url = uri("https://maven.pkg.github.com/jho951/auth")
+
                 credentials {
-                    // [해결] 에러가 났던 지점입니다.
-                    // 직접 변수명을 쓰지 않고 safeProp 함수를 통해 안전하게 가져옵니다.
-                    username = System.getenv("GITHUB_ACTOR") ?: safeProp('gprUser')
-                    password = System.getenv("GITHUB_TOKEN") ?: safeProp('gprKey')
+                    username = (System.getenv("GITHUB_ACTOR")
+                            ?: project.findProperty("gprUser")
+                            ?: "") as String
+
+                    password = (System.getenv("GITHUB_TOKEN")
+                            ?: project.findProperty("gprKey")
+                            ?: "") as String
                 }
             }
         }
