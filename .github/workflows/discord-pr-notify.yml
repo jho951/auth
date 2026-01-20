@@ -1,47 +1,43 @@
+# .github/workflows/notify-discord.yml
 name: Notify Discord on PR
 
 on:
   pull_request:
+    types: [opened, reopened] # PR이 처음 생성되거나 다시 열릴 때만 발송
 
 jobs:
   notify:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check Discord webhook env
+      - name: Send Rich Embed to Discord
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
-            echo "❌ DISCORD_WEBHOOK_URL is EMPTY. Check your GitHub Actions secret."
-            exit 1
-          fi
-          echo "✅ DISCORD_WEBHOOK_URL is set. (length: ${#DISCORD_WEBHOOK_URL})"
+          # 쉘 스크립트 변수 설정
+          REPO="${{ github.repository }}"
+          PR_URL="${{ github.event.pull_request.html_url }}"
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          AUTHOR="${{ github.event.pull_request.user.login }}"
+          AVATAR="${{ github.event.pull_request.user.avatar_url }}"
 
-      - name: Send message to Discord
-        env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run: |
-          repo="${{ github.repository }}"
-          pr_number="${{ github.event.pull_request.number }}"
-          pr_title="${{ github.event.pull_request.title }}"
-          pr_url="${{ github.event.pull_request.html_url }}"
-          author="${{ github.event.pull_request.user.login }}"
+          # JSON 페이로드 생성 (Python 활용)
+          PAYLOAD=$(python3 -c "
+          import json
+          data = {
+              'embeds': [{
+                  'title': '🔔 새로운 Pull Request가 등록되었습니다',
+                  'url': '$PR_URL',
+                  'color': 5814783, # 푸른색 계열
+                  'fields': [
+                      {'name': 'Repository', 'value': '$REPO', 'inline': True},
+                      {'name': 'Author', 'value': '$AUTHOR', 'inline': True},
+                      {'name': 'Title', 'value': '$PR_TITLE', 'inline': False}
+                  ],
+                  'thumbnail': {'url': '$AVATAR'},
+                  'footer': {'text': 'Auth Multi-Module Project CI'}
+              }]
+          }
+          print(json.dumps(data))
+          ")
 
-          content="🔔 새로운 PR 알림\n"
-          content+="📦 Repository: ${repo}\n"
-          content+="🔢 PR: #${pr_number}\n"
-          content+="✏️ 제목: ${pr_title}\n"
-          content+="👤 작성자: ${author}\n"
-          content+="🔗 링크: ${pr_url}"
-
-          # 줄바꿈을 \n 으로 바꿔서 JSON에 안전하게 넣기
-          json_content=$(printf '%s' "$content" | python -c 'import json,sys; print(json.dumps(sys.stdin.read()))')
-
-          payload="{\"content\": ${json_content}}"
-
-          echo "📤 Sending payload to Discord..."
-          curl -sS -H "Content-Type: application/json" \
-               -X POST \
-               -d "$payload" \
-               "$DISCORD_WEBHOOK_URL"
+          curl -H "Content-Type: application/json" -X POST -d "$PAYLOAD" "$DISCORD_WEBHOOK_URL"

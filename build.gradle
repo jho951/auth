@@ -1,38 +1,36 @@
 allprojects {
     group = "io.github.jho951"
-    version = "1.0.2"
-
-    repositories {
-        mavenCentral()
-    }
+    version = "1.0.1"
+    repositories { mavenCentral() }
 }
 
 subprojects {
     apply plugin: "java-library"
     apply plugin: "maven-publish"
 
+    def getProperty = { name ->
+        return System.getenv(name) ?: (project.hasProperty(name) ? project.property(name) : "")
+    }
+
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(javaVersion.toString().trim() as Integer)
+            languageVersion = JavaLanguageVersion.of(getProperty('javaVersion').toString().trim() as Integer)
         }
     }
 
     tasks.withType(JavaCompile).configureEach {
-        options.release.set(javaVersion.toString().trim() as Integer)
+        options.release.set(getProperty('javaVersion').toString().trim() as Integer)
         options.encoding = "UTF-8"
     }
 
-    // 모든 모듈에 공통 JUnit 5 설정 적용
     dependencies {
-        testImplementation platform("org.junit:junit-bom:${junit}")
+        testImplementation platform("org.junit:junit-bom:${getProperty('junit')}")
         testImplementation 'org.junit.jupiter:junit-jupiter'
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
         testImplementation 'org.assertj:assertj-core:3.24.2'
     }
 
-    test {
-        useJUnitPlatform()
-    }
+    test { useJUnitPlatform() }
 
     publishing {
         publications {
@@ -46,8 +44,8 @@ subprojects {
                 name = "GitHubPackages"
                 url = uri("https://maven.pkg.github.com/jho951/auth")
                 credentials {
-                    username = System.getenv("GITHUB_ACTOR") ?: gprUser
-                    password = System.getenv("GITHUB_TOKEN") ?: gprKey
+                    username = System.getenv("GITHUB_ACTOR") ?: getProperty('gprUser')
+                    password = System.getenv("GITHUB_TOKEN") ?: getProperty('gprKey')
                 }
             }
         }
