@@ -46,11 +46,11 @@ jobs:
 
       - name: Publish to GitHub Packages
         env:
-          ORG_GRADLE_PROJECT_javaVersion: 17
-          ORG_GRADLE_PROJECT_junit: 5.10.0
-          ORG_GRADLE_PROJECT_springBootVersion: 3.3.5
-          ORG_GRADLE_PROJECT_jjwtVersion: 0.11.5
-          ORG_GRADLE_PROJECT_gprUser: ${{ github.actor }}
-          ORG_GRADLE_PROJECT_gprKey: ${{ secrets.GITHUB_TOKEN }}
+          javaVersion: 17
+          springBootVersion: 3.3.5
+          jjwtVersion: 0.11.5
+          junit: 5.10.0
+          gprUser: ${{ github.actor }}
+          gprKey: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew clean publish
 

@@ -2,6 +2,7 @@ dependencies {
     api project(':api')
     api project(':spi')
 
+    // ext에 선언된 변수를 사용합니다.
     implementation "io.jsonwebtoken:jjwt-api:${jjwtVersion}"
     runtimeOnly "io.jsonwebtoken:jjwt-impl:${jjwtVersion}"
     runtimeOnly "io.jsonwebtoken:jjwt-jackson:${jjwtVersion}"

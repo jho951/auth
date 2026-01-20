@@ -8,21 +8,27 @@ subprojects {
     apply plugin: "java-library"
     apply plugin: "maven-publish"
 
-    def getProperty = { name ->
-        return System.getenv(name) ?: (project.hasProperty(name) ? project.property(name) : "")
+    // 1. 환경 변수와 properties를 결합하여 하위 모듈에 강제로 할당
+    ext {
+        springBootVersion = System.getenv("springBootVersion") ?: (project.hasProperty('springBootVersion') ? project.springBootVersion : "3.3.5")
+        jjwtVersion = System.getenv("jjwtVersion") ?: (project.hasProperty('jjwtVersion') ? project.jjwtVersion : "0.11.5")
+        javaVersion = System.getenv("javaVersion") ?: (project.hasProperty('javaVersion') ? project.javaVersion : "17")
+        junitVersion = System.getenv("junit") ?: (project.hasProperty('junit') ? project.junit : "5.10.0")
     }
+
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(getProperty('javaVersion').toString().trim() as Integer)
+            languageVersion = JavaLanguageVersion.of(javaVersion.toString().trim() as Integer)
         }
     }
+
     tasks.withType(JavaCompile).configureEach {
-        options.release.set(getProperty('javaVersion').toString().trim() as Integer)
+        options.release.set(javaVersion.toString().trim() as Integer)
         options.encoding = "UTF-8"
     }
 
     dependencies {
-        testImplementation platform("org.junit:junit-bom:${getProperty('junit')}")
+        testImplementation platform("org.junit:junit-bom:${junitVersion}")
         testImplementation 'org.junit.jupiter:junit-jupiter'
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
         testImplementation 'org.assertj:assertj-core:3.24.2'
