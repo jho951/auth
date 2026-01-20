@@ -1,13 +1,11 @@
 allprojects {
-    apply plugin: "java-library"
-    apply plugin: "maven-publish"
     group = "io.github.jho951"
-    version = "1.0.1"
+    version = "1.0.2"
+
     repositories {
         mavenCentral()
     }
 }
-
 
 subprojects {
     apply plugin: "java-library"
@@ -15,12 +13,25 @@ subprojects {
 
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(17)
+            languageVersion = JavaLanguageVersion.of(javaVersion.toString().trim() as Integer)
         }
     }
 
     tasks.withType(JavaCompile).configureEach {
-        options.release = 17
+        options.release.set(javaVersion.toString().trim() as Integer)
+        options.encoding = "UTF-8"
+    }
+
+    // 모든 모듈에 공통 JUnit 5 설정 적용
+    dependencies {
+        testImplementation platform("org.junit:junit-bom:${junit}")
+        testImplementation 'org.junit.jupiter:junit-jupiter'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+        testImplementation 'org.assertj:assertj-core:3.24.2'
+    }
+
+    test {
+        useJUnitPlatform()
     }
 
     publishing {
@@ -35,11 +46,10 @@ subprojects {
                 name = "GitHubPackages"
                 url = uri("https://maven.pkg.github.com/jho951/auth")
                 credentials {
-                    username = (findProperty("gprUser") ?: System.getenv("GITHUB_ACTOR"))?.toString()
-                    password = (findProperty("gprKey") ?: System.getenv("GITHUB_TOKEN"))?.toString()
+                    username = System.getenv("GITHUB_ACTOR") ?: gprUser
+                    password = System.getenv("GITHUB_TOKEN") ?: gprKey
                 }
             }
         }
-
     }
 }

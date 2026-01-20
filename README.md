@@ -105,6 +105,10 @@ dependencies {
 ### 릴리즈 절차
 
 ```bash
-git tag -a v1.0.0 -m "release: v1.0.0"
-git push o
+git add -A                            
+git commit -m "release: v현재 릴리즈 버전"
+git tag -a v1.0.0 -m "release: v현재 릴리즈 버전"
+git push origin main           
+git push origin v릴리즈 버전
+
 ```
