@@ -11,13 +11,11 @@ subprojects {
     def getProperty = { name ->
         return System.getenv(name) ?: (project.hasProperty(name) ? project.property(name) : "")
     }
-
     java {
         toolchain {
             languageVersion = JavaLanguageVersion.of(getProperty('javaVersion').toString().trim() as Integer)
         }
     }
-
     tasks.withType(JavaCompile).configureEach {
         options.release.set(getProperty('javaVersion').toString().trim() as Integer)
         options.encoding = "UTF-8"

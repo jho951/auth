@@ -1,9 +1,8 @@
-# .github/workflows/notify-discord.yml
 name: Notify Discord on PR
 
 on:
   pull_request:
-    types: [opened, reopened] # PR이 처음 생성되거나 다시 열릴 때만 발송
+    types: [opened, reopened]
 
 jobs:
   notify:
