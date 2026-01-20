@@ -1,10 +1,8 @@
 dependencies {
     api project(':core')
+    compileOnly "org.springframework.boot:spring-boot-autoconfigure:${rootProject.springBootVersion}"
+    compileOnly "org.springframework.boot:spring-boot-starter-web:${rootProject.springBootVersion}"
+    compileOnly "org.springframework.boot:spring-boot-starter-security:${rootProject.springBootVersion}"
 
-    // springBootVersion 변수 활용
-    compileOnly "org.springframework.boot:spring-boot-autoconfigure:${springBootVersion}"
-    compileOnly "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
-    compileOnly "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
-
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${rootProject.springBootVersion}"
 }

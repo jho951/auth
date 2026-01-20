@@ -3,7 +3,7 @@ name: Build + Publish
 on:
   push:
     branches: [ main ]
-    tags: [ 'v*' ] # 태그가 푸시될 때 배포 로직이 작동함
+    tags: [ 'v*' ]
 
 permissions:
   contents: read
@@ -47,10 +47,11 @@ jobs:
 
       - name: Publish to GitHub Packages
         env:
-          ORG_GRADLE_PROJECT_gprUser: ${{ github.actor }}
-          ORG_GRADLE_PROJECT_gprKey: ${{ secrets.GITHUB_TOKEN }}
           ORG_GRADLE_PROJECT_javaVersion: 17
           ORG_GRADLE_PROJECT_junit: 5.10.0
           ORG_GRADLE_PROJECT_springBootVersion: 3.3.5
           ORG_GRADLE_PROJECT_jjwtVersion: 0.11.5
+          ORG_GRADLE_PROJECT_gprUser: ${{ github.actor }}
+          ORG_GRADLE_PROJECT_gprKey: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew clean publish
+
