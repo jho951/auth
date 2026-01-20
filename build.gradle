@@ -2,7 +2,7 @@ allprojects {
     apply plugin: "java-library"
     apply plugin: "maven-publish"
     group = "io.github.jho951"
-    version = "0.1.0"
+    version = "1.0.0"
     repositories {
         mavenCentral()
     }
@@ -35,8 +35,8 @@ subprojects {
                 name = "GitHubPackages"
                 url = uri("https://maven.pkg.github.com/jho951/auth")
                 credentials {
-                    username = findProperty("githubUsername")
-                    password = findProperty("githubToken")
+                    username = (findProperty("gprUser") ?: System.getenv("GITHUB_ACTOR"))?.toString()
+                    password = (findProperty("gprKey") ?: System.getenv("GITHUB_TOKEN"))?.toString()
                 }
             }
         }
