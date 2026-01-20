@@ -8,27 +8,36 @@ subprojects {
     apply plugin: "java-library"
     apply plugin: "maven-publish"
 
-    // 1. 환경 변수와 properties를 결합하여 하위 모듈에 강제로 할당
+    // [핵심] 모든 모듈에서 안전하게 속성을 가져오는 함수
+    def safeProp = { name, defaultVal = "" ->
+        return System.getenv(name) ?: (project.hasProperty(name) ? project.property(name) : defaultVal)
+    }
+
+    // 변수들을 미리 확정 (중복 방지)
+    def jVersion = safeProp('javaVersion', '17')
+    def springVer = safeProp('springBootVersion', '3.3.5')
+    def jjwtVer = safeProp('jjwtVersion', '0.11.5')
+    def junitVer = safeProp('junit', '5.10.0')
+
+    // 모든 하위 모듈이 이 변수들을 직접 쓸 수 있게 등록 (ext)
     ext {
-        springBootVersion = System.getenv("springBootVersion") ?: (project.hasProperty('springBootVersion') ? project.springBootVersion : "3.3.5")
-        jjwtVersion = System.getenv("jjwtVersion") ?: (project.hasProperty('jjwtVersion') ? project.jjwtVersion : "0.11.5")
-        javaVersion = System.getenv("javaVersion") ?: (project.hasProperty('javaVersion') ? project.javaVersion : "17")
-        junitVersion = System.getenv("junit") ?: (project.hasProperty('junit') ? project.junit : "5.10.0")
+        springBootVersion = springVer
+        jjwtVersion = jjwtVer
     }
 
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(javaVersion.toString().trim() as Integer)
+            languageVersion = JavaLanguageVersion.of(jVersion.toString().trim() as Integer)
         }
     }
 
     tasks.withType(JavaCompile).configureEach {
-        options.release.set(javaVersion.toString().trim() as Integer)
+        options.release.set(jVersion.toString().trim() as Integer)
         options.encoding = "UTF-8"
     }
 
     dependencies {
-        testImplementation platform("org.junit:junit-bom:${junitVersion}")
+        testImplementation platform("org.junit:junit-bom:${junitVer}")
         testImplementation 'org.junit.jupiter:junit-jupiter'
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
         testImplementation 'org.assertj:assertj-core:3.24.2'
@@ -48,8 +57,10 @@ subprojects {
                 name = "GitHubPackages"
                 url = uri("https://maven.pkg.github.com/jho951/auth")
                 credentials {
-                    username = System.getenv("GITHUB_ACTOR") ?: getProperty('gprUser')
-                    password = System.getenv("GITHUB_TOKEN") ?: getProperty('gprKey')
+                    // [해결] 에러가 났던 지점입니다.
+                    // 직접 변수명을 쓰지 않고 safeProp 함수를 통해 안전하게 가져옵니다.
+                    username = System.getenv("GITHUB_ACTOR") ?: safeProp('gprUser')
+                    password = System.getenv("GITHUB_TOKEN") ?: safeProp('gprKey')
                 }
             }
         }
