@@ -1,6 +1,6 @@
 # Contributing Guide
 
-Auth Module에 기여해주셔서 감사합니다 🙌  
+> Auth Module에 기여해주셔서 감사합니다 🙌  
 이 문서는 코드 기여 시 지켜야 할 기본 원칙과 규칙을 설명합니다.
 
 ---
