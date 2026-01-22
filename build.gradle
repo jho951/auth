@@ -48,8 +48,8 @@ subprojects {
                 name = "GitHubPackages"
                 url = uri("https://maven.pkg.github.com/jho951/auth")
                 credentials {
-                    username = System.getenv("GPR_USER") ?: project.findProperty("gprUser")
-                    password = System.getenv("GPR_KEY") ?: project.findProperty("gprKey")
+                    username = project.findProperty("gprUser") ?: ""
+                    password = project.findProperty("gprKey") ?: ""
                 }
             }
         }
