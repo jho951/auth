@@ -47,20 +47,18 @@ subprojects {
             maven {
                 name = "GitHubPackages"
                 url = uri("https://maven.pkg.github.com/jho951/auth")
-
                 credentials {
-                    username = (System.getenv("GITHUB_ACTOR")
-                            ?: project.findProperty("gprUser")
-                            ?: "") as String
+                    username = (System.getenv("GITHUB_ACTOR") ?: project.findProperty("gprUser") ?: "") as String
 
-                    password = (System.getenv("GITHUB_TOKEN")
-                            ?: project.findProperty("gprKey")
-                            ?: "") as String
+                    password = (System.getenv("GITHUB_TOKEN") ?: project.findProperty("gprKey") ?: "") as String
                 }
             }
         }
+
         publications {
             mavenJava(MavenPublication) {
+                from components.java
+
                 pom {
                     licenses {
                         license {

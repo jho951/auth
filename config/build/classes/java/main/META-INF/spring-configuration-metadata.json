@@ -4,6 +4,11 @@
       "name": "auth",
       "type": "com.auth.AuthProperties",
       "sourceType": "com.auth.AuthProperties"
+    },
+    {
+      "name": "auth.jwt",
+      "type": "com.auth.jwt.AuthJwtProperties",
+      "sourceType": "com.auth.jwt.AuthJwtProperties"
     }
   ],
   "properties": [
@@ -24,6 +29,26 @@
       "type": "java.lang.Boolean",
       "sourceType": "com.auth.AuthProperties",
       "defaultValue": true
+    },
+    {
+      "name": "auth.jwt.access-seconds",
+      "type": "java.lang.Long",
+      "description": "access token TTL (seconds)",
+      "sourceType": "com.auth.jwt.AuthJwtProperties",
+      "defaultValue": 0
+    },
+    {
+      "name": "auth.jwt.refresh-seconds",
+      "type": "java.lang.Long",
+      "description": "refresh token TTL (seconds)",
+      "sourceType": "com.auth.jwt.AuthJwtProperties",
+      "defaultValue": 0
+    },
+    {
+      "name": "auth.jwt.secret",
+      "type": "java.lang.String",
+      "description": "HS256 secret (최소 32바이트 권장)",
+      "sourceType": "com.auth.jwt.AuthJwtProperties"
     },
     {
       "name": "auth.refresh-cookie-enabled",
