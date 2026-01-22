@@ -1,11 +1,6 @@
 allprojects {
     group = "io.github.jho951"
-
-    // GitHub Actions에서 제공하는 태그/브랜치명을 가져옵니다.
-    def rawVersion = System.getenv("GITHUB_REF_NAME") ?: "1.0.3-SNAPSHOT"
-    // 'v1.0.4' 같은 태그가 들어오면 '1.0.4'로 변경합니다.
-    version = rawVersion.startsWith("v") ? rawVersion.substring(1) : rawVersion
-
+    version = "1.0.4"
     repositories { mavenCentral() }
 }
 
@@ -53,8 +48,8 @@ subprojects {
                 name = "GitHubPackages"
                 url = uri("https://maven.pkg.github.com/jho951/auth")
                 credentials {
-                    username = System.getenv("GITHUB_ACTOR") ?: project.findProperty("gprUser")
-                    password = System.getenv("GITHUB_TOKEN") ?: project.findProperty("gprKey")
+                    username = System.getenv("GPR_USER") ?: project.findProperty("gprUser")
+                    password = System.getenv("GPR_KEY") ?: project.findProperty("gprKey")
                 }
             }
         }
