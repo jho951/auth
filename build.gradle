@@ -1,7 +1,10 @@
 allprojects {
     group = "io.github.jho951"
-    version = "1.0.7"
-    repositories { mavenCentral() }
+    version = "1.0.8"
+
+    repositories {
+        mavenCentral()
+    }
 }
 
 subprojects {
@@ -48,17 +51,39 @@ subprojects {
                 name = "GitHubPackages"
                 url = uri("https://maven.pkg.github.com/jho951/auth")
                 credentials {
-                    username = project.findProperty("gprUser") ?: System.getenv("GPR_USER") ?: ""
-                    password = project.findProperty("gprKey") ?: System.getenv("GPR_KEY") ?: ""
+                    // ✅ Actions 표준 env 우선 (가장 덜 헷갈림)
+                    username = (System.getenv("GITHUB_ACTOR")
+                            ?: project.findProperty("gprUser")
+                            ?: System.getenv("GPR_USER")
+                            ?: "") as String
+
+                    password = (System.getenv("GITHUB_TOKEN")
+                            ?: project.findProperty("gprKey")
+                            ?: System.getenv("GPR_KEY")
+                            ?: "") as String
                 }
             }
         }
 
         publications {
             mavenJava(MavenPublication) {
+                // ✅ 실제 jar/component 포함
                 from components.java
 
+                // ✅ 좌표를 명시적으로 고정 (GitHub Packages에서 꼬임 방지)
+                groupId = project.group.toString()
+
+                // ⭐ 422 방지 핵심: artifactId를 모듈명 그대로 쓰지 말고 prefix로 통일
+                // ex) api -> auth-api, core -> auth-core ...
+                artifactId = "auth-${project.name}"
+
+                version = project.version.toString()
+
                 pom {
+                    name = "auth-${project.name}"
+                    description = "jho951 auth module: ${project.name}"
+                    url = "https://github.com/jho951/auth"
+
                     licenses {
                         license {
                             name = "MIT License"
@@ -66,6 +91,25 @@ subprojects {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    // ✅ 토큰이 비면 401/422 전에 바로 이유를 알려주게(디버그용)
+    tasks.withType(PublishToMavenRepository).configureEach {
+        doFirst {
+            def u = (System.getenv("GITHUB_ACTOR")
+                    ?: project.findProperty("gprUser")
+                    ?: System.getenv("GPR_USER")
+                    ?: "").toString()
+
+            def p = (System.getenv("GITHUB_TOKEN")
+                    ?: project.findProperty("gprKey")
+                    ?: System.getenv("GPR_KEY")
+                    ?: "").toString()
+
+            if (!u || !p) {
+                throw new GradleException("Missing GitHub Packages credentials. Set GITHUB_ACTOR/GITHUB_TOKEN or gprUser/gprKey.")
             }
         }
     }
