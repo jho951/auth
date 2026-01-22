@@ -1,4 +1,4 @@
-name: Backend CI
+name: Backend CI (Pull Request용)
 
 on:
   pull_request:

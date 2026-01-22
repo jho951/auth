@@ -50,7 +50,7 @@ jobs:
           springBootVersion: 3.3.5
           jjwtVersion: 0.11.5
           junit: 5.10.0
-          ORG_GRADLE_PROJECT_gprUser: ${{ github.actor }}
-          ORG_GRADLE_PROJECT_gprKey: ${{ github.token }}
+          GPR_USER: ${{ github.actor }}
+          GPR_KEY: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew clean publish
 
