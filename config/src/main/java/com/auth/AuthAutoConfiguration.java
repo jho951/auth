@@ -3,6 +3,8 @@ package com.auth;
 import com.auth.controller.AuthController;
 import com.auth.security.AuthOncePerRequestFilter;
 import com.auth.service.AuthService;
+import com.auth.jwt.AuthJwtProperties;
+import com.auth.jwt.JwtTokenService;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.*;
@@ -21,7 +23,7 @@ import auth.TokenService;
 import auth.UserFinder;
 
 @AutoConfiguration
-@EnableConfigurationProperties(AuthProperties.class)
+@EnableConfigurationProperties({AuthProperties.class, AuthJwtProperties.class})
 public class AuthAutoConfiguration {
 
 	@Bean
@@ -61,6 +63,14 @@ public class AuthAutoConfiguration {
 				Entry(Instant expiresAt) { this.expiresAt = expiresAt; }
 			}
 		};
+	}
+
+
+	@Bean
+	@ConditionalOnMissingBean(TokenService.class)
+	@ConditionalOnProperty(prefix = "auth.jwt", name = "secret")
+	public TokenService defaultTokenService(AuthJwtProperties props) {
+		return new JwtTokenService(props.getSecret(), props.getAccessSeconds(), props.getRefreshSeconds());
 	}
 
 	@Bean

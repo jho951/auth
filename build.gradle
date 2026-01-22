@@ -1,6 +1,6 @@
 allprojects {
     group = "io.github.jho951"
-    version = "1.0.1"
+    version = "1.0.2"
     repositories { mavenCentral() }
 }
 
@@ -8,18 +8,15 @@ subprojects {
     apply plugin: "java-library"
     apply plugin: "maven-publish"
 
-    // [핵심] 모든 모듈에서 안전하게 속성을 가져오는 함수
     def safeProp = { name, defaultVal = "" ->
         return System.getenv(name) ?: (project.hasProperty(name) ? project.property(name) : defaultVal)
     }
 
-    // 변수들을 미리 확정 (중복 방지)
     def jVersion = safeProp('javaVersion', '17')
     def springVer = safeProp('springBootVersion', '3.3.5')
     def jjwtVer = safeProp('jjwtVersion', '0.11.5')
     def junitVer = safeProp('junit', '5.10.0')
 
-    // 모든 하위 모듈이 이 변수들을 직접 쓸 수 있게 등록 (ext)
     ext {
         springBootVersion = springVer
         jjwtVersion = jjwtVer
@@ -59,6 +56,18 @@ subprojects {
                     password = (System.getenv("GITHUB_TOKEN")
                             ?: project.findProperty("gprKey")
                             ?: "") as String
+                }
+            }
+        }
+        publications {
+            mavenJava(MavenPublication) {
+                pom {
+                    licenses {
+                        license {
+                            name = "MIT License"
+                            url = "https://opensource.org/licenses/MIT"
+                        }
+                    }
                 }
             }
         }
