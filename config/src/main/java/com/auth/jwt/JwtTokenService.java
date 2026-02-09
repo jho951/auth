@@ -18,7 +18,7 @@ import io.jsonwebtoken.security.Keys;
 
 /**
  * 기본 JWT TokenService 구현체 (HS256)
- * - apps(admin 등)에서는 TokenService를 직접 구현하지 않고 설정(auth.jwt.*)만 주입하면 된다.
+ * apps(admin 등)에서는 TokenService를 직접 구현하지 않고 설정(auth.jwt.*)만 주입하면 된다.
  */
 public class JwtTokenService implements TokenService {
 

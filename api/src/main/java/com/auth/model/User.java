@@ -1,8 +1,8 @@
 package com.auth.model;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Collections;
 
 /**
  * 코어가 다루는 "인증용 유저 최소 모델"
@@ -29,23 +29,18 @@ public final class User {
 	public String getUserId() {
 		return userId;
 	}
-
 	public String getUsername() {
 		return username;
 	}
-
 	public String getPasswordHash() {
 		return passwordHash;
 	}
-
 	public List<String> getRoles() {
 		return roles;
 	}
 
 	private static String requireNonBlank(String v, String name) {
-		if (v == null || v.isBlank()) {
-			throw new IllegalArgumentException(name + " must not be blank");
-		}
+		if (v == null || v.isBlank()) throw new IllegalArgumentException(name + " must not be blank");
 		return v;
 	}
 

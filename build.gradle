@@ -51,7 +51,6 @@ subprojects {
                 name = "GitHubPackages"
                 url = uri("https://maven.pkg.github.com/jho951/auth")
                 credentials {
-                    // ✅ Actions 표준 env 우선 (가장 덜 헷갈림)
                     username = (System.getenv("GITHUB_ACTOR")
                             ?: project.findProperty("gprUser")
                             ?: System.getenv("GPR_USER")

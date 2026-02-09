@@ -33,9 +33,6 @@
 | `spi` | 사용자 저장소, 토큰 저장소 등 확장 포인트                |
 | `config` | Spring Boot 연동 설정 (AutoConfiguration 등) |
 
-
-
-
 ---
 
 ## 🚀 시작하기
@@ -149,24 +146,21 @@ SecurityFilterChain filterChain(HttpSecurity http,
 }
 ```
 
-
-
 ## 🏷 Release Policy
 >릴리즈는 명확한 책임 분리를 원칙으로 합니다.
 
 * 버전은 `gradle.properties` 파일에서 관리합니다.
-* 태그(`v1.0.3`)는 직접 생성합니다.
-* CI는 태그가 푸시될 때만 publish를 수행합니다.
+* 태그( 현재 `v1.0.9`)는 직접 생성합니다.
+* CI는 태그가 `push` 될 때만 `publish`를 수행합니다.
 
 ### 릴리즈 절차
 ```bash
 git add -A                            
-git commit -m "release: v현재 릴리즈 버전"
-git tag -a v1.0.0 -m "release: v현재 릴리즈 버전"
+git commit -m "release: v1.1.0"
+git tag -a v1.0.0 -m "release: v1.1.0"
 git push origin main           
-git push origin v릴리즈 버전
-
+git push origin v1.1.0
 ```
 
 ## 📄 License
-[MIT LICENSE](./License)
+> [MIT LICENSE](./License)

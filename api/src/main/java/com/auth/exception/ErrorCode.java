@@ -1,12 +1,12 @@
 package com.auth.exception;
 
 /**
- * auth-core에서 사용하는 에러 코드
- * - 프로젝트(웹/스프링)에서 이 코드를 보고 HTTP 상태코드로 매핑하면 됨
+ * 프로젝트에서 사용하는 에러 코드
+ * 해당 코드로 HTTP 상태코드 매핑
  */
 public enum ErrorCode {
 
-	// 입력 검증
+	// 입력
 	INVALID_REQUEST("A001", "잘못된 요청입니다."),
 
 	// 로그인
@@ -32,16 +32,12 @@ public enum ErrorCode {
 		this.defaultMessage = defaultMessage;
 	}
 
-	/**
-	 * "E001", "E010" 처럼 심볼릭 코드.
-	 */
+	/** "E001", "E010" 같은 심볼 코드 */
 	public String code() {
 		return code;
 	}
 
-	/**
-	 * 기본 메시지. 로그용/디폴트 응답용으로 사용.
-	 */
+	/** 기본 메시지. 로그용/디폴트 응답용 */
 	public String defaultMessage() {
 		return defaultMessage;
 	}

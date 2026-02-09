@@ -33,21 +33,21 @@
     {
       "name": "auth.jwt.access-seconds",
       "type": "java.lang.Long",
-      "description": "access token TTL (seconds)",
+      "description": "Access Token의 유효 기간(초 단위)입니다. 기본값은 900초(15분)입니다.",
       "sourceType": "com.auth.jwt.AuthJwtProperties",
       "defaultValue": 0
     },
     {
       "name": "auth.jwt.refresh-seconds",
       "type": "java.lang.Long",
-      "description": "refresh token TTL (seconds)",
+      "description": "Refresh Token의 유효 기간(초 단위)입니다. 기본값은 1,209,600초(14일)입니다.",
       "sourceType": "com.auth.jwt.AuthJwtProperties",
       "defaultValue": 0
     },
     {
       "name": "auth.jwt.secret",
       "type": "java.lang.String",
-      "description": "HS256 secret (최소 32바이트 권장)",
+      "description": "JWT 서명에 사용할 비밀키입니다. 보안을 위해 HS256 알고리즘 기준 최소 32바이트 이상의 문자열을 권장합니다.",
       "sourceType": "com.auth.jwt.AuthJwtProperties"
     },
     {

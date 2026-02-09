@@ -1,19 +1,16 @@
 # Contributing Guide
 
-> Auth Module에 기여해주셔서 감사합니다 🙌  
-이 문서는 코드 기여 시 지켜야 할 기본 원칙과 규칙을 설명합니다.
+### 해당 문서는 코드 기여 시 지켜야 할 기본 원칙과 규칙을 설명합니다.
 
 ---
 
 ## 🧭 Project 목표
 
-이 프로젝트는 **재사용 가능한 인증 라이브러리**를 목표로 합니다.
-
-따라서 다음 원칙을 지향합니다.
+**재사용 가능한 인증 라이브러리**를 목표로 하며 다음 원칙을 지향합니다.
 
 - 서비스 종속 로직 금지
-- 인증과 사용자 저장소(User DB)의 명확한 분리
 - 인터페이스(SPI) 중심 설계
+- 인증과 사용자 저장소(User DB)의 명확한 분리
 - Spring Boot AutoConfiguration 기반 확장성
 
 ---
@@ -21,13 +18,13 @@
 ## 📦 Module Responsibility
 
 | Module | Responsibility |
-|------|---------------|
-| auth-core | 순수 도메인 모델, 공통 로직 |
-| auth-spi | 서비스별 구현이 필요한 인터페이스 |
-| auth-config | 기본 구현 + AutoConfiguration |
-| auth-api | 인증 HTTP API |
+|-----|---------------|
+| core | 순수 도메인 모델, 공통 로직 |
+| spi | 서비스별 구현이 필요한 인터페이스 |
+| config | 기본 구현 + AutoConfiguration |
+| api | 인증 HTTP API |
 
-❗ `auth-core`에는 **Spring, JWT, DB 의존성 추가 금지**
+### ❗ `auth-core`에는 **Spring, JWT, DB 의존성 추가 금지**
 
 ---
 
@@ -49,9 +46,7 @@
 
 - 모든 설정은 `@ConfigurationProperties` 사용
 - prefix는 `auth.*` 하위로 제한
-- yml에 민감 정보(secret) 직접 작성 금지
-  - 환경 변수 사용 권장
-
+- yml에 민감 정보(secret) 직접 작성 금지 ( ***환경 변수 사용 권장*** )
 ---
 
 ## 🔌 SPI 규칙
@@ -70,18 +65,38 @@
 
 ---
 
-## 📝 Commit Convention (권장)
-- feat: add jwt refresh token rotation
-- fix: handle invalid token type
-- refactor: extract AuthService
-- docs: update README
+## 📝 Commit 전략 (권장)
+
+### type
+- `chore` : 환경 설정, 초기 세팅
+- `docs` : 문서 작성 및 수정
+- `feat` : 기능/로직 구현
+- `test` : 테스트 코드 추가/수정
+- `refactor` : 리팩토링 및 구조 개선
+
+### scope
+- 문제 디렉토리명 (예: `problem-01`, `problem-02`)
+
+### 예시
+- `docs(problem-01): 요구사항 및 예외 상황 정리`
+- `feat(problem-02): 핵심 로직 구현`
+- `test(problem-01): 정상/경계/예외 테스트 추가`
 
 ---
 
 ## 📬 Issues & PR
 
-- 기능 추가 전 Issue 등록 권장
+- 기능 추가 전 Issue 등록
 - PR에는 반드시 변경 목적과 영향 범위 명시
 - 공용 API 변경 시 Breaking Change 여부 명확히 표시
 
 ---
+
+
+## 🚀 추가 확장 고려 사항
+
+### 1. 새로운 인증 수단 추가 (예: OAuth2, Passkey)
+
+### 2. 토큰 저장소 확장 (예: Redis, DB, In-memory)
+
+### 3. 보안 정책 강화

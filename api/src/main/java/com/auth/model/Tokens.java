@@ -6,7 +6,7 @@ import com.auth.exception.ErrorCode;
 /**
  * 토큰 발급 결과
  * - 웹(스프링)에서는 refresh를 쿠키로 굽거나 바디로 내릴 수 있음
- * - core는 "문자열"만 제공하고, 쿠키 처리(Set-Cookie)는 어댑터(컨트롤러)가 맡는게 범용적
+ * - core는 "문자열"만 제공하고, 쿠키 처리는 컨트롤러가 담당
  */
 public final class Tokens {
 	private final String accessToken;
@@ -26,7 +26,6 @@ public final class Tokens {
 	public String getAccessToken() {
 		return accessToken;
 	}
-
 	public String getRefreshToken() {
 		return refreshToken;
 	}
