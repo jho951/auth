@@ -7,7 +7,7 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/3.3.5/33b9d3f722281e8f9dbbd284135ee8b9909c42cf/spring-boot-configuration-processor-3.3.5.jar" />
         </processorPath>
-        <module name="auth.config.main" />
+        <module name="auth.starter.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17">

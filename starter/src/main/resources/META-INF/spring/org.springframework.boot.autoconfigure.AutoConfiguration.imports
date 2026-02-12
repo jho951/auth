@@ -1,0 +1,2 @@
+com.auth.config.AuthAutoConfiguration
+com.auth.config.security.AuthSecurityAutoConfiguration

@@ -12,10 +12,10 @@
 
 ## 🧱 프로젝트 구조
 ``` text
-├─ api/
+├─ contract/
 ├─ core/
 ├─ spi/
-├─ config/
+├─ starter/
 ├─ gradle/
 ├─ build.gradle
 ├─ gradle.properties
@@ -25,13 +25,15 @@
 
 ## 📦 모듈 (Modules)
 > 각 모듈은 독립적으로 배포되며, 필요한 것만 선택해 사용할 수 있습니다.
+> 현재 단계에서는 패키지명(`com.auth.api`, `com.auth.config`)은 유지하고, 모듈명만 `contract`, `starter`로 사용합니다.
 
 | Module | 설명                                      |
 |-------|-----------------------------------------|
-| `api` | 외부에 노출되는 모델, DTO, 예외                    |
+| `contract` | 외부에 노출되는 모델, 예외                          |
 | `core` | 인증 도메인 로직 (비즈니스 규칙)                     |
 | `spi` | 사용자 저장소, 토큰 저장소 등 확장 포인트                |
-| `config` | Spring Boot 연동 설정 (AutoConfiguration 등) |
+| `starter` | Spring Boot 연동 설정 (AutoConfiguration, 엔드포인트, DTO) |
+| `common` | 모듈 간 공용 유틸리티 메서드                          |
 
 ---
 
@@ -54,12 +56,29 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.jho951:auth-api:1.0.0")
-    implementation("io.github.jho951:auth-core:1.0.0")
-    implementation("io.github.jho951:auth-spi:1.0.0")
-    implementation("io.github.jho951:auth-config:1.0.0")
+    implementation("io.github.jho951:auth-contract:1.0.8")
+    implementation("io.github.jho951:auth-core:1.0.8")
+    implementation("io.github.jho951:auth-spi:1.0.8")
+    implementation("io.github.jho951:auth-starter:1.0.8")
+    implementation("io.github.jho951:auth-common:1.0.8")
 }
 ```
+---
+
+### 1-1️⃣ common 유틸 사용
+> 자주 사용하는 메서드는 `auth-common`에 두고 각 모듈에서 import 해서 사용합니다.
+
+```java
+import com.auth.common.utils.Strings;
+
+if (Strings.isBlank(username)) {
+    throw new IllegalArgumentException("username must not be blank");
+}
+
+String userId = Strings.requireNonBlank(rawUserId, "userId");
+TokenService tokenService = Strings.requireNonNull(customTokenService, "tokenService");
+```
+
 ---
 
 ### 2️⃣ application.yml 설정
@@ -74,6 +93,11 @@ auth:
     access-seconds: 3600
     refresh-seconds: 1209600
 ```
+
+`auth.jwt.refresh-seconds`는 다음 3곳에 동일하게 적용됩니다.
+- Refresh JWT 만료 시간
+- 서버 저장소의 Refresh Token TTL (`expiresAt`)
+- Refresh 쿠키 `Max-Age`
 
 ### 3️⃣ UserFinder 구현 (필수)
 > 각 서비스마다 사용자 저장 방식이 다르기 때문에 UserFinder는 반드시 애플리케이션에서 구현해야 합니다.
@@ -102,7 +126,7 @@ public class AdminUserFinder implements UserFinder {
 ```
 
 ### 4️⃣ 로그인 API 사용
-> auth-api 모듈을 포함하면 다음 엔드포인트가 자동 제공됩니다. 
+> auth-starter 모듈을 포함하면 다음 엔드포인트가 자동 제공됩니다. 
 
 | Method | Path            | Description               |
 | ------ | --------------- | ------------------------- |
@@ -150,14 +174,14 @@ SecurityFilterChain filterChain(HttpSecurity http,
 >릴리즈는 명확한 책임 분리를 원칙으로 합니다.
 
 * 버전은 `gradle.properties` 파일에서 관리합니다.
-* 태그( 현재 `v1.0.9`)는 직접 생성합니다.
+* 태그(`v1.0.9`)는 직접 생성합니다. ***(현재 `v1.0.8`)***
 * CI는 태그가 `push` 될 때만 `publish`를 수행합니다.
 
 ### 릴리즈 절차
 ```bash
 git add -A                            
-git commit -m "release: v1.1.0"
-git tag -a v1.0.0 -m "release: v1.1.0"
+git commit -m "release: v1.0.9"
+git tag -a v1.0.0 -m "release: v1.0.9"
 git push origin main           
 git push origin v1.1.0
 ```

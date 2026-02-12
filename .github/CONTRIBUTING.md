@@ -17,12 +17,13 @@
 
 ## 📦 Module Responsibility
 
-| Module | Responsibility |
-|-----|---------------|
-| core | 순수 도메인 모델, 공통 로직 |
-| spi | 서비스별 구현이 필요한 인터페이스 |
-| config | 기본 구현 + AutoConfiguration |
-| api | 인증 HTTP API |
+| Module | Responsibility            |
+|--------|---------------------------|
+| contract | 외부에 노출되는 모델/예외 계약          |
+| core   | 인증 도메인 로직 (비즈니스 규칙)       |
+| spi    | 서비스별 구현이 필요한 인터페이스        |
+| starter | Spring Boot 연동 + AutoConfiguration |
+| common | 공통 유틸리티                    |
 
 ### ❗ `auth-core`에는 **Spring, JWT, DB 의존성 추가 금지**
 

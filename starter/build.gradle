@@ -1,0 +1,14 @@
+dependencies {
+    api project(':core')
+    implementation project(':common')
+
+    compileOnly "org.springframework.boot:spring-boot-autoconfigure:${springBootVersion}"
+    compileOnly "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    compileOnly "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
+
+    implementation "io.jsonwebtoken:jjwt-api:${jjwtVersion}"
+    runtimeOnly "io.jsonwebtoken:jjwt-impl:${jjwtVersion}"
+    runtimeOnly "io.jsonwebtoken:jjwt-jackson:${jjwtVersion}"
+}

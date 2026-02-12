@@ -73,7 +73,7 @@ subprojects {
                 groupId = project.group.toString()
 
                 // ⭐ 422 방지 핵심: artifactId를 모듈명 그대로 쓰지 말고 prefix로 통일
-                // ex) api -> auth-api, core -> auth-core ...
+                // ex) contract -> auth-contract, core -> auth-core ...
                 artifactId = "auth-${project.name}"
 
                 version = project.version.toString()
