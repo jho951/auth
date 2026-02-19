@@ -11,9 +11,6 @@ public class LoginRequest {
 	/** 사용자가 입력한 비밀번호 */
 	private String password;
 
-	/** @return 사용자 식별 ID */
 	public String getUsername() { return username; }
-
-	/** @return 사용자 비밀번호 */
 	public String getPassword() { return password; }
 }

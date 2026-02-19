@@ -12,14 +12,8 @@ public class LoginResponse {
 	 */
 	private final String accessToken;
 
-	/**
-	 * LoginResponse 인스턴스를 생성합니다.
-	 * @param accessToken 발급된 Access Token 문자열
-	 */
 	public LoginResponse(String accessToken) {
 		this.accessToken = accessToken;
 	}
-
-	/** @return 발급된 Access Token */
 	public String getAccessToken() { return accessToken; }
 }
