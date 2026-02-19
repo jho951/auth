@@ -9,17 +9,19 @@ jobs:
     runs-on: ubuntu-latest
 
     # ✅ Fork PR에서는 secrets가 전달되지 않으므로(보안), 내부 PR만 알림
-    if: ${{ github.event.pull_request.head.repo.full_name == github.repository && secrets.DISCORD_WEBHOOK_URL != '' }}
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+
+    env:
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      REPO: ${{ github.repository }}
+      PR_URL: ${{ github.event.pull_request.html_url }}
+      PR_TITLE: ${{ github.event.pull_request.title }}
+      AUTHOR: ${{ github.event.pull_request.user.login }}
+      AVATAR: ${{ github.event.pull_request.user.avatar_url }}
 
     steps:
       - name: Send Rich Embed to Discord
-        env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          REPO: ${{ github.repository }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
-          PR_TITLE: ${{ github.event.pull_request.title }}
-          AUTHOR: ${{ github.event.pull_request.user.login }}
-          AVATAR: ${{ github.event.pull_request.user.avatar_url }}
+        if: ${{ env.DISCORD_WEBHOOK_URL != '' }}
         run: |
           python3 - <<'PY'
           import json, os, urllib.request

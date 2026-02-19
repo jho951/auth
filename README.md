@@ -73,11 +73,11 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.jho951:auth-contract:1.0.8")
-    implementation("io.github.jho951:auth-core:1.0.8")
-    implementation("io.github.jho951:auth-spi:1.0.8")
-    implementation("io.github.jho951:auth-starter:1.0.8")
-    implementation("io.github.jho951:auth-common:1.0.8")
+    implementation("io.github.jho951:auth-contract:1.0.9")
+    implementation("io.github.jho951:auth-core:1.0.9")
+    implementation("io.github.jho951:auth-spi:1.0.9")
+    implementation("io.github.jho951:auth-starter:1.0.9")
+    implementation("io.github.jho951:auth-common:1.0.9")
 }
 ```
 ---
@@ -189,7 +189,7 @@ SecurityFilterChain filterChain(HttpSecurity http,
 >릴리즈는 명확한 책임 분리를 원칙으로 합니다.
 
 * 버전은 루트 `build.gradle`의 `version`에서 관리합니다.
-* 태그(`v1.0.9`)는 직접 생성합니다. ***(현재 `v1.0.8`)***
+* 태그(`v1.0.9`)는 직접 생성합니다. ***(현재 `v1.0.9`)***
 * CI는 태그가 `push` 될 때만 `publish`를 수행합니다.
 
 ### 릴리즈 절차

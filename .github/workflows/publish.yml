@@ -31,16 +31,10 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v5
 
-      # ✅ publish 전에 테스트를 확실히 수행
       - name: Build & Test
         run: ./gradlew clean build --no-daemon --stacktrace
 
       - name: Publish
         env:
-          # 1) 기본은 Actions가 제공하는 토큰을 사용 (관리 쉬움)
-          GITHUB_ACTOR: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # 2) (선택) PAT을 쓰고 싶으면 아래 두 줄로 교체:
-          # GITHUB_ACTOR: ${{ secrets.GPR_USER }}
-          # GITHUB_TOKEN: ${{ secrets.GPR_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
         run: ./gradlew publish --no-daemon --stacktrace
