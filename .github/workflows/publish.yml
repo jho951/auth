@@ -1,56 +1,46 @@
-name: Build + Publish
+name: Publish (GitHub Packages)
+
 on:
   push:
-    branches: [ main ]
     tags: [ 'v*' ]
+  workflow_dispatch:
 
 permissions:
   contents: read
   packages: write
 
+env:
+  JAVA_VERSION: "17"
+
 jobs:
-  build:
-    if: github.event_name == 'push' && github.ref_type == 'branch'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: "17"
-          cache: gradle
-
-      - name: Build & Test
-        run: ./gradlew clean build
-        env:
-          javaVersion: 17
-          junit: 5.10.0
-          springBootVersion: 3.3.5
-          jjwtVersion: 0.11.5
-
   publish:
-    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Set up JDK 17
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: "17"
-          cache: gradle
+          java-version: ${{ env.JAVA_VERSION }}
 
-      - name: Publish to GitHub Packages
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      # ✅ publish 전에 테스트를 확실히 수행
+      - name: Build & Test
+        run: ./gradlew clean build --no-daemon --stacktrace
+
+      - name: Publish
         env:
-          javaVersion: 17
-          springBootVersion: 3.3.5
-          jjwtVersion: 0.11.5
-          junit: 5.10.0
-          GPR_USER: ${{ secrets.GPR_USER }}
-          GPR_KEY: ${{ secrets.GPR_KEY }}
-        run: ./gradlew clean publish
-
+          # 1) 기본은 Actions가 제공하는 토큰을 사용 (관리 쉬움)
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # 2) (선택) PAT을 쓰고 싶으면 아래 두 줄로 교체:
+          # GITHUB_ACTOR: ${{ secrets.GPR_USER }}
+          # GITHUB_TOKEN: ${{ secrets.GPR_KEY }}
+        run: ./gradlew publish --no-daemon --stacktrace
