@@ -1,5 +1,5 @@
 # Auth Module
-> 재사용 가능한 **인증(Authentication) 라이브러리**입니다.
+### 재사용 가능한 인증 라이브러리입니다.
 
 ## 🚀 목표
 
@@ -16,11 +16,28 @@
 ├─ core/
 ├─ spi/
 ├─ starter/
+├─ docs/
 ├─ gradle/
 ├─ build.gradle
 ├─ gradle.properties
 └─ settings.gradle
 ```
+---
+
+## 📚 문서
+
+- 문서 진입점: [docs/README.md](./docs/README.md)
+- 아키텍처 개요: [docs/architecture.md](./docs/architecture.md)
+- 모듈 가이드: [docs/modules.md](./docs/modules.md)
+- 설정 레퍼런스: [docs/configuration.md](./docs/configuration.md)
+- API 가이드: [docs/api.md](./docs/api.md)
+- 보안 동작: [docs/security.md](./docs/security.md)
+- SPI 확장 가이드: [docs/extension-guide.md](./docs/extension-guide.md)
+- 테스트/CI 가이드: [docs/testing-and-ci.md](./docs/testing-and-ci.md)
+- 릴리즈 가이드: [docs/release.md](./docs/release.md)
+- 트러블슈팅: [docs/troubleshooting.md](./docs/troubleshooting.md)
+- RefreshCookieWriter 상세: [docs/refresh-cookie-writer.md](./docs/refresh-cookie-writer.md)
+
 ---
 
 ## 📦 모듈 (Modules)
@@ -65,15 +82,13 @@ dependencies {
 ```
 ---
 
-### 1-1️⃣ common 유틸 사용
+### 2️⃣ common 유틸 사용
 > 자주 사용하는 메서드는 `auth-common`에 두고 각 모듈에서 import 해서 사용합니다.
 
 ```java
 import com.auth.common.utils.Strings;
 
-if (Strings.isBlank(username)) {
-    throw new IllegalArgumentException("username must not be blank");
-}
+if (Strings.isBlank(username)) throw new IllegalArgumentException("username must not be blank");
 
 String userId = Strings.requireNonBlank(rawUserId, "userId");
 TokenService tokenService = Strings.requireNonNull(customTokenService, "tokenService");
@@ -81,7 +96,7 @@ TokenService tokenService = Strings.requireNonNull(customTokenService, "tokenSer
 
 ---
 
-### 2️⃣ application.yml 설정
+### 3️⃣ application.yml 설정
 > auth.jwt.secret가 존재하면 JWT 기반 TokenService가 자동 등록됩니다.
 
 ```yml
@@ -99,7 +114,7 @@ auth:
 - 서버 저장소의 Refresh Token TTL (`expiresAt`)
 - Refresh 쿠키 `Max-Age`
 
-### 3️⃣ UserFinder 구현 (필수)
+### 4️⃣ UserFinder 구현 (필수)
 > 각 서비스마다 사용자 저장 방식이 다르기 때문에 UserFinder는 반드시 애플리케이션에서 구현해야 합니다.
 ```java
 // 예시
@@ -125,7 +140,7 @@ public class AdminUserFinder implements UserFinder {
 }
 ```
 
-### 4️⃣ 로그인 API 사용
+### 5️⃣ 로그인 API 사용
 > auth-starter 모듈을 포함하면 다음 엔드포인트가 자동 제공됩니다. 
 
 | Method | Path            | Description               |
