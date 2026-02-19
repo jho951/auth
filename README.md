@@ -188,7 +188,7 @@ SecurityFilterChain filterChain(HttpSecurity http,
 ## 🏷 Release Policy
 >릴리즈는 명확한 책임 분리를 원칙으로 합니다.
 
-* 버전은 `gradle.properties` 파일에서 관리합니다.
+* 버전은 루트 `build.gradle`의 `version`에서 관리합니다.
 * 태그(`v1.0.9`)는 직접 생성합니다. ***(현재 `v1.0.8`)***
 * CI는 태그가 `push` 될 때만 `publish`를 수행합니다.
 
@@ -196,9 +196,9 @@ SecurityFilterChain filterChain(HttpSecurity http,
 ```bash
 git add -A                            
 git commit -m "release: v1.0.9"
-git tag -a v1.0.0 -m "release: v1.0.9"
+git tag -a v1.0.9 -m "release: v1.0.9"
 git push origin main           
-git push origin v1.1.0
+git push origin v1.0.9
 ```
 
 ## 📄 License
