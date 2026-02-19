@@ -6,7 +6,7 @@
 
 ## 🧭 Project 목표
 
-**재사용 가능한 인증 라이브러리**를 목표로 하며 다음 원칙을 지향합니다.
+### 재사용 가능한 인증 라이브러리를 목표로 하며 다음 원칙을 지향합니다.
 
 - 서비스 종속 로직 금지
 - 인터페이스(SPI) 중심 설계
@@ -17,6 +17,8 @@
 
 ## 📦 Module Responsibility
 
+### ❗ `auth-core`에는 **Spring, JWT, DB 의존성 추가 금지**
+
 | Module | Responsibility            |
 |--------|---------------------------|
 | contract | 외부에 노출되는 모델/예외 계약          |
@@ -25,7 +27,7 @@
 | starter | Spring Boot 연동 + AutoConfiguration |
 | common | 공통 유틸리티                    |
 
-### ❗ `auth-core`에는 **Spring, JWT, DB 의존성 추가 금지**
+
 
 ---
 
@@ -101,3 +103,7 @@
 ### 2. 토큰 저장소 확장 (예: Redis, DB, In-memory)
 
 ### 3. 보안 정책 강화
+
+--- 
+
+## 기여해주셔서 감사합니다.
