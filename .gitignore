@@ -1,42 +1,26 @@
-HELP.md
-.gradle
+# --- Build Artifacts ---
+.gradle/
 build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
 bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
 out/
-!**/src/main/**/out/
-!**/src/test/**/out/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-### VS Code ###
+# --- IDEs ---
+.idea/
+*.iml
+*.iws
 .vscode/
+.settings/
+.classpath
+.project
+.factorypath
+
+# --- Environment & Secrets ---
 .env
-.env.dev
 .env.*
 
+# 민감 정보가 포함될 경우 주석 해제
 gradle.properties
+
+# --- Gradle Wrapper ---
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
