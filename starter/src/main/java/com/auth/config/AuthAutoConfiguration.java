@@ -1,6 +1,7 @@
 package com.auth.config;
 
 import com.auth.config.controller.AuthController;
+import com.auth.config.controller.RefreshCookieWriter;
 import com.auth.config.security.AuthOncePerRequestFilter;
 import com.auth.core.service.AuthService;
 import com.auth.config.jwt.AuthJwtProperties;
@@ -115,7 +116,13 @@ public class AuthAutoConfiguration {
 	@Bean
 	@ConditionalOnProperty(prefix = "auth", name = "endpoints-enabled", havingValue = "true", matchIfMissing = true)
 	@ConditionalOnMissingBean(AuthController.class)
-	public AuthController authController(AuthService authService, AuthProperties props, AuthJwtProperties jwtProps) {
-		return new AuthController(authService, props, jwtProps);
+	public AuthController authController(AuthService authService, AuthProperties props, RefreshCookieWriter refreshCookieWriter) {
+		return new AuthController(authService, props, refreshCookieWriter);
+	}
+
+	@Bean
+	@ConditionalOnMissingBean(RefreshCookieWriter.class)
+	public RefreshCookieWriter refreshCookieWriter(AuthProperties props, AuthJwtProperties jwtProps) {
+		return new RefreshCookieWriter(props, jwtProps);
 	}
 }
