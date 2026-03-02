@@ -65,11 +65,11 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.jho951:auth-contract:1.1.0")
-    implementation("io.github.jho951:auth-core:1.1.0")
-    implementation("io.github.jho951:auth-spi:1.1.0")
-    implementation("io.github.jho951:auth-starter:1.1.0")
-    implementation("io.github.jho951:auth-common:1.1.0")
+    implementation("io.github.jho951:auth-contract:1.1.2")
+    implementation("io.github.jho951:auth-core:1.1.2")
+    implementation("io.github.jho951:auth-spi:1.1.2")
+    implementation("io.github.jho951:auth-starter:1.1.2")
+    implementation("io.github.jho951:auth-common:1.1.2")
 }
 ```
 ---
@@ -151,6 +151,7 @@ public class AdminUserFinder implements UserFinder {
 - `MAVEN_CENTRAL_PASSWORD`
 - `MAVEN_CENTRAL_GPG_PRIVATE_KEY`
 - `MAVEN_CENTRAL_GPG_PASSPHRASE`
+- `MAVEN_CENTRAL_NAMESPACE` (예: `io.github.jho951`)
 
 ---
 
@@ -184,16 +185,16 @@ SecurityFilterChain filterChain(HttpSecurity http,
 >릴리즈는 명확한 책임 분리를 원칙으로 합니다.
 
 * 버전은 루트 `build.gradle`의 `version`에서 관리합니다.
-* 태그(`v1.1.0`)는 직접 생성합니다. ***(현재 `v1.1.0`)***
+* 태그(`v1.1.2`)는 직접 생성합니다. ***(현재 `v1.1.2`)***
 * CI는 태그가 `push` 될 때만 `publish`를 수행합니다.
 
 ### 릴리즈 절차
 ```bash
 git add -A                            
-git commit -m "release: v1.1.0"
-git tag -a v1.1.0 -m "release: v1.1.0"
+git commit -m "release: v1.1.2"
+git tag -a v1.1.2 -m "release: v1.1.2"
 git push origin main           
-git push origin v1.1.0
+git push origin v1.1.2
 ```
 
 ## 📄 License

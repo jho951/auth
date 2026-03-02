@@ -59,5 +59,6 @@
 - `MAVEN_CENTRAL_PASSWORD`
 - `MAVEN_CENTRAL_GPG_PRIVATE_KEY`
 - `MAVEN_CENTRAL_GPG_PASSPHRASE`
+- `MAVEN_CENTRAL_NAMESPACE` (예: `io.github.jho951`)
 
 publish 시 credentials가 없으면 루트 `build.gradle`의 검증 로직에서 실패하도록 되어 있습니다.
