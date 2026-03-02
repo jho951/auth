@@ -42,11 +42,11 @@ jobs:
         run: ./gradlew publish --no-daemon --stacktrace
 
       - name: Finalize deployment in Central Portal
-        if: ${{ secrets.MAVEN_CENTRAL_NAMESPACE != '' }}
         env:
           MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
           MAVEN_CENTRAL_NAMESPACE: ${{ secrets.MAVEN_CENTRAL_NAMESPACE }}
+        if: ${{ env.MAVEN_CENTRAL_NAMESPACE != '' }}
         run: |
           curl --fail-with-body \
             --request POST \
