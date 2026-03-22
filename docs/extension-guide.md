@@ -61,19 +61,24 @@ public class AdminUserFinder implements UserFinder {
 
 ## 3) `PasswordVerifier`
 
-- Spring Security BCrypt가 classpath에 있으면 기본 구현이 자동 제공됩니다.
+- `auth-support`가 classpath에 있으면 기본 `BCryptPasswordVerifier`가 자동 제공됩니다.
 - 다른 알고리즘을 쓰려면 직접 빈을 등록해 교체할 수 있습니다.
 
 ## 4) `TokenService`
 
-- `auth.jwt.secret`가 있으면 기본 `JwtTokenService`가 자동 등록됩니다.
+- `auth-support`가 classpath에 있고 `auth.jwt.secret`가 있으면 기본 `JwtTokenService`가 자동 등록됩니다.
 - 커스텀 JWT 정책(jti, issuer, audience, key rotation 등)이 필요하면 구현체를 직접 등록합니다.
+
+## 5) 기본 `RefreshTokenStore`
+
+- `auth-support`가 classpath에 있으면 기본 `InMemoryRefreshTokenStore`가 자동 제공됩니다.
+- 운영 환경에서는 Redis 또는 RDB 기반 구현으로 교체하는 것이 일반적입니다.
 
 ## OAuth2/OIDC 연동 권장 방식
 
 - Google, GitHub, Kakao 같은 Provider 연동 설정은 이 모듈이 아니라 각 서비스 애플리케이션에서 처리하는 것이 맞습니다.
 - 서비스 애플리케이션은 Spring Security OAuth2 Client 등으로 Provider 인증을 끝낸 뒤, 내부 사용자 식별자와 권한을 결정해야 합니다.
-- 서비스 애플리케이션이 `OAuth2PrincipalResolver` 빈을 등록하면, starter가 OAuth2 로그인 성공 후 내부 사용자 매핑과 JWT 응답까지 자동 처리할 수 있습니다.
+- 서비스 애플리케이션이 `OAuth2PrincipalResolver` 빈을 등록하면, boot-support가 OAuth2 로그인 성공 후 내부 사용자 매핑과 JWT 응답까지 자동 처리할 수 있습니다.
 - 내부 사용자 매핑이 끝나면 `AuthService.login(Principal)`을 호출해 이 모듈의 access/refresh 발급 흐름을 재사용할 수 있습니다.
 
 예시:
@@ -110,8 +115,8 @@ public class DefaultOAuth2PrincipalResolver implements OAuth2PrincipalResolver {
 
 ## Auto Configuration 교체 규칙
 
-`starter`의 기본 빈들은 대부분 `@ConditionalOnMissingBean`입니다.
+`boot-support`의 기본 빈들은 대부분 `@ConditionalOnMissingBean`입니다.
 즉, 같은 타입 빈을 애플리케이션에서 먼저 등록하면 기본 구현을 덮어쓸 수 있습니다.
 
 해당 클래스:
-- `starter/src/main/java/com/auth/config/AuthAutoConfiguration.java`
+- `boot-support/src/main/java/com/auth/config/AuthAutoConfiguration.java`

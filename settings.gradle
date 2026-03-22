@@ -1,3 +1,8 @@
-rootProject.name = "auth"
+rootProject.name = "auth-module"
 
-include 'contract', 'spi', 'core', 'starter', 'common'
+include 'contract'
+include'spi'
+include 'core'
+include 'boot-support'
+include 'common'
+include 'support'

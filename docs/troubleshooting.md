@@ -19,7 +19,7 @@
 ## 3) `refresh cookie not found`
 
 원인:
-- `/auth/refresh` 또는 `/auth/logout` 요청에 refresh cookie 누락
+- 애플리케이션의 refresh 또는 logout 요청에 refresh cookie 누락
 - 쿠키 이름이 `auth.refresh-cookie-name`과 다름
 
 해결:
@@ -53,7 +53,7 @@
 - 모듈 테스트 클래스패스에 web 의존성 누락
 
 해결:
-- `starter/build.gradle`에 테스트용 web 의존성 추가
+- `boot-support/build.gradle`에 테스트용 web 의존성 추가
   - `testImplementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"`
 
 ## 7) publish 단계 인증 실패

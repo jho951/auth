@@ -3,7 +3,7 @@
 ## 멀티 모듈 구성
 
 - 루트 설정: `settings.gradle`
-- 포함 모듈: `contract`, `spi`, `core`, `starter`, `common`
+- 포함 모듈: `contract`, `spi`, `core`, `boot-support`, `support`, `common`
 
 ## 모듈별 책임
 
@@ -38,16 +38,25 @@
   - refresh rotation 정책 적용
   - 토큰 저장소와 토큰 서비스 협력
 
-## `starter`
+## `boot-support`
 
-- 위치: `starter/src/main/java/com/auth/config`
+- 위치: `boot-support/src/main/java/com/auth/config`
 - 책임:
   - Spring Boot 자동 설정
-  - 기본 JWT 구현(`JwtTokenService`)
-  - REST 컨트롤러(`/auth/*`)
+  - `AuthService`, 지원 모듈 구현체, 필터, 쿠키 유틸 조립
   - OAuth2 로그인 성공/실패 핸들러
   - 보안 필터/기본 SecurityFilterChain
   - refresh cookie 처리
+  - `support` 구현체를 Spring Bean으로 조립
+
+## `support`
+
+- 위치: `support/src/main/java/com/auth/support`
+- 책임:
+  - 순수 Java 기반 `JwtTokenService` 제공
+  - 순수 Java 기반 `BCryptPasswordVerifier` 제공
+  - 메모리 기반 `InMemoryRefreshTokenStore` 제공
+  - 기본 `TokenService`, `PasswordVerifier`, `RefreshTokenStore` 구현 담당
 
 ## `common`
 
@@ -59,7 +68,8 @@
 
 - `core` -> `contract`, `spi`, `common`
 - `spi` -> `contract`
-- `starter` -> `core`, `common` (실행 시 Spring/JJWT 의존)
+- `support` -> `spi`, `common`
+- `boot-support` -> `core`, `common`, `support` (실행 시 Spring Web/Security 의존)
 - `contract` -> `common`
 
 ## artifact 좌표
@@ -70,5 +80,6 @@
 - `io.github.jho951:auth-contract:1.0.8`
 - `io.github.jho951:auth-core:1.0.8`
 - `io.github.jho951:auth-spi:1.0.8`
-- `io.github.jho951:auth-starter:1.0.8`
+- `io.github.jho951:auth-boot-support:1.0.8`
+- `io.github.jho951:auth-support:1.0.8`
 - `io.github.jho951:auth-common:1.0.8`

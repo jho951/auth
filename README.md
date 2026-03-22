@@ -14,7 +14,8 @@
 ├─ contract/
 ├─ core/
 ├─ spi/
-├─ starter/
+├─ boot-support/
+├─ support/
 ├─ docs/
 ├─ gradle/
 ├─ build.gradle
@@ -45,14 +46,15 @@
 
 ## 📦 모듈 (Modules)
 > 각 모듈은 독립적으로 배포되며, 필요한 것만 선택해 사용할 수 있습니다.
-> 현재 단계에서는 패키지명(`com.auth.api`, `com.auth.config`)은 유지하고, 모듈명만 `contract`, `starter`로 사용합니다.
+> 현재 단계에서는 패키지명(`com.auth.api`, `com.auth.config`)은 유지하고, 모듈명은 책임 중심으로 사용합니다.
 
 | Module | 설명                                      |
 |-------|-----------------------------------------|
 | `contract` | 외부에 노출되는 모델, 예외                          |
 | `core` | 인증 도메인 로직 (비즈니스 규칙)                     |
 | `spi` | 사용자 저장소, 토큰 저장소 등 확장 포인트                |
-| `starter` | Spring Boot 연동 설정 (AutoConfiguration, 엔드포인트, DTO) |
+| `boot-support` | Spring Boot 연동 설정 (AutoConfiguration, 필터, 쿠키 처리 도우미) |
+| `support` | 순수 Java 기반 기본 구현 (`JwtTokenService`, `BCryptPasswordVerifier`, `InMemoryRefreshTokenStore`) |
 | `common` | 모듈 간 공용 유틸리티 메서드                          |
 
 ---
@@ -72,7 +74,8 @@ dependencies {
     implementation("io.github.jho951:auth-contract:1.1.4")
     implementation("io.github.jho951:auth-core:1.1.4")
     implementation("io.github.jho951:auth-spi:1.1.4")
-    implementation("io.github.jho951:auth-starter:1.1.4")
+    implementation("io.github.jho951:auth-boot-support:1.1.4")
+    implementation("io.github.jho951:auth-support:1.1.4")
     implementation("io.github.jho951:auth-common:1.1.4")
 }
 ```
@@ -93,7 +96,7 @@ TokenService tokenService = Strings.requireNonNull(customTokenService, "tokenSer
 ---
 
 ### 3️⃣ application.yml 설정
-> auth.jwt.secret가 존재하면 JWT 기반 TokenService가 자동 등록됩니다.
+> `auth-boot-support`와 `auth-support`를 함께 사용하면 `auth.jwt.secret` 기반 기본 JWT `TokenService`가 자동 등록됩니다.
 
 ```yml
 auth:
@@ -136,14 +139,13 @@ public class AdminUserFinder implements UserFinder {
 }
 ```
 
-### 5️⃣ 로그인 API 사용
-> auth-starter 모듈을 포함하면 다음 엔드포인트가 자동 제공됩니다. 
+`boot-support`는 조립 계층이고, 기본 구현은 `support` 모듈에서 가져옵니다.
 
-| Method | Path            | Description               |
-| ------ | --------------- | ------------------------- |
-| POST   | `/auth/login`   | 로그인 (access + refresh 발급) |
-| POST   | `/auth/refresh` | access token 재발급          |
-| POST   | `/auth/logout`  | refresh token 무효화         |
+- `auth-support`: 기본 `TokenService`, `PasswordVerifier`, `RefreshTokenStore`
+
+### 5️⃣ 애플리케이션에서 API 구성
+> 이 모듈은 기본 로그인/재발급/로그아웃 컨트롤러를 제공하지 않습니다.
+> 서비스 애플리케이션이 `AuthService`, `RefreshCookieWriter`, `RefreshTokenExtractor`를 사용해 자신의 URI와 응답 구조에 맞는 API를 직접 구성합니다.
 
 ### 6️⃣ OAuth2/OIDC와 함께 사용
 > Google/GitHub/Kakao 같은 Provider 설정은 각 서비스 애플리케이션에서 처리하고, 인증이 끝난 내부 사용자에게 이 모듈이 JWT를 발급하도록 연결합니다.
@@ -153,8 +155,25 @@ Principal principal = new Principal(user.getId(), user.getRoles());
 Tokens tokens = authService.login(principal);
 ```
 
-`starter`에 `spring-boot-starter-oauth2-client`가 함께 있고 `OAuth2PrincipalResolver` 빈을 제공하면,
+`boot-support`에 `spring-boot-starter-oauth2-client`가 함께 있고 `OAuth2PrincipalResolver` 빈을 제공하면,
 이 모듈은 OAuth2 로그인 성공 후 `{"accessToken":"..."}` JSON 응답과 refresh cookie 작성까지 자동 처리합니다.
+
+### 7️⃣ 순수 Java 사용
+> 이 모듈은 Spring Boot 없이도 사용할 수 있습니다.
+
+```java
+TokenService tokenService = new JwtTokenService(secret, 3600, 1209600);
+RefreshTokenStore refreshTokenStore = new InMemoryRefreshTokenStore();
+PasswordVerifier passwordVerifier = new BCryptPasswordVerifier();
+
+AuthService authService = new AuthService(
+    userFinder,
+    passwordVerifier,
+    tokenService,
+    refreshTokenStore,
+    Duration.ofDays(14)
+);
+```
 
 
 
@@ -188,7 +207,7 @@ SecurityFilterChain filterChain(HttpSecurity http,
 	return http
 		.csrf(csrf -> csrf.disable())
 		.authorizeHttpRequests(auth -> auth
-			.requestMatchers("/auth/**").permitAll()
+			.requestMatchers("/login", "/refresh", "/logout").permitAll()
 			.anyRequest().authenticated()
 		)
 		.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)

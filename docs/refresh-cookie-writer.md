@@ -2,8 +2,8 @@
 
 `RefreshCookieWriter`는 로그인/토큰 재발급 응답에 Refresh Token 쿠키를 붙이거나, 로그아웃 시 쿠키를 제거하는 역할을 담당합니다.
 
-- 구현 파일: `starter/src/main/java/com/auth/config/controller/RefreshCookieWriter.java`
-- 테스트 파일: `starter/src/test/java/com/auth/config/controller/RefreshCookieWriterTest.java`
+- 구현 파일: `boot-support/src/main/java/com/auth/config/controller/RefreshCookieWriter.java`
+- 테스트 파일: `boot-support/src/test/java/com/auth/config/controller/RefreshCookieWriterTest.java`
 
 ## 왜 필요한가
 
@@ -11,7 +11,7 @@ API 응답 바디에는 Access Token만 내려주고, Refresh Token은 HttpOnly 
 
 ## 주요 동작
 
-## 1) `write(Tokens, ResponseEntity<LoginResponse>)`
+## 1) `write(Tokens, ResponseEntity<T>)`
 
 로그인/재발급 성공 시 호출됩니다.
 
@@ -30,7 +30,7 @@ API 응답 바디에는 Access Token만 내려주고, Refresh Token은 HttpOnly 
 반환되는 응답은 다음을 유지합니다.
 
 - 기존 HTTP status
-- 기존 body (`LoginResponse`)
+- 기존 body (`T`)
 
 ## 2) `clear(ResponseEntity<Void>)`
 
@@ -41,12 +41,11 @@ API 응답 바디에는 Access Token만 내려주고, Refresh Token은 HttpOnly 
 
 ## 사용 흐름
 
-`AuthController`에서 아래처럼 사용합니다.
+서비스 애플리케이션의 로그인/재발급 컨트롤러에서 아래처럼 사용합니다.
 
 1. 로그인 성공 후 `refreshCookieWriter.write(...)`
 2. 로그아웃 시 `refreshCookieWriter.clear(...)`
 
-관련 위치: `starter/src/main/java/com/auth/config/controller/AuthController.java`
 
 ## 테스트 설명
 
@@ -60,7 +59,7 @@ API 응답 바디에는 Access Token만 내려주고, Refresh Token은 HttpOnly 
 ## 테스트 실행
 
 ```bash
-./gradlew :starter:test --tests "com.auth.config.controller.RefreshCookieWriterTest"
+./gradlew :boot-support:test --tests "com.auth.config.controller.RefreshCookieWriterTest"
 ```
 
 ## 참고

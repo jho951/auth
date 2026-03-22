@@ -14,7 +14,8 @@
 - `auth-contract`
 - `auth-core`
 - `auth-spi`
-- `auth-starter`
+- `auth-boot-support`
+- `auth-support`
 - `auth-common`
 
 관련 설정:

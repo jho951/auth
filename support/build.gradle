@@ -1,0 +1,9 @@
+dependencies {
+    api project(':spi')
+    implementation project(':common')
+
+    implementation "io.jsonwebtoken:jjwt-api:${jjwtVersion}"
+    runtimeOnly "io.jsonwebtoken:jjwt-impl:${jjwtVersion}"
+    runtimeOnly "io.jsonwebtoken:jjwt-jackson:${jjwtVersion}"
+    implementation 'org.mindrot:jbcrypt:0.4'
+}

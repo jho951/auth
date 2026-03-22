@@ -3,12 +3,12 @@
 ## 자동 보안 구성
 
 구현:
-- `starter/src/main/java/com/auth/config/security/AuthSecurityAutoConfiguration.java`
+- `boot-support/src/main/java/com/auth/config/security/AuthSecurityAutoConfiguration.java`
 
 기본 동작:
 - 세션 비활성화(`STATELESS`)
 - CSRF/폼로그인/기본로그인/로그아웃 비활성화
-- `/auth/**` 허용
+- OAuth2 시작/콜백 경로만 기본 허용
 - 그 외 요청은 인증 필요
 - `AuthOncePerRequestFilter`를 `UsernamePasswordAuthenticationFilter` 앞에 등록
 
@@ -21,7 +21,7 @@
 ## 인증 필터
 
 구현:
-- `starter/src/main/java/com/auth/config/security/AuthOncePerRequestFilter.java`
+- `boot-support/src/main/java/com/auth/config/security/AuthOncePerRequestFilter.java`
 
 처리 단계:
 1. `Authorization` 헤더 확인
@@ -46,3 +46,4 @@
 - `auth.refresh-cookie-secure=true` 유지
 - `auth.jwt.secret`은 환경변수/시크릿 매니저로 주입
 - refresh 저장소는 운영에서는 메모리 대신 Redis/DB 구현 권장
+- 로그인/재발급/로그아웃 경로 permit 설정은 서비스 애플리케이션에서 직접 구성

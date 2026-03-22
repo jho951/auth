@@ -1,11 +1,11 @@
 # Kakao OAuth2 Quickstart
 
-이 문서는 `auth-starter` 를 사용하는 서비스 서버에서 Kakao 로그인과 JWT 발급을 연결하는 최소 예시입니다.
+이 문서는 `auth-boot-support` 를 사용하는 서비스 서버에서 Kakao 로그인과 JWT 발급을 연결하는 최소 예시입니다.
 
 전제:
 
 - 서비스 서버는 Spring Boot 3.x
-- `auth-starter` 를 의존성으로 사용
+- `auth-boot-support` 를 의존성으로 사용
 - Kakao Developers 에서 REST API 키와 Client Secret 설정을 완료함
 
 ## 1. 의존성
@@ -14,7 +14,7 @@
 
 ```gradle
 dependencies {
-    implementation("io.github.jho951:auth-starter:1.1.3")
+    implementation("io.github.jho951:auth-boot-support:1.1.3")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
 }
@@ -223,7 +223,7 @@ public class SecurityConfig {
         return http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/login", "/refresh", "/logout").permitAll()
                 .requestMatchers(
                     authProperties.getOauth2().getAuthorizationBaseUri() + "/**",
                     authProperties.getOauth2().getLoginProcessingBaseUri()

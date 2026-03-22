@@ -11,7 +11,7 @@
 특정 테스트:
 
 ```bash
-./gradlew :starter:test --tests "com.auth.config.controller.RefreshCookieWriterTest"
+./gradlew :boot-support:test --tests "com.auth.config.controller.RefreshCookieWriterTest"
 ```
 
 ## 현재 테스트 범위
@@ -24,13 +24,17 @@
   - `PrincipalTest`
   - `TokensTest`
   - `UserTest`
-- `starter`
+- `boot-support`
   - `RefreshCookieWriterTest`
+  - `OAuth2AuthenticationSuccessHandlerTest`
+- `support`
+  - 현재 전용 테스트 없음
 
 테스트 파일 위치:
 - `common/src/test/java`
 - `contract/src/test/java`
-- `starter/src/test/java`
+- `boot-support/src/test/java`
+- `support/src/test/java`
 
 ## GitHub Actions
 

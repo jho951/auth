@@ -67,7 +67,7 @@ public interface OAuth2PrincipalResolver {
 
 ### 4. Starter OAuth2 자동 구성
 
-`starter`는 OAuth2 client 의존성이 있고 `OAuth2PrincipalResolver` 빈이 존재할 때만 OAuth2 자동 구성을 활성화합니다.
+`boot-support`는 OAuth2 client 의존성이 있고 `OAuth2PrincipalResolver` 빈이 존재할 때만 OAuth2 자동 구성을 활성화합니다.
 
 활성 시:
 
