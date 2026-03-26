@@ -1,67 +1,99 @@
 # 트러블슈팅
 
-## 1) `auth.jwt.secret must not be blank`
+## 1. `AuthService` 빈이 안 만들어진다
 
 원인:
-- `auth.jwt.secret` 미설정
 
-해결:
-- `application.yml` 또는 환경변수에 `auth.jwt.secret` 설정
+- `AuthService`는 `UserFinder`가 있어야 생성됩니다.
+- 애플리케이션이 `UserFinder`를 등록하지 않았을 가능성이 큽니다.
 
-## 2) `auth.jwt.secret must be at least 32 bytes for HS256`
+조치:
 
-원인:
-- 시크릿 길이 부족
+- `UserFinder` 구현을 추가합니다.
 
-해결:
-- 최소 32바이트 이상 문자열 사용
-
-## 3) `refresh cookie not found`
+## 2. `TokenService` 기본 빈이 안 생긴다
 
 원인:
-- 애플리케이션의 refresh 또는 logout 요청에 refresh cookie 누락
-- 쿠키 이름이 `auth.refresh-cookie-name`과 다름
 
-해결:
-- 브라우저/클라이언트에서 쿠키 포함 요청 확인
-- 서버 설정과 실제 쿠키명 일치 확인
+- `auth.jwt.secret`가 비어 있거나 누락됨
+- 이미 애플리케이션이 `TokenService` 빈을 직접 등록함
 
-## 4) `TOKEN_REVOKED`
+조치:
 
-원인:
-- 저장소 기준으로 refresh가 이미 폐기됨
-- refresh rotation 이후 이전 토큰 재사용
+- `auth.jwt.secret` 설정 확인
+- 커스텀 `TokenService` 등록 여부 확인
 
-해결:
-- 최신 refresh cookie로 재시도
-- 필요 시 재로그인으로 새 토큰 발급
-
-## 5) 보호 API에서 항상 401
+## 3. `auth.jwt.secret must be at least 32 bytes for HS256`
 
 원인:
-- `Authorization` 헤더 누락
-- `auth.bearer-prefix`와 헤더 접두사 불일치
-- access token 만료/서명 불일치
 
-해결:
-- `Authorization: Bearer <token>` 형식 확인
-- prefix 커스텀 시 클라이언트 동기화
+- 현재 `JwtTokenService`는 HS256 기준 최소 32바이트 비밀키를 요구합니다.
 
-## 6) 로컬 테스트 중 Spring HTTP 클래스 미해결
+조치:
 
-원인:
-- 모듈 테스트 클래스패스에 web 의존성 누락
+- 더 긴 시크릿 사용
+- 운영에서는 시크릿 매니저로 주입 권장
 
-해결:
-- `boot-support/build.gradle`에 테스트용 web 의존성 추가
-  - `testImplementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"`
-
-## 7) publish 단계 인증 실패
+## 4. OAuth2 로그인 경로가 404 또는 401이다
 
 원인:
-- Maven Central credentials/서명키 미설정 또는 권한 부족
 
-해결:
-- `MAVEN_CENTRAL_USERNAME`, `MAVEN_CENTRAL_PASSWORD` 설정
-- `MAVEN_CENTRAL_GPG_PRIVATE_KEY`, `MAVEN_CENTRAL_GPG_PASSPHRASE` 설정
-- Sonatype(OSSRH) 권한 확인
+- `spring-boot-starter-oauth2-client` 미포함
+- `OAuth2PrincipalResolver` 빈 미등록
+- `auth.oauth2.enabled=false`
+- `spring.security.oauth2.client.*` 설정 누락
+
+조치:
+
+- OAuth2 Client 의존성 추가
+- `OAuth2PrincipalResolver` 구현 추가
+- OAuth2 설정과 redirect URI 확인
+
+## 5. refresh cookie가 내려오지 않는다
+
+원인:
+
+- `auth.refresh-cookie-enabled=false`
+- success/login controller에서 `RefreshCookieWriter`를 사용하지 않음
+- 브라우저/프록시가 `Secure` cookie를 차단하는 환경
+
+조치:
+
+- 관련 설정 확인
+- HTTPS 환경 여부 확인
+- 응답에 `Set-Cookie` 헤더가 있는지 확인
+
+## 6. 로그아웃/재발급이 항상 실패한다
+
+원인:
+
+- refresh token이 서버 저장소에 없음
+- `InMemoryRefreshTokenStore`를 여러 인스턴스 환경에서 사용 중
+
+조치:
+
+- 운영에서는 Redis/DB 기반 `RefreshTokenStore` 사용
+- refresh rotation 동작과 저장소 key 정책 확인
+
+## 7. Gradle property가 안 읽힌다
+
+원인:
+
+- 현재 아카이브에 `grade.properties`라는 파일명이 존재할 수 있음
+- Gradle 일반 규약 파일명은 `gradle.properties`
+
+조치:
+
+- 파일명을 확인하고 필요하면 `gradle.properties`로 정리
+
+## 8. artifact 이름이 문서와 다르다
+
+원인:
+
+- 현재 퍼블리싱은 `artifactId = project.name`을 사용
+- 따라서 실제 좌표는 `boot-support`, `core` 같은 이름
+
+조치:
+
+- 문서가 current implementation 문맥인지 roadmap 문맥인지 먼저 확인
+- 현재 좌표는 [current-repository-state.md](./current-repository-state.md)와 [release.md](./release.md) 참고

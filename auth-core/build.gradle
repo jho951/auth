@@ -1,0 +1,6 @@
+
+// Module glue for Auth core APIs, SPI, utilities, and base implementations.
+dependencies {
+    implementation 'org.mindrot:jbcrypt:0.4'
+    testImplementation project(':auth-common-test')
+}

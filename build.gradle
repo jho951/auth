@@ -1,6 +1,6 @@
 allprojects {
     group = "io.github.jho951"
-    version = "1.1.4"
+    version = findProperty("version")
 
     repositories {
         mavenCentral()
@@ -12,27 +12,23 @@ subprojects {
     apply plugin: "maven-publish"
     apply plugin: "signing"
 
-    def safeProp = { name, defaultVal = "" ->
-        return System.getenv(name) ?: (project.hasProperty(name) ? project.property(name) : defaultVal)
-    }
+    def jVersion = (findProperty("java_version") ?: "17").toString().trim() as Integer
+    def springVer = (findProperty("springBoot_version") ?: "3.3.0").toString().trim()
+    def jjwtVer = (findProperty("jjwt_version") ?: "0.12.6").toString().trim()
+    def junitVer = (findProperty("junit_version") ?: "5.10.0").toString().trim()
+    def encoding = (findProperty('encoding_method') ?: 'UTF-8').toString()
+
     def normalizeSigningKey = { raw ->
         def text = (raw ?: "").toString().trim()
         if (!text) return ""
         text = text.replace("\\r\\n", "\n").replace("\\n", "\n")
-        if (text.startsWith("-----BEGIN PGP PRIVATE KEY BLOCK-----")) {
-            return text
-        }
+        if (text.startsWith("-----BEGIN PGP PRIVATE KEY BLOCK-----")) return text
         try {
-            return new String(text.decodeBase64(), "UTF-8").trim()
+            return new String(text.decodeBase64(), encoding).trim()
         } catch (Exception ignored) {
             return text
         }
     }
-
-    def jVersion = safeProp('javaVersion', '17')
-    def springVer = safeProp('springBootVersion', '3.3.5')
-    def jjwtVer = safeProp('jjwtVersion', '0.11.5')
-    def junitVer = safeProp('junit', '5.10.0')
 
     ext {
         springBootVersion = springVer
@@ -41,19 +37,17 @@ subprojects {
 
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(jVersion.toString().trim() as Integer)
+            languageVersion = JavaLanguageVersion.of(jVersion)
         }
         withSourcesJar()
         withJavadocJar()
     }
 
     tasks.withType(JavaCompile).configureEach {
-        options.release.set(jVersion.toString().trim() as Integer)
-        options.encoding = "UTF-8"
+        options.release.set(jVersion)
+        options.encoding = findProperty("encoding_method")
     }
-
     tasks.withType(Javadoc).configureEach {
-        // Existing source Javadocs are not doclint-clean yet; keep javadocJar generation non-blocking.
         options.addStringOption("Xdoclint:none", "-quiet")
     }
 
@@ -64,7 +58,9 @@ subprojects {
         testImplementation 'org.assertj:assertj-core:3.24.2'
     }
 
-    test { useJUnitPlatform() }
+    test {
+        useJUnitPlatform()
+    }
 
     publishing {
         repositories {
@@ -97,34 +93,28 @@ subprojects {
 
         publications {
             mavenJava(MavenPublication) {
-                // ✅ 실제 jar/component 포함
                 from components.java
 
                 groupId = project.group.toString()
-
-                artifactId = "auth-${project.name}"
-
+                artifactId = project.name
                 version = project.version.toString()
 
                 pom {
                     name = "auth-${project.name}"
                     description = "jho951 auth module: ${project.name}"
                     url = "https://github.com/jho951/auth"
-
                     licenses {
                         license {
                             name = "MIT License"
                             url = "https://opensource.org/licenses/MIT"
                         }
                     }
-
                     developers {
                         developer {
                             id = "jho951"
                             name = "jho951"
                         }
                     }
-
                     scm {
                         connection = "scm:git:https://github.com/jho951/auth.git"
                         developerConnection = "scm:git:ssh://git@github.com/jho951/auth.git"
@@ -143,9 +133,7 @@ subprojects {
                 ?: project.findProperty("mavenCentralSigningPassword")
                 ?: "").toString()
 
-        if (key) {
-            useInMemoryPgpKeys(key, pass)
-        }
+        if (key) useInMemoryPgpKeys(key, pass)
         sign publishing.publications.mavenJava
     }
 
@@ -166,14 +154,11 @@ subprojects {
             def key = (System.getenv("MAVEN_CENTRAL_GPG_PRIVATE_KEY")
                     ?: project.findProperty("mavenCentralSigningKey")
                     ?: "")
+
             key = normalizeSigningKey(key)
 
-            if (!u || !p) {
-                throw new GradleException("Missing Maven Central credentials. Set MAVEN_CENTRAL_USERNAME/MAVEN_CENTRAL_PASSWORD (or OSSRH_USERNAME/OSSRH_PASSWORD).")
-            }
-            if (!key) {
-                throw new GradleException("Missing signing key. Set MAVEN_CENTRAL_GPG_PRIVATE_KEY (or mavenCentralSigningKey).")
-            }
+            if (!u || !p) throw new GradleException("Missing Maven Central credentials. Set MAVEN_CENTRAL_USERNAME/MAVEN_CENTRAL_PASSWORD (or OSSRH_USERNAME/OSSRH_PASSWORD).")
+            if (!key) throw new GradleException("Missing signing key. Set MAVEN_CENTRAL_GPG_PRIVATE_KEY (or mavenCentralSigningKey).")
         }
     }
 }

@@ -4,6 +4,10 @@ build/
 bin/
 out/
 
+# --- Operating System ---
+.DS_Store
+__MACOSX/
+
 # --- IDEs ---
 .idea/
 *.iml
@@ -18,8 +22,6 @@ out/
 .env
 .env.*
 
-# 민감 정보가 포함될 경우 주석 해제
-gradle.properties
 
 # --- Gradle Wrapper ---
 !gradle/wrapper/gradle-wrapper.jar

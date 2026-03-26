@@ -1,3 +1,0 @@
-com.auth.config.AuthAutoConfiguration
-com.auth.config.oauth.AuthOAuth2AutoConfiguration
-com.auth.config.security.AuthSecurityAutoConfiguration

@@ -1,5 +1,0 @@
-dependencies {
-    api project(':contract')
-    api project(':spi')
-    implementation project(':common')
-}

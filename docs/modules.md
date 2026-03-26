@@ -1,85 +1,75 @@
 # 모듈 가이드
 
-## 멀티 모듈 구성
+## 현재 모듈 구성
 
-- 루트 설정: `settings.gradle`
-- 포함 모듈: `contract`, `spi`, `core`, `boot-support`, `support`, `common`
+현재 저장소는 아래 **6개 서브프로젝트**를 사용합니다.
 
-## 모듈별 책임
+| 모듈 | 역할 |
+|---|---|
+| `contract` | 공개 모델과 예외 |
+| `spi` | 외부 구현체가 채우는 확장 포트 |
+| `common` | 공용 유틸 |
+| `core` | 인증 도메인 로직 |
+| `support` | 기본 구현체 모음 |
+| `boot-support` | Spring Boot 자동 구성과 보안 연결 |
 
-## `contract`
+## 사용 시나리오별 권장 의존성
 
-- 위치: `contract/src/main/java/com/auth/api`
-- 책임:
-  - 예외 타입: `AuthException`
-  - 에러 코드: `ErrorCode`
-  - 핵심 모델: `User`, `Principal`, `Tokens`
-- 특징:
-  - 다른 모듈/외부 애플리케이션에서 공통으로 사용
+### 1. 순수 Java로 인증 유즈케이스만 쓰는 경우
 
-## `spi`
+최소 구성:
 
-- 위치: `spi/src/main/java/com/auth/spi`
-- 책임:
-  - 확장 포트 정의
-  - `UserFinder`
-  - `PasswordVerifier`
-  - `TokenService`
-  - `RefreshTokenStore`
-  - `OAuth2PrincipalResolver`
-- 특징:
-  - 코어는 구현이 아닌 인터페이스에만 의존
+- `core`
+- `support`
+- 애플리케이션 구현: `UserFinder`
 
-## `core`
+설명:
 
-- 위치: `core/src/main/java/com/auth/core/service/AuthService.java`
-- 책임:
-  - 로그인/재발급/로그아웃 유즈케이스
-  - refresh rotation 정책 적용
-  - 토큰 저장소와 토큰 서비스 협력
+- `AuthService`는 `core`에 있습니다.
+- 기본 JWT/비밀번호/refresh 저장소 구현은 `support`에 있습니다.
+- Spring Boot 없이도 사용할 수 있습니다.
 
-## `boot-support`
+### 2. Spring Boot에서 JWT 인증 필터와 자동 설정을 함께 쓰는 경우
 
-- 위치: `boot-support/src/main/java/com/auth/config`
-- 책임:
-  - Spring Boot 자동 설정
-  - `AuthService`, 지원 모듈 구현체, 필터, 쿠키 유틸 조립
-  - OAuth2 로그인 성공/실패 핸들러
-  - 보안 필터/기본 SecurityFilterChain
-  - refresh cookie 처리
-  - `support` 구현체를 Spring Bean으로 조립
+최소 구성:
 
-## `support`
+- `boot-support`
+- `spring-boot-starter-web`
+- `spring-boot-starter-security`
 
-- 위치: `support/src/main/java/com/auth/support`
-- 책임:
-  - 순수 Java 기반 `JwtTokenService` 제공
-  - 순수 Java 기반 `BCryptPasswordVerifier` 제공
-  - 메모리 기반 `InMemoryRefreshTokenStore` 제공
-  - 기본 `TokenService`, `PasswordVerifier`, `RefreshTokenStore` 구현 담당
+설명:
 
-## `common`
+- `boot-support`가 `AuthAutoConfiguration`, `AuthSecurityAutoConfiguration`, `AuthOncePerRequestFilter`를 등록합니다.
+- 기본 `TokenService`, `PasswordVerifier`, `RefreshTokenStore`는 `@ConditionalOnMissingBean`으로 자동 제공됩니다.
 
-- 위치: `common/src/main/java/com/auth/common/utils/Strings.java`
-- 책임:
-  - 문자열/널 검증 유틸 제공
+### 3. OAuth2 로그인 성공 후 내부 principal 매핑과 JWT 발급까지 연결하는 경우
 
-## 의존 관계
+최소 구성:
 
-- `core` -> `contract`, `spi`, `common`
-- `spi` -> `contract`
-- `support` -> `spi`, `common`
-- `boot-support` -> `core`, `common`, `support` (실행 시 Spring Web/Security 의존)
-- `contract` -> `common`
+- `boot-support`
+- `spring-boot-starter-security`
+- `spring-boot-starter-oauth2-client`
+- 애플리케이션 구현: `OAuth2PrincipalResolver`
 
-## artifact 좌표
+설명:
 
-루트 `build.gradle`에서 publish 시 artifactId는 `auth-{module}` 규칙을 사용합니다.
+- `boot-support`의 `AuthOAuth2AutoConfiguration`이 success/failure handler를 등록합니다.
+- Provider 설정은 애플리케이션의 `spring.security.oauth2.client.*`가 담당합니다.
 
-예:
-- `io.github.jho951:auth-contract:1.0.8`
-- `io.github.jho951:auth-core:1.0.8`
-- `io.github.jho951:auth-spi:1.0.8`
-- `io.github.jho951:auth-boot-support:1.0.8`
-- `io.github.jho951:auth-support:1.0.8`
-- `io.github.jho951:auth-common:1.0.8`
+## 모듈별 상세 문서
+
+- [Module: contract](./module-contract.md)
+- [Module: spi](./module-spi.md)
+- [Module: common](./module-common.md)
+- [Module: core](./module-core.md)
+- [Module: support](./module-support.md)
+- [Module: boot-support](./module-boot-support.md)
+
+## 현재 구조와 목표 구조
+
+현재는 layered 구조이지만, 장기적으로는 feature-oriented 구조로 분리하는 것이 목표입니다.
+
+- 현재: `contract` / `spi` / `common` / `core` / `support` / `boot-support`
+- 목표: `auth-core` / `auth-jwt` / `auth-session` / `auth-hybrid` / `auth-spring` / `*-starter`
+
+현재 구현이 아닌 목표 구조 설명은 [roadmap-target-module-structure.md](./roadmap-target-module-structure.md)에 분리해 두었습니다.

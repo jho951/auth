@@ -1,67 +1,66 @@
-# RefreshCookieWriter 가이드
+# RefreshCookieWriter 상세
 
-`RefreshCookieWriter`는 로그인/토큰 재발급 응답에 Refresh Token 쿠키를 붙이거나, 로그아웃 시 쿠키를 제거하는 역할을 담당합니다.
+## 위치
 
 - 구현 파일: `boot-support/src/main/java/com/auth/config/controller/RefreshCookieWriter.java`
 - 테스트 파일: `boot-support/src/test/java/com/auth/config/controller/RefreshCookieWriterTest.java`
 
-## 왜 필요한가
+## 역할
 
-API 응답 바디에는 Access Token만 내려주고, Refresh Token은 HttpOnly 쿠키로 관리하면 브라우저 환경에서 보안적으로 더 안전하게 다룰 수 있습니다.
+`RefreshCookieWriter`는 `Tokens`와 기본 `ResponseEntity`를 받아 **응답 body를 유지한 채 refresh cookie만 추가하거나 제거**하는 웹 보조 클래스입니다.
 
-## 주요 동작
+## 생성자 의존성
 
-## 1) `write(Tokens, ResponseEntity<T>)`
+- `AuthProperties`
+- `AuthJwtProperties`
 
-로그인/재발급 성공 시 호출됩니다.
+즉, 다음 정보를 사용합니다.
 
-- `auth.refresh-cookie-enabled=false` 이면 원래 응답을 그대로 반환합니다.
-- `true`이면 `Set-Cookie` 헤더를 생성합니다.
+- cookie 이름
+- HttpOnly / Secure / Path / SameSite
+- refresh cookie `Max-Age` (`auth.jwt.refresh-seconds`)
 
-쿠키 설정 값은 다음 프로퍼티에서 가져옵니다.
+## 주요 메서드
 
-- `auth.refresh-cookie-name`
-- `auth.refresh-cookie-http-only`
-- `auth.refresh-cookie-secure`
-- `auth.refresh-cookie-path`
-- `auth.refresh-cookie-same-site`
-- `auth.jwt.refresh-seconds` (Max-Age)
+### `write(Tokens tokens, ResponseEntity<T> base)`
 
-반환되는 응답은 다음을 유지합니다.
+동작:
 
-- 기존 HTTP status
-- 기존 body (`T`)
+- `auth.refresh-cookie-enabled=false`면 원본 응답을 그대로 반환
+- 그렇지 않으면 `Set-Cookie` 헤더를 추가한 새 `ResponseEntity` 반환
 
-## 2) `clear(ResponseEntity<Void>)`
+### `clear(ResponseEntity<Void> base)`
 
-로그아웃 시 호출됩니다.
+동작:
 
-- `auth.refresh-cookie-enabled=false` 이면 원래 응답을 그대로 반환합니다.
-- `true`이면 같은 쿠키 이름/경로로 `Max-Age=0` 쿠키를 내려 브라우저에서 삭제되도록 합니다.
+- `Max-Age=0`인 cookie를 내려 기존 refresh cookie를 삭제
 
-## 사용 흐름
+## 사용 예시
 
-서비스 애플리케이션의 로그인/재발급 컨트롤러에서 아래처럼 사용합니다.
-
-1. 로그인 성공 후 `refreshCookieWriter.write(...)`
-2. 로그아웃 시 `refreshCookieWriter.clear(...)`
-
-
-## 테스트 설명
-
-`RefreshCookieWriterTest`는 아래 시나리오를 검증합니다.
-
-1. 쿠키 비활성 시 `write`가 기존 응답 객체를 그대로 반환하는지
-2. 쿠키 활성 시 `write`가 `Set-Cookie`를 추가하고 status/body를 유지하는지
-3. 쿠키 활성 시 `clear`가 `Max-Age=0` 만료 쿠키를 내려주는지
-4. 쿠키 비활성 시 `clear`가 기존 응답 객체를 그대로 반환하는지
-
-## 테스트 실행
-
-```bash
-./gradlew :boot-support:test --tests "com.auth.config.controller.RefreshCookieWriterTest"
+```java
+@PostMapping("/login")
+public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest request) {
+    Tokens tokens = authService.login(request.username(), request.password());
+    ResponseEntity<Map<String, String>> base = ResponseEntity.ok(Map.of(
+        "accessToken", tokens.getAccessToken()
+    ));
+    return refreshCookieWriter.write(tokens, base);
+}
 ```
 
-## 참고
+로그아웃 시 cookie 제거 예시:
 
-사용자 요청에 `refreeshCookieWriter`로 표기되었더라도 실제 클래스명은 `RefreshCookieWriter`입니다.
+```java
+@PostMapping("/logout")
+public ResponseEntity<Void> logout(HttpServletRequest request) {
+    String refreshToken = refreshTokenExtractor.extract(request);
+    authService.logout(refreshToken);
+    return refreshCookieWriter.clear(ResponseEntity.noContent().build());
+}
+```
+
+## 주의사항
+
+- 현재 기본 구현은 refresh token을 **body가 아니라 cookie**로 주고 싶을 때만 도와줍니다.
+- access token을 cookie로 내리는 기능은 포함하지 않습니다.
+- 현재 클래스는 `boot-support`에 있지만, 장기적으로는 Spring bridge / starter 분리 시 위치가 바뀔 수 있습니다.

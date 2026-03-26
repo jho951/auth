@@ -1,8 +1,16 @@
-rootProject.name = "auth-module"
+rootProject.name = "auth"
 
-include 'contract'
-include'spi'
-include 'core'
-include 'boot-support'
-include 'common'
-include 'support'
+include 'auth-core'
+include 'auth-common-test'
+include 'auth-jwt'
+include 'auth-session'
+include 'auth-hybrid'
+include 'auth-spring'
+include 'auth-jwt-spring-boot-starter'
+include 'auth-session-spring-boot-starter'
+include 'auth-hybrid-spring-boot-starter'
+include 'docs'
+
+include 'samples:sample-jwt-api'
+include 'samples:sample-session-web'
+include 'samples:sample-hybrid-sso'

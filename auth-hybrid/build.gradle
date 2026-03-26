@@ -1,0 +1,5 @@
+dependencies {
+    api project(':auth-core')
+    api project(':auth-session')
+    api project(':auth-jwt')
+}

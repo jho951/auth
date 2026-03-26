@@ -2,83 +2,101 @@
 
 ## 설계 목표
 
-- 인증 도메인 로직을 프레임워크/DB 구현에서 분리
-- 모듈화로 재사용성과 교체 가능성 확보
-- Spring Boot 환경에서는 자동 설정으로 빠른 적용
+- 인증 도메인 로직을 프레임워크와 분리한다.
+- Spring Boot 환경에서는 자동 설정으로 적용 부담을 줄인다.
+- 사용자 저장소, 비밀번호 검증, 토큰 저장소, OAuth2 사용자 매핑을 SPI로 외부화한다.
+- 리소스 권한 정책은 이 저장소에 넣지 않는다.
 
-## 레이어 구조
+## 범위
 
-- `contract`: 외부에 노출되는 모델/예외/에러코드
-- `spi`: 코어가 의존하는 포트(인터페이스)
-- `core`: 인증 유즈케이스(`AuthService`)
-- `support`: 순수 Java 기반 기본 구현체
-- `boot-support`: Spring Boot 자동 설정, Security 필터, 쿠키 유틸, 지원 모듈 조립
-- `common`: 공용 유틸
+### 이 저장소가 책임지는 것
 
-설계 원칙:
-- `core`, `spi`, `contract`, `support` 는 Spring 없이도 사용할 수 있어야 합니다.
-- `boot-support` 는 Spring Boot 환경에서 위 구성요소를 연결하는 어댑터 역할만 담당합니다.
+- username/password 기반 로그인 유즈케이스
+- 이미 인증된 사용자를 기준으로 access/refresh 발급
+- refresh rotation
+- access token 검증 후 Spring Security 컨텍스트 연결
+- OAuth2 로그인 성공 후 내부 principal 매핑과 토큰 발급 연결
 
-## 요청 처리 흐름
+### 이 저장소가 책임지지 않는 것
 
-## 1) 로그인
+- 문서/워크스페이스/블록 단위 permission decision
+- owner/editor/viewer 해석
+- 리소스 소유권 검사
+- ABAC/RBAC policy engine
+- 도메인 권한 서비스
 
-1. 서비스 애플리케이션의 로그인 컨트롤러가 요청을 받음
-2. 컨트롤러가 `AuthService.login` 실행
-3. `AuthService`가 `UserFinder`, `PasswordVerifier`로 인증
-4. `TokenService`로 access/refresh 발급
-5. `RefreshTokenStore`에 refresh 저장
-6. 필요하면 `RefreshCookieWriter`가 refresh 쿠키를 `Set-Cookie`로 작성
-7. 응답 바디 구조는 서비스 애플리케이션이 결정
+자세한 구분은 [auth-vs-permission-boundary.md](./auth-vs-permission-boundary.md)를 참고합니다.
 
-관련 코드:
-- `core/src/main/java/com/auth/core/service/AuthService.java`
-- `support/src/main/java/com/auth/support/jwt/JwtTokenService.java`
-- `support/src/main/java/com/auth/support/refresh/memory/InMemoryRefreshTokenStore.java`
+## 현재 구현 구조
 
-### OAuth 로그인 확장
+현재 구현은 아래 layered layout을 사용합니다.
 
-OAuth2/OIDC 로그인에서는 Provider 인증 자체를 서비스 애플리케이션이 담당합니다.
+- `contract` — `Principal`, `User`, `Tokens`, `OAuth2UserIdentity`, `AuthException`, `AuthFailureReason`
+- `spi` — `UserFinder`, `PasswordVerifier`, `TokenService`, `RefreshTokenStore`, `OAuth2PrincipalResolver`
+- `common` — `Strings`, `MoreObjects`
+- `core` — `AuthService`
+- `support` — `JwtTokenService`, `BCryptPasswordVerifier`, `InMemoryRefreshTokenStore`
+- `boot-support` — `AuthAutoConfiguration`, `AuthSecurityAutoConfiguration`, `AuthOAuth2AutoConfiguration`, `AuthOncePerRequestFilter`, `RefreshCookieWriter`, `RefreshTokenExtractor`
 
-1. 서비스 애플리케이션이 Google/GitHub/Kakao 인증 완료
-2. Provider 사용자 정보를 내부 사용자로 매핑
-3. 내부 사용자 ID/권한으로 `Principal` 생성
-4. `AuthService.login(Principal)` 호출
-5. 이후 access/refresh 발급 및 refresh 저장 흐름은 일반 로그인과 동일
+## 요청 흐름
 
-## 2) 토큰 재발급 (Refresh Rotation)
+### 1) username/password 로그인
 
-1. 서비스 애플리케이션의 재발급 컨트롤러가 요청을 받음
-2. 필요하면 `RefreshTokenExtractor`로 refresh cookie 추출
-3. `AuthService.refresh`가 refresh 토큰 서명/타입 검증
-4. 저장소 존재 여부 확인(`exists`)
-5. 기존 refresh 폐기(`revoke`)
-6. 새 access/refresh 발급 후 새 refresh 저장(`save`)
-7. 필요하면 새 refresh를 쿠키로 갱신
+1. 애플리케이션이 `/login` 같은 엔드포인트를 직접 구현한다.
+2. 컨트롤러가 `AuthService.login(username, password)`를 호출한다.
+3. `AuthService`가 `UserFinder`로 사용자를 찾고 `PasswordVerifier`로 비밀번호를 검증한다.
+4. `TokenService`가 access/refresh token을 발급한다.
+5. `RefreshTokenStore`가 refresh token을 저장한다.
+6. 필요하면 `RefreshCookieWriter`가 refresh cookie를 응답에 추가한다.
 
-## 3) 로그아웃
+### 2) refresh rotation
 
-1. 서비스 애플리케이션의 로그아웃 컨트롤러가 요청을 받음
-2. 필요하면 `RefreshTokenExtractor`로 refresh cookie 추출
-3. `AuthService.logout`이 저장소에서 refresh 폐기
-4. 필요하면 `RefreshCookieWriter.clear`가 만료 쿠키(`Max-Age=0`) 전송
+1. 애플리케이션이 `/refresh` 엔드포인트를 직접 구현한다.
+2. 필요하면 `RefreshTokenExtractor`로 쿠키에서 refresh token을 읽는다.
+3. `AuthService.refresh(refreshToken)`을 호출한다.
+4. `TokenService.verifyRefreshToken`으로 refresh token을 검증한다.
+5. `RefreshTokenStore.exists`로 서버 저장소 기준 유효성을 확인한다.
+6. 기존 refresh token을 폐기하고 새 access/refresh pair를 발급한다.
+7. 필요하면 새 refresh cookie를 다시 기록한다.
 
-## 인증 필터 흐름
+### 3) 로그아웃
 
-1. `AuthOncePerRequestFilter`가 `Authorization` 헤더 확인
-2. `auth.bearer-prefix`로 시작하면 access token 파싱
-3. `TokenService.verifyAccessToken`으로 `Principal` 복원
-4. SecurityContext에 인증 객체 저장
+1. 애플리케이션이 `/logout` 엔드포인트를 직접 구현한다.
+2. 필요하면 `RefreshTokenExtractor`로 refresh token을 읽는다.
+3. `AuthService.logout(refreshToken)`을 호출한다.
+4. `RefreshTokenStore.revoke`로 서버 저장소의 refresh token을 폐기한다.
+5. 필요하면 `RefreshCookieWriter.clear`로 쿠키를 만료 처리한다.
 
-관련 코드:
-- `boot-support/src/main/java/com/auth/config/security/AuthOncePerRequestFilter.java`
+### 4) access token 인증 필터
 
-## 자동 구성 진입점
+1. `AuthOncePerRequestFilter`가 `Authorization` 헤더를 읽는다.
+2. `auth.bearer-prefix`와 일치하면 토큰 본문을 추출한다.
+3. `TokenService.verifyAccessToken`으로 `Principal`을 복원한다.
+4. 현재 구현에서는 `Principal.roles`를 `SimpleGrantedAuthority`로 변환해 `SecurityContext`에 넣는다.
+5. 이후 세부 permission 판단은 애플리케이션 또는 별도 permission 계층이 수행한다.
 
-Spring Boot 자동 구성 등록 파일:
-- `boot-support/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`
+### 5) OAuth2 로그인 성공 흐름
 
-등록 클래스:
+1. 클라이언트가 `/oauth2/authorization/{registrationId}`로 이동한다.
+2. Spring Security OAuth2 Client가 Provider 인증을 수행한다.
+3. `OAuth2AuthenticationSuccessHandler`가 `OAuth2AuthenticatedPrincipal`을 `OAuth2UserIdentity`로 바꾼다.
+4. `OAuth2PrincipalResolver`가 내부 `Principal`을 반환한다.
+5. `AuthService.login(principal)`이 access/refresh token을 발급한다.
+6. 핸들러가 JSON body와 refresh cookie를 응답으로 쓴다.
+
+## Spring Boot 자동 구성 진입점
+
+`boot-support`는 현재 다음 자동 구성을 등록합니다.
+
 - `com.auth.config.AuthAutoConfiguration`
 - `com.auth.config.security.AuthSecurityAutoConfiguration`
 - `com.auth.config.oauth.AuthOAuth2AutoConfiguration`
+
+등록 파일:
+
+- `boot-support/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`
+
+## 현재 구조와 목표 구조의 차이
+
+문서 전반에서 `auth-core`, `auth-jwt`, `auth-session`, `auth-hybrid`, `auth-spring`, `*-starter` 구조가 언급될 수 있습니다. 이 구조는 **현재 구현이 아니라 향후 목표**입니다.
+현재 저장소를 이해하려면 [current-repository-state.md](./current-repository-state.md)를, 향후 분리 방향은 [roadmap-target-module-structure.md](./roadmap-target-module-structure.md)를 참고하면 됩니다.

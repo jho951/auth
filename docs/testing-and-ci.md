@@ -2,16 +2,21 @@
 
 ## 로컬 테스트 실행
 
-전체:
+전체 빌드:
 
 ```bash
 ./gradlew clean build
 ```
 
-특정 테스트:
+모듈 단위 테스트:
 
 ```bash
-./gradlew :boot-support:test --tests "com.auth.config.controller.RefreshCookieWriterTest"
+./gradlew :common:test
+./gradlew :contract:test
+./gradlew :spi:test
+./gradlew :core:test
+./gradlew :support:test
+./gradlew :boot-support:test
 ```
 
 ## 현재 테스트 범위
@@ -19,50 +24,38 @@
 - `common`
   - `StringsTest`
 - `contract`
-  - `AuthExceptionTest`
-  - `ErrorCodeTest`
-  - `PrincipalTest`
-  - `TokensTest`
-  - `UserTest`
+  - `AuthExceptionTest`, `OAuth2UserIdentityTest`, `PrincipalTest`, `TokensTest`, `UserTest`
+- `core`
+  - `AuthServiceTest`
 - `boot-support`
-  - `RefreshCookieWriterTest`
-  - `OAuth2AuthenticationSuccessHandlerTest`
-- `support`
-  - 현재 전용 테스트 없음
-
-테스트 파일 위치:
-- `common/src/test/java`
-- `contract/src/test/java`
-- `boot-support/src/test/java`
-- `support/src/test/java`
+  - `RefreshCookieWriterTest`, `OAuth2AuthenticationSuccessHandlerTest`
 
 ## GitHub Actions
 
-워크플로우 파일:
+현재 워크플로우 파일:
+
 - `.github/workflows/build.yml`
 - `.github/workflows/publish.yml`
 - `.github/workflows/discord-pr-notify.yml`
 
-## `build.yml`
+### `build.yml`
 
 - 트리거: `main` 대상 PR, `main` push
-- 수행: `./gradlew build --parallel --build-cache`
-- 결과물: 테스트 리포트 아티팩트 업로드
+- 수행: `./gradlew build --no-daemon --parallel --build-cache --stacktrace`
+- 테스트 리포트 아티팩트 업로드 포함
 
-## `publish.yml`
+### `publish.yml`
 
 - 트리거: `v*` 태그 push, 수동 실행
 - 수행:
   1. `./gradlew clean build`
   2. `./gradlew publish`
-- 대상: Maven Central
+  3. 조건부로 Central Portal finalize 호출
 
-## CI 환경 변수
+### `discord-pr-notify.yml`
 
-- `MAVEN_CENTRAL_USERNAME`
-- `MAVEN_CENTRAL_PASSWORD`
-- `MAVEN_CENTRAL_GPG_PRIVATE_KEY`
-- `MAVEN_CENTRAL_GPG_PASSPHRASE`
-- `MAVEN_CENTRAL_NAMESPACE` (예: `io.github.jho951`)
+- PR opened / reopened 시 Discord webhook 알림
 
-publish 시 credentials가 없으면 루트 `build.gradle`의 검증 로직에서 실패하도록 되어 있습니다.
+## 참고
+
+업로드된 아카이브에 `build/`, `.gradle/`, `.idea/` 같은 산출물이 포함될 수 있지만, CI와 문서는 **소스 트리 기준**으로 설명합니다.
