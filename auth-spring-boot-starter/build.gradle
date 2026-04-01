@@ -1,0 +1,24 @@
+dependencies {
+    implementation project(':auth-core')
+    implementation project(':auth-jwt')
+    implementation project(':auth-session')
+    implementation project(':auth-hybrid')
+    implementation project(':auth-spring')
+    implementation project(':auth-common-test')
+    implementation "org.mindrot:jbcrypt:0.4"
+
+    implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+    annotationProcessor platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    compileOnly "org.springframework.boot:spring-boot-autoconfigure"
+    compileOnly "org.springframework.boot:spring-boot-starter-web"
+    compileOnly "org.springframework.boot:spring-boot-starter-security"
+    compileOnly "org.springframework.boot:spring-boot-starter-oauth2-client"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-web"
+    testImplementation "org.springframework.boot:spring-boot-starter-security"
+    testImplementation "org.springframework.boot:spring-boot-starter-oauth2-client"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+}

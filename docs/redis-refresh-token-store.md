@@ -13,7 +13,7 @@
 
 위치:
 
-- `spi/src/main/java/com/auth/spi/RefreshTokenStore.java`
+- `auth-core/src/main/java/com/auth/spi/RefreshTokenStore.java`
 
 메서드:
 
@@ -66,5 +66,5 @@ public class RedisRefreshTokenStore implements RefreshTokenStore {
 
 ## 현재 저장소와의 관계
 
-기본 `InMemoryRefreshTokenStore`는 `support`에 있고 개발/테스트용입니다.
-운영에서는 Redis/DB 구현으로 교체하는 편이 일반적입니다.
+- `auth-common-test`의 `InMemoryRefreshTokenStore`는 개발/테스트용입니다.
+- 운영에서는 Redis/DB 구현으로 교체하는 편이 일반적입니다.

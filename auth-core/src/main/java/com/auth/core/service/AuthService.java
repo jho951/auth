@@ -19,7 +19,7 @@ import com.auth.common.utils.Strings;
 
 /**
  * <h2>AuthService</h2>
- * <p>인증 모듈의 비즈니스 로직입니다.</p>
+ * <p>OSS auth의 순수 인증 유즈케이스입니다.</p>
  * <p><b>순수 Java 로직</b>으로 작성해 특정 프레임워크나 HTTP 프로토콜, 특정 데이터베이스 기술에 종속되지 않습니다.</p>
  * <p>의존성 역전 원칙(DIP)에 따라 인터페이스(SPI)에 의존하며, 실제 구현체는 실행 시점에 주입받아 동작합니다.</p>
  * <p><b>주요 역할:</b></p>
@@ -80,7 +80,7 @@ public final class AuthService {
 	 * 사용자의 자격 증명을 확인하고 새로운 토큰 세트를 발급합니다.
 	 * <ol>
 	 * <li>사용자 존재 여부 및 비밀번호 일치 여부 확인</li>
-	 * <li>Principal 객체 생성 (UserId, Roles 포함)</li>
+	 * <li>Principal 객체 생성 (UserId, Authorities 포함)</li>
 	 * <li>Access/Refresh 토큰 쌍 생성</li>
 	 * <li>추후 검증을 위해 Refresh 토큰을 저장소에 기록</li>
 	 * </ol>

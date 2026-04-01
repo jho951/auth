@@ -2,8 +2,8 @@
 
 ## 위치
 
-- 구현 파일: `boot-support/src/main/java/com/auth/config/controller/RefreshCookieWriter.java`
-- 테스트 파일: `boot-support/src/test/java/com/auth/config/controller/RefreshCookieWriterTest.java`
+- 구현 파일: `auth-spring-boot-starter/src/main/java/com/auth/config/controller/RefreshCookieWriter.java`
+- 테스트 파일: `auth-spring-boot-starter/src/test/java/com/auth/config/controller/RefreshCookieWriterTest.java`
 
 ## 역할
 
@@ -12,13 +12,13 @@
 ## 생성자 의존성
 
 - `AuthProperties`
-- `AuthJwtProperties`
+- refresh token 수명 값
 
 즉, 다음 정보를 사용합니다.
 
 - cookie 이름
 - HttpOnly / Secure / Path / SameSite
-- refresh cookie `Max-Age` (`auth.jwt.refresh-seconds`)
+- refresh cookie `Max-Age`
 
 ## 주요 메서드
 
@@ -63,4 +63,4 @@ public ResponseEntity<Void> logout(HttpServletRequest request) {
 
 - 현재 기본 구현은 refresh token을 **body가 아니라 cookie**로 주고 싶을 때만 도와줍니다.
 - access token을 cookie로 내리는 기능은 포함하지 않습니다.
-- 현재 클래스는 `boot-support`에 있지만, 장기적으로는 Spring bridge / starter 분리 시 위치가 바뀔 수 있습니다.
+- 이 클래스는 `auth-spring-boot-starter`에 있습니다.

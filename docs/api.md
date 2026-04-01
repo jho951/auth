@@ -2,7 +2,7 @@
 
 ## 먼저 알아둘 점
 
-현재 이 저장소는 **로그인/재발급/로그아웃 REST 컨트롤러를 제공하지 않습니다.**
+이 저장소는 **로그인/재발급/로그아웃 REST 컨트롤러를 제공하지 않습니다.**
 애플리케이션이 자신의 URI와 응답 형식에 맞춰 직접 엔드포인트를 구성해야 합니다.
 
 즉, 이 저장소가 제공하는 것은 다음입니다.
@@ -11,6 +11,7 @@
 - `RefreshCookieWriter`
 - `RefreshTokenExtractor`
 - `AuthOncePerRequestFilter`
+- `SessionAuthenticationFilter`
 - OAuth2 success/failure handler
 
 ## 애플리케이션이 직접 만드는 엔드포인트 예시
@@ -23,7 +24,7 @@
 
 ## OAuth2 관련 엔드포인트
 
-`boot-support`와 Spring Security OAuth2 Client가 함께 구성되면, 기본 OAuth2 엔드포인트는 Spring Security가 처리합니다.
+`auth-spring-boot-starter`와 Spring Security OAuth2 Client가 함께 구성되면, 기본 OAuth2 엔드포인트는 Spring Security가 처리합니다.
 
 | Method | Path | 설명 |
 |---|---|---|
@@ -72,6 +73,16 @@ Content-Type: application/json
 - 쿠키 사용 시 `RefreshTokenExtractor.extract(request)`로 refresh token 추출
 - `AuthService.logout(refreshToken)` 호출
 - 필요하면 `RefreshCookieWriter.clear(...)` 사용
+
+## 세션 기반 API 예시
+
+`auth-session`을 사용할 때는 보통 다음 엔드포인트를 애플리케이션이 직접 제공합니다.
+
+- `POST /session/login`
+- `POST /session/logout`
+- `GET /session/me`
+
+필요한 조립 요소는 `SessionService`, `SessionCookieExtractor`, `SessionAuthenticationFilter`입니다.
 
 ## 내부 에러 분류
 

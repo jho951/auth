@@ -1,13 +1,12 @@
 # 설정 레퍼런스
 
-이 문서는 **현재 구현된 `boot-support` 기준** 설정을 설명합니다.
+이 문서는 **현재 구현된 `auth-spring` 및 `auth-spring-boot-starter` 기준** 설정을 설명합니다.
 
 ## 프로퍼티 바인딩 클래스
 
-- `boot-support/src/main/java/com/auth/config/AuthProperties.java`
-- `boot-support/src/main/java/com/auth/config/jwt/AuthJwtProperties.java`
-
-현재는 별도 `auth-session-spring-boot-starter`, `auth-hybrid-spring-boot-starter` 같은 모듈이 없으므로, 세션 전용/하이브리드 전용 프로퍼티를 따로 설명하지 않습니다.
+- `auth-spring/src/main/java/com/auth/config/AuthProperties.java`
+- `auth-spring-boot-starter/src/main/java/com/auth/config/jwt/AuthJwtProperties.java`
+- `auth-spring-boot-starter/src/main/java/com/auth/session/config/AuthSessionProperties.java`
 
 ## `auth.*`
 
@@ -21,6 +20,9 @@
 | `auth.refresh-cookie-path` | `/` | cookie path |
 | `auth.refresh-cookie-same-site` | `Lax` | SameSite 속성 |
 | `auth.auto-security` | `true` | 기본 `SecurityFilterChain` 자동 구성 여부 |
+| `auth.oauth2.enabled` | `true` | OAuth2 success/failure handler 자동 구성 여부 |
+| `auth.oauth2.authorization-base-uri` | `/oauth2/authorization` | OAuth2 로그인 시작 URI |
+| `auth.oauth2.login-processing-base-uri` | `/login/oauth2/code/*` | OAuth2 callback 처리 URI |
 
 ## `auth.jwt.*`
 
@@ -30,13 +32,12 @@
 | `auth.jwt.access-seconds` | `900` | access token 만료 시간(초) |
 | `auth.jwt.refresh-seconds` | `1209600` | refresh token 만료 시간(초, 14일) |
 
-## `auth.oauth2.*`
+## `auth.session.*`
 
 | 키 | 기본값 | 설명 |
 |---|---|---|
-| `auth.oauth2.enabled` | `true` | OAuth2 성공/실패 handler 자동 구성 여부 |
-| `auth.oauth2.authorization-base-uri` | `/oauth2/authorization` | OAuth2 로그인 시작 URI |
-| `auth.oauth2.login-processing-base-uri` | `/login/oauth2/code/*` | OAuth2 callback 처리 URI |
+| `auth.session.cookie-name` | `AUTH_SESSION` | session cookie 이름 |
+| `auth.session.ttl` | `PT1H` | session TTL |
 
 ## 최소 예시
 
@@ -50,6 +51,9 @@ auth:
     secret: ${AUTH_JWT_SECRET}
     access-seconds: 3600
     refresh-seconds: 1209600
+  session:
+    cookie-name: AUTH_SESSION
+    ttl: PT1H
 ```
 
 ## 자동 구성 조건
@@ -70,6 +74,11 @@ auth:
 - `RefreshTokenStore` 빈이 없을 때
 - `InMemoryRefreshTokenStore`가 기본 구현으로 등록됩니다.
 
+### `SessionStore` / `SessionAuthenticationProvider`
+
+- `SessionStore` 빈이 없을 때
+- `SimpleSessionStore`가 기본 구현으로 등록됩니다.
+
 ### OAuth2 handler
 
 - `spring-security-oauth2-client`가 classpath에 있고
@@ -83,4 +92,4 @@ auth:
 - `auth.jwt.secret` 길이가 짧으면 `JwtTokenService` 생성 시 예외가 발생할 수 있습니다.
 - `auth.refresh-cookie-secure=true`는 HTTPS 환경에서 사용하는 것이 안전합니다.
 - 운영에서는 `InMemoryRefreshTokenStore` 대신 Redis/DB 기반 구현을 권장합니다.
-- 현재 구현은 별도 세션 모듈이 없으므로 `auth.session.*` 프로퍼티는 없습니다.
+- `auth.session.ttl`은 `SessionService`의 기본 TTL과 `SessionCookie` Max-Age 설정에 반영됩니다.

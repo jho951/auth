@@ -4,20 +4,24 @@
 
 ## Gradle 서브프로젝트
 
-`settings.gradle` 기준 현재 서브프로젝트는 다음 6개입니다.
+`settings.gradle` 기준 현재 주요 서브프로젝트는 다음과 같습니다.
 
-- `contract`
-- `spi`
-- `common`
-- `core`
-- `support`
-- `boot-support`
+- `auth-core`
+- `auth-common-test`
+- `auth-jwt`
+- `auth-session`
+- `auth-hybrid`
+- `auth-spring`
+- `auth-spring-boot-starter`
+- `samples/sample-jwt-api`
+- `samples/sample-session-web`
+- `samples/sample-hybrid-sso`
 
-즉, 현재 저장소는 아직 `auth-core`, `auth-jwt`, `auth-session`, `auth-hybrid`, `auth-spring`, `*-starter` 구조로 분리되지 않았습니다.
+즉, 현재 저장소는 이미 feature-oriented 구조로 분리되어 있습니다.
 
 ## 모듈별 핵심 클래스
 
-### `contract`
+### `auth-core`
 
 - `com.auth.api.model.Principal`
 - `com.auth.api.model.User`
@@ -25,50 +29,74 @@
 - `com.auth.api.model.OAuth2UserIdentity`
 - `com.auth.api.exception.AuthException`
 - `com.auth.api.exception.AuthFailureReason`
-
-### `spi`
-
 - `com.auth.spi.UserFinder`
 - `com.auth.spi.PasswordVerifier`
 - `com.auth.spi.TokenService`
 - `com.auth.spi.RefreshTokenStore`
 - `com.auth.spi.OAuth2PrincipalResolver`
-
-### `common`
-
 - `com.auth.common.utils.Strings`
 - `com.auth.common.utils.MoreObjects`
-
-### `core`
-
 - `com.auth.core.service.AuthService`
 
-### `support`
+### `auth-common-test`
 
-- `com.auth.support.jwt.JwtTokenService`
-- `com.auth.support.password.bcrypt.BCryptPasswordVerifier`
+- `com.auth.test.AuthTestFixtures`
 - `com.auth.support.refresh.memory.InMemoryRefreshTokenStore`
 
-### `boot-support`
+### `auth-jwt`
+
+- `com.auth.support.jwt.JwtTokenService`
+
+### `auth-session`
+
+- `com.auth.session.SessionStore`
+- `com.auth.session.SessionService`
+- `com.auth.session.SessionPrincipalMapper`
+- `com.auth.session.SessionCookieExtractor`
+- `com.auth.session.SessionAuthenticationProvider`
+- `com.auth.session.SessionIdGenerator`
+- `com.auth.session.DefaultSessionAuthenticationProvider`
+- `com.auth.session.DefaultSessionCookieExtractor`
+- `com.auth.session.SimpleSessionStore`
+- `com.auth.session.IdentitySessionPrincipalMapper`
+- `com.auth.session.security.SessionAuthenticationFilter`
+
+### `auth-hybrid`
+
+- `com.auth.hybrid.HybridAuthenticationContext`
+- `com.auth.hybrid.HybridAuthenticationProvider`
+- `com.auth.hybrid.CompositeAuthenticationProvider`
+- `com.auth.hybrid.DefaultHybridAuthenticationProvider`
+
+### `auth-spring`
 
 - `com.auth.config.AuthProperties`
+
+### `auth-spring-boot-starter`
+
 - `com.auth.config.jwt.AuthJwtProperties`
 - `com.auth.config.AuthAutoConfiguration`
 - `com.auth.config.security.AuthSecurityAutoConfiguration`
 - `com.auth.config.security.AuthOncePerRequestFilter`
+- `com.auth.config.controller.RefreshTokenExtractor`
+- `com.auth.session.config.AuthSessionAutoConfiguration`
+- `com.auth.session.config.AuthSessionProperties`
+- `com.auth.config.hybrid.AuthHybridAutoConfiguration`
+- `com.auth.config.hybrid.AuthHybridCookieAutoConfiguration`
 - `com.auth.config.oauth.AuthOAuth2AutoConfiguration`
+- `com.auth.support.password.bcrypt.BCryptPasswordVerifier`
 - `com.auth.config.oauth.OAuth2AuthenticationSuccessHandler`
 - `com.auth.config.oauth.OAuth2AuthenticationFailureHandler`
 - `com.auth.config.controller.RefreshCookieWriter`
-- `com.auth.config.controller.RefreshTokenExtractor`
 
 ## 현재 의존 관계
 
-- `contract` → `common`
-- `spi` → `contract`
-- `core` → `contract`, `spi`, `common`
-- `support` → `spi`, `common`
-- `boot-support` → `core`, `common`, `support`
+- `auth-common-test` → `auth-core`
+- `auth-jwt` → `auth-core`
+- `auth-session` → `auth-core`
+- `auth-hybrid` → `auth-core`, `auth-session`, `auth-jwt`
+- `auth-spring` → `auth-core`
+- `auth-spring-boot-starter` → `auth-core`, `auth-jwt`, `auth-session`, `auth-hybrid`, `auth-spring`, `auth-common-test`
 
 ## 현재 퍼블리싱 좌표에 대한 주의
 
@@ -77,38 +105,21 @@
 
 예:
 
-- `io.github.jho951:contract:<version>`
-- `io.github.jho951:spi:<version>`
-- `io.github.jho951:common:<version>`
-- `io.github.jho951:core:<version>`
-- `io.github.jho951:support:<version>`
-- `io.github.jho951:boot-support:<version>`
-
-문서나 예제에서 `auth-core`, `auth-jwt-spring-boot-starter` 같은 좌표가 보인다면 그것은 **목표 구조 문맥**인지 먼저 확인해야 합니다.
+- `io.github.jho951:auth-core:<version>`
+- `io.github.jho951:auth-common-test:<version>`
+- `io.github.jho951:auth-jwt:<version>`
+- `io.github.jho951:auth-session:<version>`
+- `io.github.jho951:auth-hybrid:<version>`
+- `io.github.jho951:auth-spring:<version>`
+- `io.github.jho951:auth-spring-boot-starter:<version>`
 
 ## 현재 구현의 성격
 
-- `boot-support`가 Spring Boot 조립, JWT 검증 필터, refresh cookie 보조 기능, OAuth2 성공 후 처리까지 함께 갖고 있습니다.
-- `support`는 JWT/비밀번호/refresh 저장소의 기본 구현을 한곳에 모아 둡니다.
-- `Principal`은 현재 `roles`와 `hasRole()` convenience API를 갖지만, 이 저장소는 최종 permission policy를 책임지지 않습니다.
+- `auth-spring-boot-starter`가 JWT 검증 필터, 세션 자동 구성, hybrid 조합, OAuth2 성공/실패 처리, refresh cookie writing을 담당합니다.
+- `Principal`은 `authorities`와 `attributes`를 운반하지만, 최종 permission policy를 책임지지 않습니다.
 
 ## 현재 구조의 한계
 
-- `support` 안에 JWT, password, refresh-store 구현이 함께 섞여 있어 concern 분리가 약합니다.
-- `boot-support` 안에 JWT filter, OAuth2 handler, cookie helper가 함께 섞여 있어 feature-oriented 분리가 덜 되어 있습니다.
-- 별도 `auth-session`, `auth-hybrid`, `auth-spring`, `*-starter` 모듈은 아직 없습니다.
-
-## 향후 리팩터링 방향
-
-향후에는 다음과 같은 목표 구조를 지향합니다.
-
-- `auth-core`
-- `auth-jwt`
-- `auth-session`
-- `auth-hybrid`
-- `auth-spring`
-- `auth-jwt-spring-boot-starter`
-- `auth-session-spring-boot-starter`
-- `auth-hybrid-spring-boot-starter`
-
-자세한 내용은 [roadmap-target-module-structure.md](./roadmap-target-module-structure.md)를 참고합니다.
+- 기본 refresh token 저장소는 테스트용 in-memory 구현입니다.
+- 운영 환경에서는 `RefreshTokenStore`를 Redis/DB 등으로 교체하는 것이 일반적입니다.
+- `auth-session`과 `auth-hybrid`는 조합 전략을 제공하지만, 실제 사용자/계정 연결 정책은 애플리케이션이 소유해야 합니다.

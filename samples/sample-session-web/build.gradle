@@ -1,6 +1,6 @@
 dependencies {
     implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
-    implementation project(':auth-session-spring-boot-starter')
+    implementation project(':auth-spring-boot-starter')
     implementation project(':auth-core')
     implementation project(':auth-session')
     implementation project(':auth-spring')

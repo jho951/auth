@@ -91,7 +91,7 @@
 원인:
 
 - 현재 퍼블리싱은 `artifactId = project.name`을 사용
-- 따라서 실제 좌표는 `boot-support`, `core` 같은 이름
+- 따라서 실제 좌표는 `auth-core`, `auth-jwt` 같은 이름
 
 조치:
 

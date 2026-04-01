@@ -11,24 +11,28 @@
 모듈 단위 테스트:
 
 ```bash
-./gradlew :common:test
-./gradlew :contract:test
-./gradlew :spi:test
-./gradlew :core:test
-./gradlew :support:test
-./gradlew :boot-support:test
+./gradlew :auth-core:test
+./gradlew :auth-common-test:test
+./gradlew :auth-jwt:test
+./gradlew :auth-session:test
+./gradlew :auth-hybrid:test
+./gradlew :auth-spring:test
+./gradlew :auth-spring-boot-starter:test
 ```
 
 ## 현재 테스트 범위
 
-- `common`
-  - `StringsTest`
-- `contract`
-  - `AuthExceptionTest`, `OAuth2UserIdentityTest`, `PrincipalTest`, `TokensTest`, `UserTest`
-- `core`
-  - `AuthServiceTest`
-- `boot-support`
+- `auth-core`
+  - `AuthExceptionTest`, `OAuth2UserIdentityTest`, `PrincipalTest`, `TokensTest`, `UserTest`, `AuthServiceTest`, `StringsTest`
+- `auth-jwt`
+  - `JwtTokenServiceTest`
+- `auth-session`
+  - `DefaultSessionAuthenticationProviderTest`, `SessionServiceTest`
+- `auth-hybrid`
+  - `DefaultHybridAuthenticationProviderTest`
+- `auth-spring-boot-starter`
   - `RefreshCookieWriterTest`, `OAuth2AuthenticationSuccessHandlerTest`
+  - `AuthSessionAutoConfiguration` 관련 기본 wiring 테스트
 
 ## GitHub Actions
 
@@ -50,7 +54,7 @@
 - 수행:
   1. `./gradlew clean build`
   2. `./gradlew publish`
-  3. 조건부로 Central Portal에 `publishing_type=automatic`으로 업로드 및 게시
+  3. 조건부로 Central Portal에 게시
 
 ### `discord-pr-notify.yml`
 
@@ -58,4 +62,4 @@
 
 ## 참고
 
-업로드된 아카이브에 `build/`, `.gradle/`, `.idea/` 같은 산출물이 포함될 수 있지만, CI와 문서는 **소스 트리 기준**으로 설명합니다.
+CI와 문서는 소스 트리 기준으로 설명합니다. generated build 산출물은 문서 기준이 아닙니다.

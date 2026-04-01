@@ -1,12 +1,12 @@
 # 보안 동작
 
-이 문서는 **현재 `boot-support` 기준** Spring Security 연동 동작을 설명합니다.
+이 문서는 **현재 `auth-spring-boot-starter` 기준** Spring Security 연동 동작을 설명합니다.
 
 ## 기본 SecurityFilterChain
 
 구현:
 
-- `boot-support/src/main/java/com/auth/config/security/AuthSecurityAutoConfiguration.java`
+- `auth-spring-boot-starter/src/main/java/com/auth/config/security/AuthSecurityAutoConfiguration.java`
 
 기본 동작:
 
@@ -27,7 +27,7 @@
 
 구현:
 
-- `boot-support/src/main/java/com/auth/config/security/AuthOncePerRequestFilter.java`
+- `auth-spring-boot-starter/src/main/java/com/auth/config/security/AuthOncePerRequestFilter.java`
 
 처리 단계:
 
@@ -35,7 +35,7 @@
 2. `auth.bearer-prefix` 접두사 검사
 3. access token 추출
 4. `TokenService.verifyAccessToken`으로 `Principal` 복원
-5. 현재 구현에서는 `Principal.roles`를 `SimpleGrantedAuthority`로 변환
+5. `Principal`의 authorities/attributes를 `SimpleGrantedAuthority`로 변환
 6. `SecurityContextHolder`에 인증 정보 저장
 
 예외 발생 시:
@@ -63,9 +63,22 @@
 - `/oauth2/authorization/**`
 - `/login/oauth2/code/*`
 
+## `SessionAuthenticationFilter`
+
+구현:
+
+- `auth-session/src/main/java/com/auth/session/security/SessionAuthenticationFilter.java`
+
+처리 단계:
+
+1. session cookie 추출
+2. `SessionAuthenticationProvider.authenticate` 호출
+3. `Principal`을 `SecurityContext`에 저장
+4. 실패 시 `SecurityContextHolder`를 비움
+
 ## auth와 authorization 경계
 
-현재 필터가 `roles`를 `GrantedAuthority`로 바꾸더라도, 이 저장소가 리소스 authorization policy를 책임지는 것은 아닙니다.
+현재 필터가 `roles` 또는 authorities를 `GrantedAuthority`로 바꾸더라도, 이 저장소가 리소스 authorization policy를 책임지는 것은 아닙니다.
 
 - 이 저장소: 인증과 principal 전달
 - 애플리케이션/permission 계층: 리소스 접근 허용/거부 판단

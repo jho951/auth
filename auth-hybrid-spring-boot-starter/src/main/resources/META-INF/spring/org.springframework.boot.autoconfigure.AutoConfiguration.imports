@@ -1,3 +1,0 @@
-com.auth.config.oauth.AuthOAuth2AutoConfiguration
-com.auth.config.hybrid.AuthHybridAutoConfiguration
-com.auth.config.hybrid.AuthHybridCookieAutoConfiguration

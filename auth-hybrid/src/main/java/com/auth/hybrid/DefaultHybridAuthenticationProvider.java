@@ -23,9 +23,7 @@ public final class DefaultHybridAuthenticationProvider implements HybridAuthenti
     public Optional<Principal> authenticate(HybridAuthenticationContext context) {
         Optional<Principal> jwtPrincipal = context.accessToken()
             .flatMap(this::verifyToken);
-        if (jwtPrincipal.isPresent()) {
-            return jwtPrincipal;
-        }
+        if (jwtPrincipal.isPresent()) return jwtPrincipal;
         return context.sessionId().flatMap(sessionAuthenticationProvider::authenticate);
     }
 

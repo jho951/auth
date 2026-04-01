@@ -1,12 +1,13 @@
 # OAuth2 설계
 
-현재 저장소에서는 별도 `auth-hybrid-spring-boot-starter`가 아니라 **`boot-support` 안에서 OAuth2 성공 후 처리**를 제공합니다.
+현재 저장소는 `auth-spring-boot-starter`를 통해 OAuth2 성공 후 처리와 refresh cookie 작성을 제공합니다.
 
 ## 목표
 
 - Provider별 OAuth2 설정은 서비스 애플리케이션에 남긴다.
 - 공통 후처리만 이 저장소에 둔다.
 - OAuth2 로그인 성공 후 내부 principal 매핑과 access/refresh 발급을 표준화한다.
+- 샘플은 기본값에서 OAuth2를 비활성화한 상태로 실행 가능해야 한다.
 
 ## 책임 분리
 
@@ -17,7 +18,7 @@
 - 회원 가입 / 계정 연결 정책
 - `OAuth2PrincipalResolver` 구현
 
-### auth 저장소
+### OSS auth 저장소
 
 - `OAuth2UserIdentity` 모델 제공
 - `OAuth2PrincipalResolver` SPI 제공
@@ -83,9 +84,26 @@ public interface OAuth2PrincipalResolver {
 6. `AuthService.login(principal)` 호출
 7. `{"accessToken":"..."}` + refresh cookie 응답
 
-## 현재 구조상의 한계
+## 최소 사용 예시
 
-- OAuth2 glue가 `boot-support`에 함께 들어 있어 concern 분리가 약함
-- 장기적으로는 별도 `auth-hybrid-spring-boot-starter`로 분리하는 것이 더 적합함
+```gradle
+dependencies {
+    implementation("io.github.jho951:auth-core:<version>")
+    implementation("io.github.jho951:auth-spring:<version>")
+    implementation("io.github.jho951:auth-spring-boot-starter:<version>")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+}
+```
 
-이 방향은 [roadmap-target-module-structure.md](./roadmap-target-module-structure.md)에 정리되어 있습니다.
+```java
+@Component
+public class MyOAuth2PrincipalResolver implements OAuth2PrincipalResolver {
+    @Override
+    public Principal resolve(OAuth2UserIdentity identity) {
+        return new Principal(identity.getProviderUserId(), java.util.List.of());
+    }
+}
+```
+
+이 문서는 provider별 상세 예제가 아니라, OAuth2 연결의 최소 wiring만 설명합니다.
