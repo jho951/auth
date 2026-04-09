@@ -3,6 +3,7 @@
 ## 먼저 알아둘 점
 
 이 저장소는 **로그인/재발급/로그아웃 REST 컨트롤러를 제공하지 않습니다.**
+
 애플리케이션이 자신의 URI와 응답 형식에 맞춰 직접 엔드포인트를 구성해야 합니다.
 
 즉, 이 저장소가 제공하는 것은 다음입니다.
@@ -97,4 +98,6 @@ Content-Type: application/json
 | `REVOKED_TOKEN` | 서버 저장소 기준으로 폐기된 refresh token |
 | `INTERNAL` | 내부 오류 |
 
-이 값은 HTTP status mapping 자체를 강제하지 않습니다. 어떤 status/응답 포맷으로 외부에 노출할지는 애플리케이션이 결정합니다.
+이 값은 HTTP status mapping 자체를 강제하지 않습니다.
+
+어떤 status/응답 포맷으로 외부에 노출할지는 애플리케이션이 결정합니다.

@@ -7,15 +7,16 @@ import com.auth.config.AuthProperties;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 
-/**
- * HTTP 요청 쿠키에서 Refresh Token 값을 읽어오는 웹 도우미입니다.
- */
+/** HTTP 요청 쿠키에서 Refresh Token 값을 읽어오는 웹 도우미입니다. */
 public class RefreshTokenExtractor {
 
 	private static final String REFRESH_COOKIE_NOT_FOUND = "refresh cookie not found";
 	private final AuthProperties props;
 
-	/** refresh cookie 이름 설정을 주입받습니다. */
+	/**
+	 * 생성자
+	 * @param props refresh cookie 이름 설정을 주입받습니다.
+	 */
 	public RefreshTokenExtractor(AuthProperties props) {
 		this.props = props;
 	}

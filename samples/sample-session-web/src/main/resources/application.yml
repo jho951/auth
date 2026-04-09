@@ -1,7 +1,0 @@
-server:
-  port: 8082
-
-auth:
-  session:
-    cookie-name: AUTH_SESSION
-    ttl: PT30M

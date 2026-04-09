@@ -16,7 +16,6 @@
 ./gradlew :auth-jwt:test
 ./gradlew :auth-session:test
 ./gradlew :auth-hybrid:test
-./gradlew :auth-spring:test
 ./gradlew :auth-spring-boot-starter:test
 ```
 
@@ -32,7 +31,6 @@
   - `DefaultHybridAuthenticationProviderTest`
 - `auth-spring-boot-starter`
   - `RefreshCookieWriterTest`, `OAuth2AuthenticationSuccessHandlerTest`
-  - `AuthSessionAutoConfiguration` 관련 기본 wiring 테스트
 
 ## GitHub Actions
 
@@ -40,25 +38,19 @@
 
 - `.github/workflows/build.yml`
 - `.github/workflows/publish.yml`
-- `.github/workflows/discord-pr-notify.yml`
 
 ### `build.yml`
 
 - 트리거: `main` 대상 PR, `main` push
-- 수행: `./gradlew build --no-daemon --parallel --build-cache --stacktrace`
-- 테스트 리포트 아티팩트 업로드 포함
+- 수행: `./gradlew clean test --no-daemon --stacktrace`
 
 ### `publish.yml`
 
-- 트리거: `v*` 태그 push, 수동 실행
+- 트리거: `v*` 태그 push
 - 수행:
-  1. `./gradlew clean build`
-  2. `./gradlew publish`
+  1. `./gradlew test --no-daemon --stacktrace`
+  2. `./gradlew -Prelease_version="$VERSION" publish --no-daemon --stacktrace`
   3. 조건부로 Central Portal에 게시
-
-### `discord-pr-notify.yml`
-
-- PR opened / reopened 시 Discord webhook 알림
 
 ## 참고
 

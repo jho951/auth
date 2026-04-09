@@ -4,9 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.time.Duration;
 
-/**
- * Session starter configuration properties.
- */
+/** Session starter configuration properties. */
 @ConfigurationProperties(prefix = "auth.session")
 public class AuthSessionProperties {
 
@@ -16,15 +14,12 @@ public class AuthSessionProperties {
     public String getCookieName() {
         return cookieName;
     }
-
     public void setCookieName(String cookieName) {
         this.cookieName = cookieName;
     }
-
     public Duration getTtl() {
         return ttl;
     }
-
     public void setTtl(Duration ttl) {
         this.ttl = ttl;
     }

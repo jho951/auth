@@ -1,8 +1,14 @@
 dependencies {
     implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+    annotationProcessor platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+
     api project(':auth-core')
+
     compileOnly "org.springframework.boot:spring-boot-autoconfigure"
     compileOnly "org.springframework.boot:spring-boot-starter-web"
     compileOnly "org.springframework.boot:spring-boot-starter-security"
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
     testImplementation "org.springframework.boot:spring-boot-starter-web"
 }

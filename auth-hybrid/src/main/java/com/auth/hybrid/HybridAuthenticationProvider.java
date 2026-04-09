@@ -1,12 +1,12 @@
 package com.auth.hybrid;
 
-import com.auth.api.model.Principal;
 import java.util.Optional;
+import com.auth.api.model.Principal;
 
 /**
- * JWT, 세션 또는 두 방식 모두를 사용하여 사용자를 인증하는 전략(Strategy) 인터페이스입니다.
+ * JWT, 세션 또는 두 방식 모두를 사용하여 사용자를 인증하는 인터페이스입니다.
  * <p>
- * 이 인터페이스의 구현체는 특정한 인증 메커니즘(예: JWT 검증, 세션 조회 등)을 수행하며,
+ * 특정한 인증 메커니즘(예: JWT 검증, 세션 조회 등)을 수행하며,
  * 하이브리드 인증 환경에서 개별적인 인증 로직을 캡슐화합니다.
  * </p>
  */

@@ -4,7 +4,6 @@ dependencies {
     implementation project(':auth-session')
     implementation project(':auth-hybrid')
     implementation project(':auth-spring')
-    implementation project(':auth-common-test')
     implementation "org.mindrot:jbcrypt:0.4"
 
     implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")

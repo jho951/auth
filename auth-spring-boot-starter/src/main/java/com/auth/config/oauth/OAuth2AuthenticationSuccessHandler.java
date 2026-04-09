@@ -27,9 +27,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-/**
- * OAuth2 로그인 성공 시 내부 Principal 매핑과 JWT 발급을 수행합니다.
- */
+/** OAuth2 로그인 성공 시 내부 Principal 매핑과 JWT 발급을 수행합니다. */
 public final class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 	private final OAuth2PrincipalResolver principalResolver;

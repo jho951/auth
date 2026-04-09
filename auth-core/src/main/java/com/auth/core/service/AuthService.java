@@ -99,7 +99,7 @@ public final class AuthService {
 
 		if (!ok) {throw new AuthException(AuthFailureReason.INVALID_CREDENTIALS, "invalid credentials");}
 
-		return login(new Principal(user.getUserId(), user.getRoles()));
+		return login(new Principal(user.getUserId(), user.getAuthorities()));
 	}
 
 	/**
@@ -123,16 +123,14 @@ public final class AuthService {
 
 	/**
 	 * 리프레시 토큰을 사용하여 새로운 토큰 쌍을 재발급합니다. (Token Rotation)
-	 * * <p>보안 강화를 위해 <b>Refresh Token Rotation</b> 정책을 사용합니다.
+	 * <p>보안 강화를 위해 <b>Refresh Token Rotation</b> 정책을 사용합니다.
 	 * 새로운 토큰이 발급되면 기존의 리프레시 토큰은 즉시 폐기됩니다.</p>
-	 * * @param refreshToken 유효한 리프레시 토큰
+	 * @param refreshToken 유효한 리프레시 토큰
 	 * @return 새로 발급된 Access Token과 Refresh Token 쌍
 	 * @throws AuthException 토큰이 변조되었거나, 만료되었거나, 서버 저장소에 존재하지 않는 경우 (INVALID_TOKEN, REVOKED_TOKEN)
 	 */
 	public Tokens refresh(String refreshToken) {
-		if (Strings.isBlank(refreshToken)) {
-			throw new AuthException(AuthFailureReason.INVALID_INPUT, "refreshToken must not be blank");
-		}
+		if (Strings.isBlank(refreshToken)) throw new AuthException(AuthFailureReason.INVALID_INPUT, "refreshToken must not be blank");
 
 		Principal principal;
 		try {
@@ -142,11 +140,8 @@ public final class AuthService {
 		}
 
 		boolean exists = refreshTokenStore.exists(principal.getUserId(), refreshToken);
-		if (!exists) {
-			throw new AuthException(AuthFailureReason.REVOKED_TOKEN, "refresh token revoked");
-		}
+		if (!exists) throw new AuthException(AuthFailureReason.REVOKED_TOKEN, "refresh token revoked");
 
-		// 기존 토큰 무효화 (Rotation 실행)
 		refreshTokenStore.revoke(principal.getUserId(), refreshToken);
 
 		String newAccess = tokenService.issueAccessToken(principal);
@@ -160,15 +155,13 @@ public final class AuthService {
 
 	/**
 	 * 사용자를 로그아웃 처리하고 리프레시 토큰을 무효화합니다.
-	 * * <p>이 메서드는 서버에 저장된 Refresh 토큰을 삭제하여 더 이상 토큰 갱신이 불가능하게 만듭니다.
+	 * <p>이 메서드는 서버에 저장된 Refresh 토큰을 삭제하여 더 이상 토큰 갱신이 불가능하게 만듭니다.
 	 * 이미 발급된 Access 토큰은 만료 전까지 유효할 수 있습니다.</p>
-	 * * @param refreshToken 무효화할 리프레시 토큰
+	 * @param refreshToken 무효화할 리프레시 토큰
 	 * @throws AuthException 토큰 형식이 잘못되었을 경우
 	 */
 	public void logout(String refreshToken) {
-		if (Strings.isBlank(refreshToken)) {
-			throw new AuthException(AuthFailureReason.INVALID_INPUT, "refreshToken must not be blank");
-		}
+		if (Strings.isBlank(refreshToken)) throw new AuthException(AuthFailureReason.INVALID_INPUT, "refreshToken must not be blank");
 
 		Principal principal;
 		try {

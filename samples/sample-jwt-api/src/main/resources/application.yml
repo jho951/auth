@@ -1,9 +1,0 @@
-server:
-  port: 8081
-
-auth:
-  refresh-cookie-name: JWT_REFRESH_TOKEN
-  jwt:
-    secret: ${JWT_SECRET:01234567890123456789012345678901}
-    access-seconds: 600
-    refresh-seconds: 1209600

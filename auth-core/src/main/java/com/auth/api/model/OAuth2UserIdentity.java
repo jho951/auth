@@ -15,6 +15,14 @@ public final class OAuth2UserIdentity {
 	private final String name;
 	private final Map<String, Object> attributes;
 
+	/**
+	 * 생성자
+	 * @param provider
+	 * @param providerUserId
+	 * @param email
+	 * @param name
+	 * @param attributes
+	 */
 	public OAuth2UserIdentity(
 		String provider,
 		String providerUserId,

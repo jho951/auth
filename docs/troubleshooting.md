@@ -2,24 +2,20 @@
 
 ## 1. `AuthService` 빈이 안 만들어진다
 
-원인:
-
+### 원인
 - `AuthService`는 `UserFinder`가 있어야 생성됩니다.
 - 애플리케이션이 `UserFinder`를 등록하지 않았을 가능성이 큽니다.
 
-조치:
-
+### 조치
 - `UserFinder` 구현을 추가합니다.
 
 ## 2. `TokenService` 기본 빈이 안 생긴다
 
-원인:
-
+### 원인
 - `auth.jwt.secret`가 비어 있거나 누락됨
 - 이미 애플리케이션이 `TokenService` 빈을 직접 등록함
 
-조치:
-
+### 조치
 - `auth.jwt.secret` 설정 확인
 - 커스텀 `TokenService` 등록 여부 확인
 
@@ -68,7 +64,7 @@
 원인:
 
 - refresh token이 서버 저장소에 없음
-- `InMemoryRefreshTokenStore`를 여러 인스턴스 환경에서 사용 중
+- 스타터의 기본 메모리 `RefreshTokenStore`를 여러 인스턴스 환경에서 사용 중
 
 조치:
 

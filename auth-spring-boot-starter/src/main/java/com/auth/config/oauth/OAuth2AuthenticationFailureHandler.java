@@ -11,9 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
-/**
- * OAuth2 로그인 실패 시 JSON 401 응답을 반환합니다.
- */
+/** OAuth2 로그인 실패 시 JSON 401 응답을 반환합니다. */
 public final class OAuth2AuthenticationFailureHandler implements AuthenticationFailureHandler {
 
 	@Override

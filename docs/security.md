@@ -1,6 +1,6 @@
 # 보안 동작
 
-이 문서는 **현재 `auth-spring-boot-starter` 기준** Spring Security 연동 동작을 설명합니다.
+이 문서는 `auth-spring-boot-starter`가 Spring Security와 어떻게 연결되는지 설명합니다.
 
 ## 기본 SecurityFilterChain
 
@@ -15,6 +15,12 @@
 - OAuth2 시작/콜백 경로 permitAll
 - 그 외 요청은 authenticated
 - `AuthOncePerRequestFilter`를 `UsernamePasswordAuthenticationFilter` 앞에 등록
+
+쉽게 말하면:
+
+- 인증 헤더가 있으면 먼저 검사합니다.
+- 토큰이 유효하면 `Principal`을 `SecurityContext`에 넣습니다.
+- 토큰이 없거나 잘못되면 요청은 계속 흘려보내고, 최종 응답은 Spring Security가 결정합니다.
 
 활성 조건:
 
@@ -46,7 +52,7 @@
 
 ## 기본 예외 응답
 
-기본값:
+### 기본값
 
 - 401: `{"message":"UNAUTHORIZED"}`
 - 403: `{"message":"FORBIDDEN"}`
@@ -78,16 +84,14 @@
 
 ## auth와 authorization 경계
 
-현재 필터가 `roles` 또는 authorities를 `GrantedAuthority`로 바꾸더라도, 이 저장소가 리소스 authorization policy를 책임지는 것은 아닙니다.
+이 저장소는 인증 결과를 `Principal`과 `GrantedAuthority` 형태로 전달하지만, 리소스 접근 허용/거부 정책 자체는 애플리케이션이 책임집니다.
 
 - 이 저장소: 인증과 principal 전달
 - 애플리케이션/permission 계층: 리소스 접근 허용/거부 판단
-
-자세한 기준은 [auth-vs-permission-boundary.md](./auth-vs-permission-boundary.md)를 참고합니다.
 
 ## 운영 권장 사항
 
 - `auth.jwt.secret`은 환경변수나 시크릿 저장소로 주입
 - refresh cookie는 HTTPS 환경에서 사용
-- 운영에서는 `InMemoryRefreshTokenStore` 대신 Redis/DB 구현 사용
+- 기본 메모리 구현은 `auth-spring-boot-starter`가 제공하므로, 운영에서는 이를 Redis/DB 구현으로 교체
 - 자체 `SecurityFilterChain`을 쓰는 경우 permit 경로와 handler 연결을 명시적으로 구성

@@ -31,12 +31,12 @@ public final class Principal implements Serializable {
 		this(userId, List.of(), attributes);
 	}
 
-	public Principal(String userId, List<String> authorities, Map<String, Object> attributes) {
+	public Principal(String userId, List<String> roles, Map<String, Object> attributes) {
 		if (Strings.isBlank(userId)) {
 			throw new AuthException(AuthFailureReason.INVALID_INPUT, "userId must not be blank");
 		}
 		this.userId = userId;
-		this.authorities = authorities == null ? List.of() : List.copyOf(authorities);
+		this.authorities = roles == null ? List.of() : List.copyOf(roles);
 		this.attributes = attributes == null ? Map.of() : Map.copyOf(attributes);
 	}
 

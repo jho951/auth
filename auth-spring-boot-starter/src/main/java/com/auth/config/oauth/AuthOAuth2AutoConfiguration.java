@@ -16,9 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-/**
- * OAuth2 로그인 결과를 OSS auth의 내부 Principal 및 JWT 발급 흐름과 연결하는 자동 설정입니다.
- */
+/** OAuth2 로그인 결과를 OSS auth의 내부 Principal 및 JWT 발급 흐름과 연결하는 자동 설정입니다. */
 @AutoConfiguration
 @AutoConfigureAfter(com.auth.config.hybrid.AuthHybridCookieAutoConfiguration.class)
 @ConditionalOnClass(name = "org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter")

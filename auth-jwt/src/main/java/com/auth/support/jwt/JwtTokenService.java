@@ -30,36 +30,6 @@ public class JwtTokenService implements TokenService {
 	private static final String KEY_AUTHORITIES = "authorities";
 	private static final String KEY_ROLES = "roles";
 
-	public JwtTokenService(String secret, long accessSeconds, long refreshSeconds) {
-		if (Strings.isBlank(secret)) throw new AuthException(AuthFailureReason.INVALID_INPUT, "auth.jwt.secret must not be blank");
-		byte[] bytes = secret.getBytes(StandardCharsets.UTF_8);
-		if (bytes.length < 32) throw new AuthException(AuthFailureReason.INVALID_INPUT, "auth.jwt.secret must be at least 32 bytes for HS256");
-
-		this.key = Keys.hmacShaKeyFor(bytes);
-		this.accessSeconds = accessSeconds;
-		this.refreshSeconds = refreshSeconds;
-	}
-
-	@Override
-	public String issueAccessToken(Principal principal) {
-		return buildToken(principal, accessSeconds, "access");
-	}
-
-	@Override
-	public String issueRefreshToken(Principal principal) {
-		return buildToken(principal, refreshSeconds, "refresh");
-	}
-
-	@Override
-	public Principal verifyAccessToken(String token) {
-		return parseAndToPrincipal(token, "access");
-	}
-
-	@Override
-	public Principal verifyRefreshToken(String token) {
-		return parseAndToPrincipal(token, "refresh");
-	}
-
 	private String buildToken(Principal principal, long ttlSeconds, String type) {
 		Date now = new Date();
 		Date exp = new Date(now.getTime() + (ttlSeconds * 1000L));
@@ -80,6 +50,23 @@ public class JwtTokenService implements TokenService {
 			.compact();
 	}
 
+	/**
+	 * 생성자
+	 * @param secret
+	 * @param accessSeconds
+	 * @param refreshSeconds
+	 */
+	public JwtTokenService(String secret, long accessSeconds, long refreshSeconds) {
+		if (Strings.isBlank(secret)) throw new AuthException(AuthFailureReason.INVALID_INPUT, "auth.jwt.secret must not be blank");
+		byte[] bytes = secret.getBytes(StandardCharsets.UTF_8);
+		if (bytes.length < 32) throw new AuthException(AuthFailureReason.INVALID_INPUT, "auth.jwt.secret must be at least 32 bytes for HS256");
+
+		this.key = Keys.hmacShaKeyFor(bytes);
+		this.accessSeconds = accessSeconds;
+		this.refreshSeconds = refreshSeconds;
+	}
+
+
 	private Principal parseAndToPrincipal(String token, String expectedType) {
 		try {
 			Claims claims = Jwts.parserBuilder()
@@ -89,9 +76,8 @@ public class JwtTokenService implements TokenService {
 				.getBody();
 
 			String type = claims.get(KEY_TOKEN_TYPE, String.class);
-			if (type == null || !type.equals(expectedType)) {
-				throw new AuthException(AuthFailureReason.INVALID_TOKEN, "invalid token type");
-			}
+			if (type == null) throw new AuthException(AuthFailureReason.INVALID_TOKEN, "invalid token type");
+			if (!type.equals(expectedType)) throw new AuthException(AuthFailureReason.INVALID_TOKEN, "invalid token type");
 
 			String userId = claims.getSubject();
 
@@ -104,10 +90,7 @@ public class JwtTokenService implements TokenService {
 			if (authorities.isEmpty()) {
 				authorities = toAuthorities(attributes.remove(KEY_ROLES));
 			}
-
 			return new Principal(userId, authorities, attributes);
-		} catch (AuthException e) {
-			throw e;
 		} catch (JwtException | IllegalArgumentException e) {
 			throw new AuthException(AuthFailureReason.INVALID_TOKEN, "invalid/expired token", e);
 		}
@@ -120,9 +103,26 @@ public class JwtTokenService implements TokenService {
 				.map(Object::toString)
 				.toList();
 		}
-		if (rawAuthorityData instanceof String value) {
-			return List.of(value);
-		}
+		if (rawAuthorityData instanceof String value) return List.of(value);
 		return List.of();
 	}
+
+	@Override
+	public String issueAccessToken(Principal principal) {
+		return buildToken(principal, accessSeconds, "access");
+	}
+	@Override
+	public String issueRefreshToken(Principal principal) {
+		return buildToken(principal, refreshSeconds, "refresh");
+	}
+	@Override
+	public Principal verifyAccessToken(String token) {
+		return parseAndToPrincipal(token, "access");
+	}
+	@Override
+	public Principal verifyRefreshToken(String token) {
+		return parseAndToPrincipal(token, "refresh");
+	}
+
+
 }

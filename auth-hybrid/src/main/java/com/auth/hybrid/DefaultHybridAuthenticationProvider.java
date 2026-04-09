@@ -6,14 +6,17 @@ import com.auth.session.SessionAuthenticationProvider;
 import java.util.Optional;
 import java.util.Objects;
 
-/**
- * Simple hybrid provider that prefers JWT and falls back to session authentication.
- */
+/** Simple hybrid provider that prefers JWT and falls back to session authentication. */
 public final class DefaultHybridAuthenticationProvider implements HybridAuthenticationProvider {
 
     private final TokenService tokenService;
     private final SessionAuthenticationProvider sessionAuthenticationProvider;
 
+	/**
+	 * 생성자
+	 * @param tokenService
+	 * @param sessionAuthenticationProvider
+	 */
     public DefaultHybridAuthenticationProvider(TokenService tokenService, SessionAuthenticationProvider sessionAuthenticationProvider) {
         this.tokenService = Objects.requireNonNull(tokenService, "tokenService");
         this.sessionAuthenticationProvider = Objects.requireNonNull(sessionAuthenticationProvider, "sessionAuthenticationProvider");

@@ -3,9 +3,7 @@ package com.auth.session;
 import com.auth.api.model.Principal;
 import java.util.Map;
 
-/**
- * Mapper from session metadata into {@link Principal} instances.
- */
+/** Mapper from session metadata into {@link Principal} instances. */
 public interface SessionPrincipalMapper {
 
     /**

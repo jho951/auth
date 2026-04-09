@@ -66,5 +66,5 @@ public class RedisRefreshTokenStore implements RefreshTokenStore {
 
 ## 현재 저장소와의 관계
 
-- `auth-common-test`의 `InMemoryRefreshTokenStore`는 개발/테스트용입니다.
+- `auth-spring-boot-starter`의 `InMemoryRefreshTokenStore`는 개발/테스트용입니다.
 - 운영에서는 Redis/DB 구현으로 교체하는 편이 일반적입니다.

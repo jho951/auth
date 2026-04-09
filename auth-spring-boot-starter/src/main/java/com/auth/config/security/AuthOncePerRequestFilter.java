@@ -13,6 +13,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,9 +24,16 @@ import org.springframework.web.filter.OncePerRequestFilter;
 /** Bearer 토큰을 검증하고 Principal이 전달한 authority/attribute 메타데이터를 SecurityContext에 저장합니다. */
 public final class AuthOncePerRequestFilter extends OncePerRequestFilter {
 
+	private static final Logger log = Logger.getLogger(AuthOncePerRequestFilter.class.getName());
+
 	private final TokenService tokenService;
 	private final AuthProperties props;
 
+	/**
+	 * 생성자
+	 * @param tokenService
+	 * @param props
+	 */
 	public AuthOncePerRequestFilter(TokenService tokenService, AuthProperties props) {
 		this.tokenService = tokenService;
 		this.props = props;
@@ -51,6 +60,7 @@ public final class AuthOncePerRequestFilter extends OncePerRequestFilter {
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 			}
 		} catch (Exception e) {
+			log.log(Level.WARNING, "Failed to authenticate bearer token", e);
 			SecurityContextHolder.clearContext();
 		} finally {
 			chain.doFilter(request, response);

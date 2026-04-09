@@ -5,9 +5,7 @@ import java.time.Duration;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * Helper service that issues and revokes session identifiers.
- */
+/** Helper service that issues and revokes session identifiers. */
 public final class SessionService {
 
     private final SessionStore sessionStore;
@@ -20,9 +18,7 @@ public final class SessionService {
         this.sessionTtl = sessionTtl != null ? sessionTtl : Duration.ofHours(1);
     }
 
-    /**
-     * Issue a new session backed by the provided principal.
-     */
+    /** Issue a new session backed by the provided principal. */
     public String create(Principal principal) {
         Objects.requireNonNull(principal, "principal");
         String sessionId = idGenerator.generate();
@@ -30,19 +26,17 @@ public final class SessionService {
         return sessionId;
     }
 
-    /**
-     * Resolve the principal associated with the session.
-     */
+    /** Resolve the principal associated with the session. */
     public Optional<Principal> resolve(String sessionId) {
-        if (sessionId == null || sessionId.isBlank()) return Optional.empty();
+        if (sessionId == null ) return Optional.empty();
+		if (sessionId.isBlank()) return Optional.empty();
         return sessionStore.find(sessionId);
     }
 
-    /**
-     * Revoke the session identifier.
-     */
+    /** Revoke the session identifier. */
     public void revoke(String sessionId) {
-        if (sessionId == null || sessionId.isBlank()) return;
+        if (sessionId == null ) return;
+		if (sessionId.isBlank()) return;
         sessionStore.revoke(sessionId);
     }
 

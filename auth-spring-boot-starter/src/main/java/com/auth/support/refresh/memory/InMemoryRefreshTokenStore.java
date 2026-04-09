@@ -2,7 +2,6 @@ package com.auth.support.refresh.memory;
 
 import java.time.Clock;
 import java.time.Instant;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -65,5 +64,4 @@ public final class InMemoryRefreshTokenStore implements RefreshTokenStore {
 	public void revoke(String userId, String refreshToken) {
 		store.remove(key(userId, refreshToken));
 	}
-
 }

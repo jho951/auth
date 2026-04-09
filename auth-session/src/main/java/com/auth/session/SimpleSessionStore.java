@@ -6,9 +6,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * A basic in-memory {@link SessionStore} meant for early-session support.
- */
+/** A basic in-memory {@link SessionStore} meant for early-session support. */
 public final class SimpleSessionStore implements SessionStore {
 
     private final Map<String, Principal> sessions = new ConcurrentHashMap<>();

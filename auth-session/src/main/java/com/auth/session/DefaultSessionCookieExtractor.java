@@ -6,13 +6,15 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * Reads session IDs from HTTP cookies.
- */
+/** Reads session IDs from HTTP cookies. */
 public final class DefaultSessionCookieExtractor implements SessionCookieExtractor {
 
     private final String cookieName;
 
+	/**
+	 *
+	 * @param cookieName
+	 */
     public DefaultSessionCookieExtractor(String cookieName) {
         this.cookieName = Objects.requireNonNull(cookieName, "cookieName");
     }
@@ -20,7 +22,8 @@ public final class DefaultSessionCookieExtractor implements SessionCookieExtract
     @Override
     public Optional<String> extract(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
-        if (cookies == null || cookies.length == 0) return Optional.empty();
+        if (cookies == null ) return Optional.empty();
+		if (cookies.length == 0) return Optional.empty();
         return Arrays.stream(cookies)
             .filter(cookie -> cookieName.equals(cookie.getName()))
             .map(Cookie::getValue)

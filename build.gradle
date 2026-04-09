@@ -1,6 +1,93 @@
+def requiredRootProp = { List<String> keys ->
+    def value = keys.collect { key ->
+        rootProject.findProperty(key)?.toString()?.trim()
+    }.find { it }
+
+    if (!value) {
+        throw new GradleException("Missing required property. Expected one of: ${keys.join(', ')}")
+    }
+    value
+}
+
+def optionalRootProp = { List<String> keys, String defaultValue = "" ->
+    keys.collect { key ->
+        rootProject.findProperty(key)?.toString()?.trim()
+    }.find { it } ?: defaultValue
+}
+
+def envOrRootProp = { String envName, List<String> propKeys = [], String defaultValue = "" ->
+    def envValue = System.getenv(envName)?.trim()
+    envValue ?: optionalRootProp(propKeys, defaultValue)
+}
+
+def normalizeSigningKey = { Object raw, String charset = "UTF-8" ->
+    def text = raw?.toString()?.trim()
+    if (!text) return ""
+
+    text = text.replace("\\r\\n", "\n").replace("\\n", "\n")
+    if (text.startsWith("-----BEGIN PGP PRIVATE KEY BLOCK-----")) {
+        return text
+    }
+
+    try {
+        return new String(text.decodeBase64(), charset).trim()
+    } catch (Exception ignored) {
+        return text
+    }
+}
+
+def modules = [
+        "auth-core": [
+                artifactId : "auth-core",
+                pomName    : "Auth Core",
+                description: "Core authentication primitives, identity models, and SPI contracts for JWT and session-based auth flows."
+        ],
+        "auth-jwt": [
+                artifactId : "auth-jwt",
+                pomName    : "Auth JWT",
+                description: "JWT token issuance and verification implementation for the auth stack."
+        ],
+        "auth-session": [
+                artifactId : "auth-session",
+                pomName    : "Auth Session",
+                description: "Session authentication primitives, stores, and filters for auth flows."
+        ],
+        "auth-hybrid": [
+                artifactId : "auth-hybrid",
+                pomName    : "Hybrid Auth Core",
+                description: "Hybrid authentication strategies that compose JWT and session verification."
+        ],
+        "auth-spring": [
+                artifactId : "auth-spring",
+                pomName    : "Auth Spring Support",
+                description: "Spring integration support and configuration properties for the auth stack."
+        ],
+        "auth-spring-boot-starter": [
+                artifactId : "auth-spring-boot-starter",
+                pomName    : "Auth Spring Boot Starter",
+                description: "Spring Boot auto-configuration for JWT, session, hybrid, and OAuth2 authentication flows."
+        ],
+]
+
+group = requiredRootProp(['release_group'])
+version = requiredRootProp(['release_version'])
+
+ext {
+    buildConfig = [
+            javaVersion      : requiredRootProp(['java_version']).toInteger(),
+            springBootVersion: optionalRootProp(['spring_boot_version']),
+            jjwtVersion      : optionalRootProp(['jjwt_version']),
+            junitVersion     : optionalRootProp(['junit_version'], '5.10.0'),
+            encoding         : optionalRootProp(['encoding'], 'UTF-8'),
+            githubOrg        : requiredRootProp(['github_org']),
+            githubRepo       : requiredRootProp(['github_repo']),
+    ]
+    githubBaseUrl = "https://github.com/${buildConfig.githubOrg}/${buildConfig.githubRepo}"
+}
+
 allprojects {
-    group = "io.github.jho951"
-    version = findProperty("version")
+    group = rootProject.group
+    version = rootProject.version
 
     repositories {
         mavenCentral()
@@ -8,157 +95,133 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: "java-library"
-    apply plugin: "maven-publish"
-    apply plugin: "signing"
-
-    def jVersion = findProperty("java_version").toString().trim() as Integer
-    def springVer = findProperty("spring_boot_version").toString().trim()
-    def jjwtVer = findProperty("jjwt_version").toString().trim()
-    def junitVer = findProperty("junit_version").toString().trim()
-    def encoding = findProperty("encoding").toString().trim()
-
-    def normalizeSigningKey = { raw ->
-        def text = (raw ?: "").toString().trim()
-        if (!text) return ""
-        text = text.replace("\\r\\n", "\n").replace("\\n", "\n")
-        if (text.startsWith("-----BEGIN PGP PRIVATE KEY BLOCK-----")) return text
-        try {
-            return new String(text.decodeBase64(), encoding).trim()
-        } catch (Exception ignored) {
-            return text
-        }
-    }
+    apply plugin: 'java-library'
 
     ext {
-        springBootVersion = springVer
-        jjwtVersion = jjwtVer
+        springBootVersion = rootProject.ext.buildConfig.springBootVersion
+        jjwtVersion = rootProject.ext.buildConfig.jjwtVersion
     }
-
-    def pomMetadataByProject = [
-            "auth-core": [
-                    name       : "Auth Core",
-                    description: "Core authentication primitives, identity models, and SPI contracts for JWT and session-based auth flows."
-            ],
-            "auth-common-test": [
-                    name       : "Auth Common Test Fixtures",
-                    description: "Reusable test fixtures and helpers for the auth modules."
-            ],
-            "auth-jwt": [
-                    name       : "Auth JWT",
-                    description: "JWT token issuance and verification implementation for the auth stack."
-            ],
-            "auth-session": [
-                    name       : "Auth Session",
-                    description: "Session authentication primitives, stores, and filters for auth flows."
-            ],
-            "auth-hybrid": [
-                    name       : "Hybrid Auth Core",
-                    description: "Hybrid authentication strategies that compose JWT and session verification."
-            ],
-            "auth-spring": [
-                    name       : "Auth Spring Support",
-                    description: "Spring integration support and configuration properties for the auth stack."
-            ],
-            "auth-spring-boot-starter": [
-                    name       : "Auth Spring Boot Starter",
-                    description: "Spring Boot auto-configuration for JWT, session, hybrid, and OAuth2 authentication flows."
-            ],
-    ]
-
-    def fallbackProjectName = project.name
-            .replace('-', ' ')
-            .split(' ')
-            .collect { part -> part.capitalize() }
-            .join(' ')
-    def pomMetadata = pomMetadataByProject.get(project.name, [
-            name       : fallbackProjectName,
-            description: "Authentication module for the auth multi-module repository."
-    ])
 
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(jVersion)
+            languageVersion = JavaLanguageVersion.of(rootProject.ext.buildConfig.javaVersion)
         }
-        withSourcesJar()
-        withJavadocJar()
     }
 
     tasks.withType(JavaCompile).configureEach {
-        options.release.set(jVersion)
-        options.encoding = encoding
+        options.release.set(rootProject.ext.buildConfig.javaVersion)
+        options.encoding = rootProject.ext.buildConfig.encoding
     }
+
     tasks.withType(Javadoc).configureEach {
         options.addStringOption("Xdoclint:none", "-quiet")
     }
 
     dependencies {
-        testImplementation platform("org.junit:junit-bom:${junitVer}")
+        testImplementation platform("org.junit:junit-bom:${rootProject.ext.buildConfig.junitVersion}")
         testImplementation 'org.junit.jupiter:junit-jupiter'
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
         testImplementation 'org.assertj:assertj-core:3.24.2'
     }
 
-    test {
+    tasks.withType(Test).configureEach {
         useJUnitPlatform()
+    }
+}
+
+configure(subprojects.findAll { modules.containsKey(it.name) }) {
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
+
+    def moduleMeta = modules[project.name]
+    def isSnapshot = project.version.toString().endsWith("SNAPSHOT")
+
+    def releaseRepoUrl = envOrRootProp(
+            "MAVEN_CENTRAL_RELEASE_URL",
+            ["mavenCentralReleaseUrl"],
+            "https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/"
+    )
+
+    def snapshotRepoUrl = envOrRootProp(
+            "MAVEN_CENTRAL_SNAPSHOT_URL",
+            ["mavenCentralSnapshotUrl"],
+            "https://central.sonatype.com/repository/maven-snapshots/"
+    )
+
+    def centralUsername = envOrRootProp(
+            "MAVEN_CENTRAL_USERNAME",
+            ["mavenCentralUsername"]
+    )
+
+    def centralPassword = envOrRootProp(
+            "MAVEN_CENTRAL_PASSWORD",
+            ["mavenCentralPassword"]
+    )
+
+    def signingKey = normalizeSigningKey(
+            envOrRootProp(
+                    "MAVEN_CENTRAL_GPG_PRIVATE_KEY",
+                    ["mavenCentralSigningKey"]
+            ),
+            rootProject.ext.buildConfig.encoding
+    )
+
+    def signingPassword = envOrRootProp(
+            "MAVEN_CENTRAL_GPG_PASSPHRASE",
+            ["mavenCentralSigningPassword"]
+    )
+
+    java {
+        withSourcesJar()
+        withJavadocJar()
     }
 
     publishing {
         repositories {
             maven {
-                def isSnapshot = project.version.toString().endsWith("SNAPSHOT")
-                // Gradle's built-in maven-publish still targets Sonatype's Portal compatibility endpoint here.
-                def releaseRepo = (System.getenv("MAVEN_CENTRAL_RELEASE_URL")
-                        ?: project.findProperty("mavenCentralReleaseUrl")
-                        ?: "https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/") as String
-                def snapshotRepo = (System.getenv("MAVEN_CENTRAL_SNAPSHOT_URL")
-                        ?: project.findProperty("mavenCentralSnapshotUrl")
-                        ?: "https://central.sonatype.com/repository/maven-snapshots/") as String
-
                 name = "CentralPortal"
-                url = uri(isSnapshot ? snapshotRepo : releaseRepo)
-                credentials {
-                    username = (System.getenv("MAVEN_CENTRAL_USERNAME")
-                            ?: project.findProperty("mavenCentralUsername")
-                            ?: "") as String
+                url = uri(isSnapshot ? snapshotRepoUrl : releaseRepoUrl)
 
-                    password = (System.getenv("MAVEN_CENTRAL_PASSWORD")
-                            ?: project.findProperty("mavenCentralPassword")
-                            ?: "") as String
+                credentials {
+                    username = centralUsername
+                    password = centralPassword
                 }
             }
         }
 
         publications {
-            mavenJava(MavenPublication) {
+            create("mavenJava", MavenPublication) {
                 from components.java
 
                 groupId = project.group.toString()
-                artifactId = project.name
+                artifactId = moduleMeta.artifactId
                 version = project.version.toString()
 
                 pom {
-                    name = pomMetadata.name
-                    description = pomMetadata.description
-                    url = "https://github.com/jho951/auth"
+                    name = moduleMeta.pomName
+                    description = moduleMeta.description
+                    url = rootProject.ext.githubBaseUrl
+
                     licenses {
                         license {
                             name = "The Apache License, Version 2.0"
                             url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
                         }
                     }
+
                     developers {
                         developer {
                             id = "jho951"
                             name = "YJH (jho951)"
                             email = "jho951@naver.com"
-                            url = "https://github.com/jho951"
+                            url = "https://github.com/${rootProject.ext.buildConfig.githubOrg}"
                         }
                     }
+
                     scm {
-                        connection = "scm:git:https://github.com/jho951/auth.git"
-                        developerConnection = "scm:git:ssh://git@github.com/jho951/auth.git"
-                        url = "https://github.com/jho951/auth"
+                        connection = "scm:git:${rootProject.ext.githubBaseUrl}.git"
+                        developerConnection = "scm:git:ssh://git@github.com/${rootProject.ext.buildConfig.githubOrg}/${rootProject.ext.buildConfig.githubRepo}.git"
+                        url = rootProject.ext.githubBaseUrl
                     }
                 }
             }
@@ -166,35 +229,20 @@ subprojects {
     }
 
     signing {
-        def key = normalizeSigningKey(System.getenv("MAVEN_CENTRAL_GPG_PRIVATE_KEY")
-                ?: project.findProperty("mavenCentralSigningKey")
-                ?: "")
-        def pass = (System.getenv("MAVEN_CENTRAL_GPG_PASSPHRASE")
-                ?: project.findProperty("mavenCentralSigningPassword")
-                ?: "").toString()
-
-        if (key) useInMemoryPgpKeys(key, pass)
-        sign publishing.publications.mavenJava
+        if (signingKey) {
+            useInMemoryPgpKeys(signingKey, signingPassword)
+        }
+        sign publishing.publications
     }
 
     tasks.withType(PublishToMavenRepository).configureEach {
         doFirst {
-            def u = (System.getenv("MAVEN_CENTRAL_USERNAME")
-                    ?: project.findProperty("mavenCentralUsername")
-                    ?: "").toString()
-
-            def p = (System.getenv("MAVEN_CENTRAL_PASSWORD")
-                    ?: project.findProperty("mavenCentralPassword")
-                    ?: "").toString()
-
-            def key = (System.getenv("MAVEN_CENTRAL_GPG_PRIVATE_KEY")
-                    ?: project.findProperty("mavenCentralSigningKey")
-                    ?: "")
-
-            key = normalizeSigningKey(key)
-
-            if (!u || !p) throw new GradleException("Missing Central Portal credentials. Set MAVEN_CENTRAL_USERNAME/MAVEN_CENTRAL_PASSWORD.")
-            if (!key) throw new GradleException("Missing signing key. Set MAVEN_CENTRAL_GPG_PRIVATE_KEY (or mavenCentralSigningKey).")
+            if (!centralUsername || !centralPassword) {
+                throw new GradleException("Missing Central Portal credentials. Set MAVEN_CENTRAL_USERNAME / MAVEN_CENTRAL_PASSWORD.")
+            }
+            if (!signingKey) {
+                throw new GradleException("Missing signing key. Set MAVEN_CENTRAL_GPG_PRIVATE_KEY (or mavenCentralSigningKey).")
+            }
         }
     }
 }

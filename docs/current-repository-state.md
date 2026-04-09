@@ -1,6 +1,6 @@
 # 현재 저장소 상태
 
-이 문서는 **현재 체크인된 소스 트리** 기준 상태를 요약합니다.
+이 문서는 유지보수자가 현재 체크인된 소스 트리의 구성을 빠르게 파악할 때 보는 참고 문서입니다.
 
 ## Gradle 서브프로젝트
 
@@ -13,11 +13,9 @@
 - `auth-hybrid`
 - `auth-spring`
 - `auth-spring-boot-starter`
-- `samples/sample-jwt-api`
-- `samples/sample-session-web`
-- `samples/sample-hybrid-sso`
 
-즉, 현재 저장소는 이미 feature-oriented 구조로 분리되어 있습니다.
+이 저장소는 기능별 모듈로 나뉘어 있습니다.
+`auth-core`는 공통 계약과 모델을, 나머지 모듈은 구체 구현과 자동 구성을 담당합니다.
 
 ## 모듈별 핵심 클래스
 
@@ -41,7 +39,6 @@
 ### `auth-common-test`
 
 - `com.auth.test.AuthTestFixtures`
-- `com.auth.support.refresh.memory.InMemoryRefreshTokenStore`
 
 ### `auth-jwt`
 
@@ -88,6 +85,7 @@
 - `com.auth.config.oauth.OAuth2AuthenticationSuccessHandler`
 - `com.auth.config.oauth.OAuth2AuthenticationFailureHandler`
 - `com.auth.config.controller.RefreshCookieWriter`
+- `com.auth.support.refresh.memory.InMemoryRefreshTokenStore`
 
 ## 현재 의존 관계
 
@@ -96,30 +94,16 @@
 - `auth-session` → `auth-core`
 - `auth-hybrid` → `auth-core`, `auth-session`, `auth-jwt`
 - `auth-spring` → `auth-core`
-- `auth-spring-boot-starter` → `auth-core`, `auth-jwt`, `auth-session`, `auth-hybrid`, `auth-spring`, `auth-common-test`
-
-## 현재 퍼블리싱 좌표에 대한 주의
-
-루트 `build.gradle`은 `artifactId = project.name`을 사용합니다.
-따라서 **현재 코드 기준 artifactId는 서브프로젝트 이름 그대로**입니다.
-
-예:
-
-- `io.github.jho951:auth-core:<version>`
-- `io.github.jho951:auth-common-test:<version>`
-- `io.github.jho951:auth-jwt:<version>`
-- `io.github.jho951:auth-session:<version>`
-- `io.github.jho951:auth-hybrid:<version>`
-- `io.github.jho951:auth-spring:<version>`
-- `io.github.jho951:auth-spring-boot-starter:<version>`
+- `auth-spring-boot-starter` → `auth-core`, `auth-jwt`, `auth-session`, `auth-hybrid`, `auth-spring`
 
 ## 현재 구현의 성격
 
-- `auth-spring-boot-starter`가 JWT 검증 필터, 세션 자동 구성, hybrid 조합, OAuth2 성공/실패 처리, refresh cookie writing을 담당합니다.
-- `Principal`은 `authorities`와 `attributes`를 운반하지만, 최종 permission policy를 책임지지 않습니다.
+- `auth-spring`은 Spring 설정 바인딩을 담당합니다.
+- `auth-spring-boot-starter`는 자동 구성과 기본 구현 조합을 담당합니다.
+- `Principal`은 인증 결과와 함께 권한/속성 정보를 운반하지만, 최종 permission 정책은 담당하지 않습니다.
+- 기본 refresh token 저장소는 메모리 구현입니다.
 
 ## 현재 구조의 한계
 
-- 기본 refresh token 저장소는 테스트용 in-memory 구현입니다.
 - 운영 환경에서는 `RefreshTokenStore`를 Redis/DB 등으로 교체하는 것이 일반적입니다.
 - `auth-session`과 `auth-hybrid`는 조합 전략을 제공하지만, 실제 사용자/계정 연결 정책은 애플리케이션이 소유해야 합니다.

@@ -7,8 +7,3 @@ include 'auth-session'
 include 'auth-hybrid'
 include 'auth-spring'
 include 'auth-spring-boot-starter'
-include 'docs'
-
-include 'samples:sample-jwt-api'
-include 'samples:sample-session-web'
-include 'samples:sample-hybrid-sso'

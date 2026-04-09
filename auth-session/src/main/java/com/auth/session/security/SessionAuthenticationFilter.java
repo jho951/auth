@@ -20,6 +20,11 @@ public final class SessionAuthenticationFilter extends OncePerRequestFilter {
 	private final SessionCookieExtractor cookieExtractor;
 	private final SessionAuthenticationProvider provider;
 
+	/**
+	 * 생성자
+	 * @param cookieExtractor
+	 * @param provider
+	 */
 	public SessionAuthenticationFilter(SessionCookieExtractor cookieExtractor, SessionAuthenticationProvider provider) {
 		this.cookieExtractor = cookieExtractor;
 		this.provider = provider;

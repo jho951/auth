@@ -18,7 +18,7 @@
 - 회원 가입 / 계정 연결 정책
 - `OAuth2PrincipalResolver` 구현
 
-### OSS auth 저장소
+### auth 저장소
 
 - `OAuth2UserIdentity` 모델 제공
 - `OAuth2PrincipalResolver` SPI 제공
@@ -89,7 +89,6 @@ public interface OAuth2PrincipalResolver {
 ```gradle
 dependencies {
     implementation("io.github.jho951:auth-core:<version>")
-    implementation("io.github.jho951:auth-spring:<version>")
     implementation("io.github.jho951:auth-spring-boot-starter:<version>")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")

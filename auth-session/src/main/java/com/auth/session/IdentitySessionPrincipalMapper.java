@@ -3,9 +3,7 @@ package com.auth.session;
 import com.auth.api.model.Principal;
 import java.util.Map;
 
-/**
- * Identity mapper that simply returns the stored principal.
- */
+/** Identity mapper that simply returns the stored principal. */
 public final class IdentitySessionPrincipalMapper implements SessionPrincipalMapper {
 
     @Override

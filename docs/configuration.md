@@ -1,6 +1,7 @@
 # 설정 레퍼런스
 
-이 문서는 **현재 구현된 `auth-spring` 및 `auth-spring-boot-starter` 기준** 설정을 설명합니다.
+이 문서는 `auth-spring-boot-starter`에서 외부로 드러나는 설정만 설명합니다.
+설정 이름은 가능한 한 `auth.*` 아래에 모아두었습니다.
 
 ## 프로퍼티 바인딩 클래스
 
@@ -56,40 +57,17 @@ auth:
     ttl: PT1H
 ```
 
-## 자동 구성 조건
+## 자주 보는 조합
 
-### `TokenService`
-
-- `TokenService` 빈이 없고
-- `auth.jwt.secret` 값이 있을 때
-- `JwtTokenService`가 기본 구현으로 등록됩니다.
-
-### `PasswordVerifier`
-
-- `PasswordVerifier` 빈이 없을 때
-- `BCryptPasswordVerifier`가 기본 구현으로 등록됩니다.
-
-### `RefreshTokenStore`
-
-- `RefreshTokenStore` 빈이 없을 때
-- `InMemoryRefreshTokenStore`가 기본 구현으로 등록됩니다.
-
-### `SessionStore` / `SessionAuthenticationProvider`
-
-- `SessionStore` 빈이 없을 때
-- `SimpleSessionStore`가 기본 구현으로 등록됩니다.
-
-### OAuth2 handler
-
-- `spring-security-oauth2-client`가 classpath에 있고
-- `OAuth2PrincipalResolver` 빈이 있고
-- `auth.oauth2.enabled=true`일 때
-- OAuth2 success/failure handler가 자동 등록됩니다.
+- JWT만 쓸 때는 `auth.jwt.secret`이 핵심입니다.
+- 세션을 쓸 때는 `auth.session.cookie-name`과 `auth.session.ttl`을 확인하면 됩니다.
+- OAuth2를 쓸 때는 `spring.security.oauth2.client.*`와 `auth.oauth2.*`를 함께 봐야 합니다.
 
 ## 주의사항
 
 - Provider 등록 정보는 `auth.oauth2.*`가 아니라 `spring.security.oauth2.client.*`에서 관리합니다.
 - `auth.jwt.secret` 길이가 짧으면 `JwtTokenService` 생성 시 예외가 발생할 수 있습니다.
 - `auth.refresh-cookie-secure=true`는 HTTPS 환경에서 사용하는 것이 안전합니다.
-- 운영에서는 `InMemoryRefreshTokenStore` 대신 Redis/DB 기반 구현을 권장합니다.
-- `auth.session.ttl`은 `SessionService`의 기본 TTL과 `SessionCookie` Max-Age 설정에 반영됩니다.
+- 기본 refresh token 저장소는 `auth-spring-boot-starter`의 메모리 구현입니다.
+- 운영에서는 이를 Redis/DB 기반 `RefreshTokenStore`로 교체하는 것을 권장합니다.
+- `auth.session.ttl`은 `SessionService`의 기본 TTL에 반영됩니다. session cookie Max-Age는 애플리케이션이 직접 반영합니다.

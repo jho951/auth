@@ -60,5 +60,6 @@ class PrincipalTest {
 		assertThat(principal.getAuthorities()).containsExactly("USER", "ADMIN");
 		assertThat(principal.getAuthorities()).contains("ADMIN");
 		assertThat(principal.getAuthorities()).doesNotContain("GUEST");
+		assertThat(principal.getRoles()).containsExactly("USER", "ADMIN");
 	}
 }
