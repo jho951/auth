@@ -5,146 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca01ff0b-c039-4942-8da2-ac32bc45ac60" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.14/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.14/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.14/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.14/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.14/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.14/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/2e7ae9a4-7c6a-4166-90b1-7f49fb17f3e0/.globals.work.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/2e7ae9a4-7c6a-4166-90b1-7f49fb17f3e0/.strings.work.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/2e7ae9a4-7c6a-4166-90b1-7f49fb17f3e0/_auth-common-test.work.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/2e7ae9a4-7c6a-4166-90b1-7f49fb17f3e0/_auth-core.work.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/2e7ae9a4-7c6a-4166-90b1-7f49fb17f3e0/_auth-hybrid.work.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/2e7ae9a4-7c6a-4166-90b1-7f49fb17f3e0/_auth-jwt.work.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/2e7ae9a4-7c6a-4166-90b1-7f49fb17f3e0/_auth-session.work.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/2e7ae9a4-7c6a-4166-90b1-7f49fb17f3e0/_auth-spring-boot-starter.work.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/2e7ae9a4-7c6a-4166-90b1-7f49fb17f3e0/_auth-spring.work.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/2e7ae9a4-7c6a-4166-90b1-7f49fb17f3e0/buildfingerprint.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/2e7ae9a4-7c6a-4166-90b1-7f49fb17f3e0/entry.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/2e7ae9a4-7c6a-4166-90b1-7f49fb17f3e0/projectfingerprint.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/2e7ae9a4-7c6a-4166-90b1-7f49fb17f3e0/work.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/boqdkm1kcvnuhniw3a7djn6zn/candidates.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/configuration-cache/boqdkm1kcvnuhniw3a7djn6zn/candidates.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_stephenc_jcip_jcip_annotations_1_0_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jayway_jsonpath_json_path_2_9_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_nimbusds_content_type_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_nimbusds_lang_tag_1_7.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_nimbusds_nimbus_jose_jwt_9_37_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_nimbusds_oauth2_oidc_sdk_9_43_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_vaadin_external_google_android_json_0_0_20131108_vaadin1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__jakarta_activation_jakarta_activation_api_2_1_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__jakarta_xml_bind_jakarta_xml_bind_api_4_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_bytebuddy_byte_buddy_agent_1_14_19.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_minidev_accessors_smart_2_5_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_minidev_json_smart_2_5_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_awaitility_awaitility_4_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_2_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mindrot_jbcrypt_0_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mockito_mockito_core_5_11_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mockito_mockito_junit_jupiter_5_11_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_objenesis_objenesis_3_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ow2_asm_asm_9_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_skyscreamer_jsonassert_1_5_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_oauth2_client_3_3_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_test_3_3_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_test_3_3_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_test_autoconfigure_3_3_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_security_spring_security_oauth2_client_6_3_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_security_spring_security_oauth2_core_6_3_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_security_spring_security_oauth2_jose_6_3_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_test_6_1_14.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_xmlunit_xmlunit_core_2_9_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/auth-spring-boot-starter/auth.auth-spring-boot-starter.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/auth-spring-boot-starter/auth.auth-spring-boot-starter.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/auth-spring-boot-starter/auth.auth-spring-boot-starter.test.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CONTRACT_SYNC.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CONTRIBUTING.md" beforeDir="false" afterPath="$PROJECT_DIR$/CONTRIBUTING.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/main/META-INF/spring-configuration-metadata.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/main/com/auth/config/AuthAutoConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/main/com/auth/config/controller/RefreshCookieWriter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/main/com/auth/config/controller/RefreshTokenExtractor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/main/com/auth/config/hybrid/AuthHybridAutoConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/main/com/auth/config/hybrid/AuthHybridCookieAutoConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/main/com/auth/config/jwt/AuthJwtProperties.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/main/com/auth/config/oauth/AuthOAuth2AutoConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/main/com/auth/config/oauth/OAuth2AuthenticationFailureHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/main/com/auth/config/oauth/OAuth2AuthenticationSuccessHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/main/com/auth/config/security/AuthOncePerRequestFilter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/main/com/auth/config/security/AuthSecurityAutoConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/main/com/auth/session/config/AuthSessionAutoConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/main/com/auth/session/config/AuthSessionProperties.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/main/com/auth/support/password/bcrypt/BCryptPasswordVerifier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/main/com/auth/support/refresh/memory/InMemoryRefreshTokenStore$Entry.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/main/com/auth/support/refresh/memory/InMemoryRefreshTokenStore.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/test/com/auth/config/controller/RefreshCookieWriterTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/test/com/auth/config/oauth/OAuth2AuthenticationSuccessHandlerTest$FakeTokenService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/test/com/auth/config/oauth/OAuth2AuthenticationSuccessHandlerTest$InMemoryRefreshTokenStore.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/classes/java/test/com/auth/config/oauth/OAuth2AuthenticationSuccessHandlerTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/libs/auth-spring-boot-starter-1.0.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/reports/tests/test/classes/com.auth.config.controller.RefreshCookieWriterTest.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/reports/tests/test/classes/com.auth.config.oauth.OAuth2AuthenticationSuccessHandlerTest.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/reports/tests/test/css/base-style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/reports/tests/test/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/reports/tests/test/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/reports/tests/test/js/report.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/reports/tests/test/packages/com.auth.config.controller.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/reports/tests/test/packages/com.auth.config.oauth.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/resources/main/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/test-results/test/TEST-com.auth.config.controller.RefreshCookieWriterTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/test-results/test/TEST-com.auth.config.oauth.OAuth2AuthenticationSuccessHandlerTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/test-results/test/binary/output.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/test-results/test/binary/output.bin.idx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/test-results/test/binary/results.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/tmp/compileJava/compileTransaction/stash-dir/AuthAutoConfiguration.class.uniqueId3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/tmp/compileJava/compileTransaction/stash-dir/AuthHybridAutoConfiguration.class.uniqueId0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/tmp/compileJava/compileTransaction/stash-dir/AuthHybridCookieAutoConfiguration.class.uniqueId2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/tmp/compileJava/compileTransaction/stash-dir/AuthOAuth2AutoConfiguration.class.uniqueId5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/tmp/compileJava/compileTransaction/stash-dir/AuthOncePerRequestFilter.class.uniqueId1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/tmp/compileJava/compileTransaction/stash-dir/AuthSecurityAutoConfiguration.class.uniqueId6" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/tmp/compileJava/compileTransaction/stash-dir/spring-configuration-metadata.json.uniqueId4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/build/tmp/jar/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/src/main/java/com/auth/config/AuthAutoConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/src/main/java/com/auth/config/controller/RefreshCookieWriter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/src/main/java/com/auth/config/controller/RefreshTokenExtractor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/src/main/java/com/auth/config/hybrid/AuthHybridAutoConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/src/main/java/com/auth/config/hybrid/AuthHybridCookieAutoConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/src/main/java/com/auth/config/jwt/AuthJwtProperties.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/src/main/java/com/auth/config/oauth/AuthOAuth2AutoConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/src/main/java/com/auth/config/oauth/OAuth2AuthenticationFailureHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/src/main/java/com/auth/config/oauth/OAuth2AuthenticationSuccessHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/src/main/java/com/auth/config/security/AuthOncePerRequestFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/src/main/java/com/auth/config/security/AuthSecurityAutoConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/src/main/java/com/auth/session/config/AuthSessionAutoConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/src/main/java/com/auth/session/config/AuthSessionProperties.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/src/main/java/com/auth/support/password/bcrypt/BCryptPasswordVerifier.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/src/main/java/com/auth/support/refresh/memory/InMemoryRefreshTokenStore.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/src/test/java/com/auth/config/controller/RefreshCookieWriterTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-spring-boot-starter/src/test/java/com/auth/config/oauth/OAuth2AuthenticationSuccessHandlerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/api.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/architecture.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/architecture.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/configuration.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/configuration.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/current-repository-state.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/current-repository-state.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/extension-guide.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/extension-guide.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/modules.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/modules.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/oauth2-design.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/oss-readiness.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/redis-refresh-token-store.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/refresh-cookie-writer.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/release.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/security.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/security.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/testing-and-ci.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/testing-and-ci.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/configuration.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/current-repository-state.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/troubleshooting.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/troubleshooting.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -309,7 +175,7 @@
       <workItem from="1775315255068" duration="10814000" />
       <workItem from="1775393743217" duration="10688000" />
       <workItem from="1775485716368" duration="4299000" />
-      <workItem from="1775697944697" duration="17379000" />
+      <workItem from="1775697944697" duration="20404000" />
     </task>
     <servers />
   </component>

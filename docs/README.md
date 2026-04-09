@@ -6,10 +6,9 @@
 
 ### 시작할 때
 
-1. [설정 레퍼런스](./configuration.md)
-2. [보안 동작](./security.md)
-3. [SPI/extension 가이드](./extension-guide.md)
-4. [모듈 가이드](./modules.md)
+1. [보안 동작](./security.md)
+2. [SPI/extension 가이드](./extension-guide.md)
+3. [모듈 가이드](./modules.md)
 
 ### 문제를 만났을 때
 
@@ -17,10 +16,11 @@
 
 ### 모듈과 테스트
 
-1. [현재 저장소 상태](./current-repository-state.md)
-2. [테스트/CI 가이드](./testing-and-ci.md)
+1. [테스트/CI 가이드](./testing-and-ci.md)
 
 ## 읽는 순서
 
-- 처음 사용하는 사람은 `설정 레퍼런스`와 `보안 동작`부터 읽는 것이 좋습니다.
+- 공개 설정 계약은 `oss-contract` 저장소를 봅니다.
+- 처음 사용하는 사람은 `보안 동작`, `SPI/extension 가이드`, `모듈 가이드` 순서로 보면 됩니다.
+- 테스트를 돌리거나 publish 흐름을 확인할 때는 `테스트/CI 가이드`를 봅니다.
 - SPI를 직접 구현하는 경우 `SPI/extension 가이드`를 먼저 보세요.

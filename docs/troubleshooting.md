@@ -73,7 +73,7 @@
 
 원인:
 
-- 현재 아카이브에 `grade.properties`라는 파일명이 존재할 수 있음
+- 현재 아카이브에 `gradle.properties`라는 파일명이 존재할 수 있음
 - Gradle 일반 규약 파일명은 `gradle.properties`
 
 조치:
@@ -84,9 +84,9 @@
 
 원인:
 
-- 현재 퍼블리싱은 `artifactId = project.name`을 사용
+- 현재 퍼블리싱은 `build.gradle`의 모듈별 `artifactId` 매핑을 사용
 
 조치:
 
 - 문서가 current implementation 문맥인지 먼저 확인
-- 현재 좌표는 [current-repository-state.md](./current-repository-state.md)와 [modules.md](./modules.md) 참고
+- 현재 좌표는 [modules.md](./modules.md) 참고
