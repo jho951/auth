@@ -15,7 +15,6 @@
             <option value="$PROJECT_DIR$/auth-jwt" />
             <option value="$PROJECT_DIR$/auth-session" />
             <option value="$PROJECT_DIR$/auth-spring" />
-            <option value="$PROJECT_DIR$/auth-spring-boot-starter" />
           </set>
         </option>
       </GradleProjectSettings>

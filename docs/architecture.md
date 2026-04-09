@@ -4,12 +4,11 @@
 
 ## 책임
 
-- `auth-core`: 인증에서 공통으로 쓰는 모델, SPI, `AuthService`
-- `auth-jwt`: JWT 발급과 검증
-- `auth-session`: 세션 기반 인증
-- `auth-hybrid`: JWT와 세션을 함께 쓰는 조합
+- `auth-core`: 인증에서 공통으로 쓰는 모델과 연동 포인트
+- `auth-jwt`: JWT 발급과 검증 구현
+- `auth-session`: 세션 기반 인증 구현
+- `auth-hybrid`: JWT와 세션을 함께 쓰는 조합 구현
 - `auth-spring`: Spring 설정 바인딩과 어댑터
-- `auth-spring-boot-starter`: 자동 구성과 기본 구현 진입점
 
 ## 무엇을 하지 않나
 

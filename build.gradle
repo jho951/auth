@@ -62,11 +62,6 @@ def modules = [
                 pomName    : "Auth Spring Support",
                 description: "Spring integration support and configuration properties for the auth stack."
         ],
-        "auth-spring-boot-starter": [
-                artifactId : "auth-spring-boot-starter",
-                pomName    : "Auth Spring Boot Starter",
-                description: "Spring Boot auto-configuration for JWT, session, hybrid, and OAuth2 authentication flows."
-        ],
 ]
 
 group = requiredRootProp(['release_group'])

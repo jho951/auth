@@ -1,6 +1,5 @@
 # SPI 확장 가이드
 
-`auth-core`는 구현체를 직접 모르고 `spi` 인터페이스에만 의존합니다.
 이 문서는 애플리케이션이 직접 구현하거나 교체할 포인트를 설명합니다.
 
 ## 인터페이스 위치
@@ -57,7 +56,7 @@ public class AdminUserFinder implements UserFinder {
 
 기본값:
 
-- `auth-spring-boot-starter`의 `BCryptPasswordVerifier`
+- `BCryptPasswordVerifier`
 
 언제 교체하나:
 
@@ -80,16 +79,12 @@ public class AdminUserFinder implements UserFinder {
 
 기본값:
 
-- `auth-spring-boot-starter`의 `InMemoryRefreshTokenStore`
+- `InMemoryRefreshTokenStore`
 
 운영 권장:
 
 - Redis 기반 구현
 - RDB 기반 구현
-
-관련 문서:
-
-- [redis-refresh-token-store.md](./redis-refresh-token-store.md)
 
 ### 5) `OAuth2PrincipalResolver`
 

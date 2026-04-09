@@ -19,9 +19,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-session/auth.auth-session.main.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-session/auth.auth-session.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-session/auth.auth-session.test.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-session/auth.auth-session.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-spring/auth.auth-spring.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-spring/auth.auth-spring.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-spring-boot-starter/auth.auth-spring-boot-starter.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-spring-boot-starter/auth.auth-spring-boot-starter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-spring-boot-starter/auth.auth-spring-boot-starter.main.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-spring-boot-starter/auth.auth-spring-boot-starter.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-spring-boot-starter/auth.auth-spring-boot-starter.test.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-spring-boot-starter/auth.auth-spring-boot-starter.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-spring/auth.auth-spring.main.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-spring/auth.auth-spring.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-spring/auth.auth-spring.test.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-spring/auth.auth-spring.test.iml" />
     </modules>

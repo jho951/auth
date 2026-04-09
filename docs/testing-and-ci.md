@@ -16,7 +16,7 @@
 ./gradlew :auth-jwt:test
 ./gradlew :auth-session:test
 ./gradlew :auth-hybrid:test
-./gradlew :auth-spring-boot-starter:test
+./gradlew :auth-spring:test
 ```
 
 ## 현재 테스트 범위
@@ -29,8 +29,6 @@
   - `DefaultSessionAuthenticationProviderTest`, `SessionServiceTest`
 - `auth-hybrid`
   - `DefaultHybridAuthenticationProviderTest`
-- `auth-spring-boot-starter`
-  - `RefreshCookieWriterTest`, `OAuth2AuthenticationSuccessHandlerTest`
 
 ## GitHub Actions
 
@@ -50,7 +48,7 @@
 - 수행:
   1. `./gradlew test --no-daemon --stacktrace`
   2. `./gradlew -Prelease_version="$VERSION" publishAggregationToCentralPortal --no-daemon --stacktrace`
-  3. Central Portal에 배포 번들 업로드
+  3. 배포 번들 업로드
 
 ## 참고
 

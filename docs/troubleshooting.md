@@ -12,11 +12,9 @@
 ## 2. `TokenService` 기본 빈이 안 생긴다
 
 ### 원인
-- `auth.jwt.secret`가 비어 있거나 누락됨
 - 이미 애플리케이션이 `TokenService` 빈을 직접 등록함
 
 ### 조치
-- `auth.jwt.secret` 설정 확인
 - 커스텀 `TokenService` 등록 여부 확인
 
 ## 3. `auth.jwt.secret must be at least 32 bytes for HS256`
@@ -50,7 +48,7 @@
 원인:
 
 - `auth.refresh-cookie-enabled=false`
-- success/login controller에서 `RefreshCookieWriter`를 사용하지 않음
+- refresh cookie를 쓰는 로직이 없음
 - 브라우저/프록시가 `Secure` cookie를 차단하는 환경
 
 조치:
@@ -64,7 +62,7 @@
 원인:
 
 - refresh token이 서버 저장소에 없음
-- 스타터의 기본 메모리 `RefreshTokenStore`를 여러 인스턴스 환경에서 사용 중
+- 메모리 `RefreshTokenStore`를 여러 인스턴스 환경에서 사용 중
 
 조치:
 
@@ -87,9 +85,8 @@
 원인:
 
 - 현재 퍼블리싱은 `artifactId = project.name`을 사용
-- 따라서 실제 좌표는 `auth-core`, `auth-jwt` 같은 이름
 
 조치:
 
-- 문서가 current implementation 문맥인지 roadmap 문맥인지 먼저 확인
-- 현재 좌표는 [current-repository-state.md](./current-repository-state.md)와 [release.md](./release.md) 참고
+- 문서가 current implementation 문맥인지 먼저 확인
+- 현재 좌표는 [current-repository-state.md](./current-repository-state.md)와 [modules.md](./modules.md) 참고

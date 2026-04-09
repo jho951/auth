@@ -12,10 +12,9 @@
 - `auth-session`
 - `auth-hybrid`
 - `auth-spring`
-- `auth-spring-boot-starter`
 
 이 저장소는 기능별 모듈로 나뉘어 있습니다.
-`auth-core`는 공통 계약과 모델을, 나머지 모듈은 구체 구현과 자동 구성을 담당합니다.
+`auth-core`는 공통 모델과 연동 포인트를, `auth-spring`은 Spring 바인딩을, 나머지 모듈은 구체 구현을 담당합니다.
 
 ## 모듈별 핵심 클래스
 
@@ -69,24 +68,6 @@
 
 - `com.auth.config.AuthProperties`
 
-### `auth-spring-boot-starter`
-
-- `com.auth.config.jwt.AuthJwtProperties`
-- `com.auth.config.AuthAutoConfiguration`
-- `com.auth.config.security.AuthSecurityAutoConfiguration`
-- `com.auth.config.security.AuthOncePerRequestFilter`
-- `com.auth.config.controller.RefreshTokenExtractor`
-- `com.auth.session.config.AuthSessionAutoConfiguration`
-- `com.auth.session.config.AuthSessionProperties`
-- `com.auth.config.hybrid.AuthHybridAutoConfiguration`
-- `com.auth.config.hybrid.AuthHybridCookieAutoConfiguration`
-- `com.auth.config.oauth.AuthOAuth2AutoConfiguration`
-- `com.auth.support.password.bcrypt.BCryptPasswordVerifier`
-- `com.auth.config.oauth.OAuth2AuthenticationSuccessHandler`
-- `com.auth.config.oauth.OAuth2AuthenticationFailureHandler`
-- `com.auth.config.controller.RefreshCookieWriter`
-- `com.auth.support.refresh.memory.InMemoryRefreshTokenStore`
-
 ## 현재 의존 관계
 
 - `auth-common-test` → `auth-core`
@@ -94,12 +75,10 @@
 - `auth-session` → `auth-core`
 - `auth-hybrid` → `auth-core`, `auth-session`, `auth-jwt`
 - `auth-spring` → `auth-core`
-- `auth-spring-boot-starter` → `auth-core`, `auth-jwt`, `auth-session`, `auth-hybrid`, `auth-spring`
 
 ## 현재 구현의 성격
 
-- `auth-spring`은 Spring 설정 바인딩을 담당합니다.
-- `auth-spring-boot-starter`는 자동 구성과 기본 구현 조합을 담당합니다.
+- `auth-spring`은 Spring 설정 바인딩과 어댑터를 담당합니다.
 - `Principal`은 인증 결과와 함께 권한/속성 정보를 운반하지만, 최종 permission 정책은 담당하지 않습니다.
 - 기본 refresh token 저장소는 메모리 구현입니다.
 
@@ -107,3 +86,7 @@
 
 - 운영 환경에서는 `RefreshTokenStore`를 Redis/DB 등으로 교체하는 것이 일반적입니다.
 - `auth-session`과 `auth-hybrid`는 조합 전략을 제공하지만, 실제 사용자/계정 연결 정책은 애플리케이션이 소유해야 합니다.
+
+## 변경 이력에 대한 메모
+
+- 이 저장소는 현재 구현 중심으로 유지됩니다.
