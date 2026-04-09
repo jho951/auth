@@ -49,8 +49,8 @@
 - 트리거: `v*` 태그 push
 - 수행:
   1. `./gradlew test --no-daemon --stacktrace`
-  2. `./gradlew -Prelease_version="$VERSION" publish --no-daemon --stacktrace`
-  3. 조건부로 Central Portal에 게시
+  2. `./gradlew -Prelease_version="$VERSION" publishAggregationToCentralPortal --no-daemon --stacktrace`
+  3. Central Portal에 배포 번들 업로드
 
 ## 참고
 

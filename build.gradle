@@ -134,30 +134,6 @@ configure(subprojects.findAll { modules.containsKey(it.name) }) {
     apply plugin: 'signing'
 
     def moduleMeta = modules[project.name]
-    def isSnapshot = project.version.toString().endsWith("SNAPSHOT")
-
-    def releaseRepoUrl = envOrRootProp(
-            "MAVEN_CENTRAL_RELEASE_URL",
-            ["mavenCentralReleaseUrl"],
-            "https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/"
-    )
-
-    def snapshotRepoUrl = envOrRootProp(
-            "MAVEN_CENTRAL_SNAPSHOT_URL",
-            ["mavenCentralSnapshotUrl"],
-            "https://central.sonatype.com/repository/maven-snapshots/"
-    )
-
-    def centralUsername = envOrRootProp(
-            "MAVEN_CENTRAL_USERNAME",
-            ["mavenCentralUsername"]
-    )
-
-    def centralPassword = envOrRootProp(
-            "MAVEN_CENTRAL_PASSWORD",
-            ["mavenCentralPassword"]
-    )
-
     def signingKey = normalizeSigningKey(
             envOrRootProp(
                     "MAVEN_CENTRAL_GPG_PRIVATE_KEY",
@@ -177,18 +153,6 @@ configure(subprojects.findAll { modules.containsKey(it.name) }) {
     }
 
     publishing {
-        repositories {
-            maven {
-                name = "CentralPortal"
-                url = uri(isSnapshot ? snapshotRepoUrl : releaseRepoUrl)
-
-                credentials {
-                    username = centralUsername
-                    password = centralPassword
-                }
-            }
-        }
-
         publications {
             create("mavenJava", MavenPublication) {
                 from components.java
@@ -235,14 +199,4 @@ configure(subprojects.findAll { modules.containsKey(it.name) }) {
         sign publishing.publications
     }
 
-    tasks.withType(PublishToMavenRepository).configureEach {
-        doFirst {
-            if (!centralUsername || !centralPassword) {
-                throw new GradleException("Missing Central Portal credentials. Set MAVEN_CENTRAL_USERNAME / MAVEN_CENTRAL_PASSWORD.")
-            }
-            if (!signingKey) {
-                throw new GradleException("Missing signing key. Set MAVEN_CENTRAL_GPG_PRIVATE_KEY (or mavenCentralSigningKey).")
-            }
-        }
-    }
 }

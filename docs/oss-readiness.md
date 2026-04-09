@@ -7,6 +7,8 @@
 - [ ] `./gradlew test`가 로컬과 CI에서 통과한다.
 - [ ] 릴리스 태그 `v*`에 대해 publish 워크플로우가 동작한다.
 - [ ] Maven Central POM 메타데이터가 채워져 있다.
+- [ ] Gradle Module Metadata가 유지된다.
+- [ ] nmcp 기반 Central Portal 업로드 경로가 문서화되어 있다.
 - [ ] 서명 키와 Central Portal 자격 증명 주입 방법이 문서화되어 있다.
 
 ## 보안/운영

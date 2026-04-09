@@ -2,7 +2,7 @@
 
 ## 현재 퍼블리싱 구조
 
-루트 `build.gradle`은 각 서브프로젝트를 Central Portal 경유 Maven Central publish 경로로 연결합니다.
+루트 `build.gradle`은 각 서브프로젝트의 Maven publication과 서명 메타데이터를 정의하고, `settings.gradle`의 nmcp 설정이 이를 Central Portal 업로드로 묶습니다.
 현재 artifactId는 `project.name`을 그대로 사용합니다.
 
 버전과 group은 `gradle.properties`의 다음 키를 기준으로 읽습니다.
@@ -53,3 +53,4 @@ git push origin v1.0
 
 - `auth-common-test`는 테스트 전용 모듈이라 publish 대상이 아닙니다.
 - 현재 publish는 `artifactId = project.name` 규칙을 따릅니다.
+- 실제 업로드는 `publishAggregationToCentralPortal` 작업이 담당합니다.
