@@ -1,7 +1,7 @@
 # auth
 
 `auth`는 Java 17 기반의 인증 OSS 모듈입니다.
-Spring 애플리케이션에서 `principal`, `token`, `session`, `JWT`, `OAuth2` 연동을 한 묶음으로 제공합니다.
+`principal`, `token`, `session`, `JWT` 관련 핵심 모델과 구현을 한 묶음으로 제공합니다.
 
 [![Build](https://github.com/jho951/auth/actions/workflows/build.yml/badge.svg)](https://github.com/jho951/auth/actions/workflows/build.yml)
 [![Publish](https://github.com/jho951/auth/actions/workflows/publish.yml/badge.svg)](https://github.com/jho951/auth/actions/workflows/publish.yml)
@@ -15,15 +15,13 @@ Spring 애플리케이션에서 `principal`, `token`, `session`, `JWT`, `OAuth2`
 - `io.github.jho951:auth-jwt`
 - `io.github.jho951:auth-session`
 - `io.github.jho951:auth-hybrid`
-- `io.github.jho951:auth-spring`
 
 ## 무엇을 제공하나
 
 - `auth-core`: 공통 모델과 연동 포인트
 - `auth-jwt`: JWT 발급과 검증 구현
-- `auth-session`: 세션 기반 인증 구현
-- `auth-hybrid`: JWT와 세션 조합 구현
-- `auth-spring`: Spring 설정 바인딩과 어댑터
+- `auth-session`: 세션 저장소와 세션 인증 로직
+- `auth-hybrid`: JWT와 세션 조합 로직
 
 - [기여 가이드](CONTRIBUTING.md)
 
@@ -37,7 +35,8 @@ repositories {
 dependencies {
     implementation("io.github.jho951:auth-core:<version>")
     implementation("io.github.jho951:auth-jwt:<version>")
-    implementation("io.github.jho951:auth-spring:<version>")
+    implementation("io.github.jho951:auth-session:<version>")
+    implementation("io.github.jho951:auth-hybrid:<version>")
 }
 ```
 

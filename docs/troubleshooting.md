@@ -28,36 +28,7 @@
 - 더 긴 시크릿 사용
 - 운영에서는 시크릿 매니저로 주입 권장
 
-## 4. OAuth2 로그인 경로가 404 또는 401이다
-
-원인:
-
-- `spring-boot-starter-oauth2-client` 미포함
-- `OAuth2PrincipalResolver` 빈 미등록
-- `auth.oauth2.enabled=false`
-- `spring.security.oauth2.client.*` 설정 누락
-
-조치:
-
-- OAuth2 Client 의존성 추가
-- `OAuth2PrincipalResolver` 구현 추가
-- OAuth2 설정과 redirect URI 확인
-
-## 5. refresh cookie가 내려오지 않는다
-
-원인:
-
-- `auth.refresh-cookie-enabled=false`
-- refresh cookie를 쓰는 로직이 없음
-- 브라우저/프록시가 `Secure` cookie를 차단하는 환경
-
-조치:
-
-- 관련 설정 확인
-- HTTPS 환경 여부 확인
-- 응답에 `Set-Cookie` 헤더가 있는지 확인
-
-## 6. 로그아웃/재발급이 항상 실패한다
+## 4. 로그아웃/재발급이 항상 실패한다
 
 원인:
 
@@ -69,7 +40,7 @@
 - 운영에서는 Redis/DB 기반 `RefreshTokenStore` 사용
 - refresh rotation 동작과 저장소 key 정책 확인
 
-## 7. Gradle property가 안 읽힌다
+## 5. Gradle property가 안 읽힌다
 
 원인:
 
@@ -80,7 +51,7 @@
 
 - 파일명을 확인하고 필요하면 `gradle.properties`로 정리
 
-## 8. artifact 이름이 문서와 다르다
+## 6. artifact 이름이 문서와 다르다
 
 원인:
 

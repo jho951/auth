@@ -40,7 +40,7 @@ def modules = [
         "auth-core": [
                 artifactId : "auth-core",
                 pomName    : "Auth Core",
-                description: "Core authentication primitives, identity models, and SPI contracts for JWT and session-based auth flows."
+                description: "Core authentication primitives, identity models, and SPI contracts."
         ],
         "auth-jwt": [
                 artifactId : "auth-jwt",
@@ -50,17 +50,12 @@ def modules = [
         "auth-session": [
                 artifactId : "auth-session",
                 pomName    : "Auth Session",
-                description: "Session authentication primitives, stores, and filters for auth flows."
+                description: "Session identifiers, stores, and principal mapping implementation."
         ],
         "auth-hybrid": [
                 artifactId : "auth-hybrid",
                 pomName    : "Hybrid Auth Core",
                 description: "Hybrid authentication strategies that compose JWT and session verification."
-        ],
-        "auth-spring": [
-                artifactId : "auth-spring",
-                pomName    : "Auth Spring Support",
-                description: "Spring integration support and configuration properties for the auth stack."
         ],
 ]
 
@@ -70,7 +65,6 @@ version = requiredRootProp(['release_version'])
 ext {
     buildConfig = [
             javaVersion      : requiredRootProp(['java_version']).toInteger(),
-            springBootVersion: optionalRootProp(['spring_boot_version']),
             jjwtVersion      : optionalRootProp(['jjwt_version']),
             junitVersion     : optionalRootProp(['junit_version'], '5.10.0'),
             encoding         : optionalRootProp(['encoding'], 'UTF-8'),
@@ -93,7 +87,6 @@ subprojects {
     apply plugin: 'java-library'
 
     ext {
-        springBootVersion = rootProject.ext.buildConfig.springBootVersion
         jjwtVersion = rootProject.ext.buildConfig.jjwtVersion
     }
 

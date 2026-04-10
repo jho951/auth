@@ -8,7 +8,6 @@
 - `auth-jwt`: JWT 발급과 검증 구현
 - `auth-session`: 세션 기반 인증 구현
 - `auth-hybrid`: JWT와 세션을 함께 쓰는 조합 구현
-- `auth-spring`: Spring 설정 바인딩과 어댑터
 
 ## 무엇을 하지 않나
 

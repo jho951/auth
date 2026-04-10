@@ -11,7 +11,6 @@
 - `auth-core/src/main/java/com/auth/spi/OAuth2PrincipalResolver.java`
 - `auth-session/src/main/java/com/auth/session/SessionStore.java`
 - `auth-session/src/main/java/com/auth/session/SessionPrincipalMapper.java`
-- `auth-session/src/main/java/com/auth/session/SessionCookieExtractor.java`
 - `auth-hybrid/src/main/java/com/auth/hybrid/HybridAuthenticationProvider.java`
 
 ## 필수 구현
@@ -111,13 +110,11 @@ public class DefaultOAuth2PrincipalResolver implements OAuth2PrincipalResolver {
 
 - `SessionStore` - `SimpleSessionStore`
 - `SessionPrincipalMapper` - `IdentitySessionPrincipalMapper`
-- `SessionCookieExtractor` - `DefaultSessionCookieExtractor`
 - `SessionAuthenticationProvider` - `DefaultSessionAuthenticationProvider`
 
 언제 교체하나:
 
 - 세션 저장소를 Redis/DB로 바꾸고 싶을 때
-- session cookie 정책을 서비스별로 다르게 두고 싶을 때
 - 세션 principal에 추가 메타데이터를 주입하고 싶을 때
 
 ### 7) Hybrid 관련 확장 포인트

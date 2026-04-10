@@ -16,7 +16,6 @@
 ./gradlew :auth-jwt:test
 ./gradlew :auth-session:test
 ./gradlew :auth-hybrid:test
-./gradlew :auth-spring:test
 ```
 
 ## 현재 테스트 범위
