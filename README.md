@@ -4,7 +4,6 @@
 `principal`, `token`, `session`, `JWT` 관련 핵심 모델과 구현을 한 묶음으로 제공합니다.
 
 [![Build](https://github.com/jho951/auth/actions/workflows/build.yml/badge.svg)](https://github.com/jho951/auth/actions/workflows/build.yml)
-[![Publish](https://github.com/jho951/auth/actions/workflows/publish.yml/badge.svg)](https://github.com/jho951/auth/actions/workflows/publish.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.jho951/auth-core?label=maven%20central)](https://central.sonatype.com/search?q=io.github.jho951)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](./LICENSE)
 [![Tag](https://img.shields.io/github/v/tag/jho951/auth)](https://github.com/jho951/auth/tags)
