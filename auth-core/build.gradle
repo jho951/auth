@@ -1,5 +1,2 @@
-
-// Module glue for Auth core APIs, SPI, utilities, and base implementations.
 dependencies {
-    testImplementation project(':auth-common-test')
 }

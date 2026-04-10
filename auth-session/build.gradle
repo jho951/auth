@@ -1,4 +1,3 @@
 dependencies {
     api project(':auth-core')
-    testImplementation project(':auth-common-test')
 }

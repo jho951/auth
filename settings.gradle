@@ -18,7 +18,6 @@ nmcpSettings {
 rootProject.name = "auth"
 
 include 'auth-core'
-include 'auth-common-test'
 include 'auth-jwt'
 include 'auth-session'
 include 'auth-hybrid'

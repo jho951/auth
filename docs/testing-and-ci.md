@@ -12,7 +12,6 @@
 
 ```bash
 ./gradlew :auth-core:test
-./gradlew :auth-common-test:test
 ./gradlew :auth-jwt:test
 ./gradlew :auth-session:test
 ./gradlew :auth-hybrid:test

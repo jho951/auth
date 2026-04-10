@@ -5,7 +5,6 @@
 ## 모듈
 
 - `auth-core`: 공통 모델, 인증 연동 포인트, `AuthService`
-- `auth-common-test`: 여러 모듈 테스트에서 공통으로 쓰는 픽스처
 - `auth-jwt`: JWT를 만들고 검증하는 구현
 - `auth-session`: 세션 저장소와 세션 인증 로직을 다루는 구현
 - `auth-hybrid`: JWT와 세션을 함께 쓰는 조합 로직

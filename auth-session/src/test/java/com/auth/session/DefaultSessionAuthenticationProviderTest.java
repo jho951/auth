@@ -6,7 +6,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.auth.api.model.Principal;
-import com.auth.test.AuthTestFixtures;
 
 class DefaultSessionAuthenticationProviderTest {
 
@@ -17,7 +16,7 @@ class DefaultSessionAuthenticationProviderTest {
 		SessionPrincipalMapper mapper = new IdentitySessionPrincipalMapper();
 		SessionAuthenticationProvider provider = new DefaultSessionAuthenticationProvider(store, mapper);
 
-		Principal principal = AuthTestFixtures.principal("session-user");
+		Principal principal = principal("session-user");
 		store.save("session-id", principal);
 
 		assertThat(provider.authenticate("session-id")).contains(principal);
@@ -31,5 +30,9 @@ class DefaultSessionAuthenticationProviderTest {
 		SessionAuthenticationProvider provider = new DefaultSessionAuthenticationProvider(store, mapper);
 
 		assertThat(provider.authenticate("missing")).isEmpty();
+	}
+
+	private static Principal principal(String userId) {
+		return new Principal(userId);
 	}
 }

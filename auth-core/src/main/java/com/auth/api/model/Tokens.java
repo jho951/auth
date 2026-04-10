@@ -15,8 +15,8 @@ public final class Tokens {
 
 	/**
 	 * 생성자
-	 * @param accessToken
-	 * @param refreshToken
+	 * @param accessToken 토큰
+	 * @param refreshToken 재발급 토큰
 	 */
 	public Tokens(String accessToken, String refreshToken) {
 		if (Strings.isBlank(accessToken)) throw new AuthException(AuthFailureReason.INVALID_INPUT, "accessToken must not be blank");
